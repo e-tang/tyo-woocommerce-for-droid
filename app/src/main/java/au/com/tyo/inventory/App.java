@@ -6,7 +6,6 @@ import au.com.tyo.app.CommonApp;
 import au.com.tyo.app.PageAgent;
 import au.com.tyo.inventory.ui.UI;
 import au.com.tyo.inventory.ui.page.PageCommon;
-import au.com.tyo.woocommerce.WooCommerceAuthentication;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 24/11/17.
@@ -23,8 +22,7 @@ public class App extends CommonApp<UI, Controller> implements Controller {
     public App(Context context) {
         super(context);
 
-        appData = new AppData();
-        appData.getApi().setAuthentication(new WooCommerceAuthentication(context));
+        appData = new AppData(context);
     }
 
     @Override

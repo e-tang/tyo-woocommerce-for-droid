@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_api_protocol" >https</string>
+    <string name="common_api_host" >store.fredauto.com.au</string>
+    <string name="common_api_path" >/wp-json/wc/v2</string>
+
+    <string name="woocommerce_rest_api_path_products">/products</string>
+    <string name="woocommerce_rest_api_path_categories">/categories</string>
+</resources>

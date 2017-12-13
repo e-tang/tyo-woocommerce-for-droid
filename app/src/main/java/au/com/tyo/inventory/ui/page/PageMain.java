@@ -34,10 +34,16 @@ public class PageMain extends PageCommon {
     @Override
     public void run() {
         //
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        // for debugging
+        controller.getAppData().getApi().createCurlCommands();
+
+        controller.getAppData().loadProducts();
+
+
     }
 }
