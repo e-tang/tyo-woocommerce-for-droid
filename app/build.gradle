@@ -133,4 +133,5 @@ dependencies {
     compile project(path: ':CommonAppLib')
 
 //    testCompile 'junit:junit:4.12'
+    compile project(path: ':WooCommerceOnDroid')
 }

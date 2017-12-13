@@ -10,4 +10,5 @@ public interface Controller extends au.com.tyo.app.Controller<UI> {
 
     boolean hasUserLoggedIn();
 
+    AppData getAppData();
 }

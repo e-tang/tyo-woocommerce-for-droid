@@ -19,3 +19,6 @@
 [submodule "CommonJsonForm"]
 	path = CommonJsonForm
 	url = git@github.com:tyolab/CommonJsonForm.git
+[submodule "android-json-form-wizard"]
+	path = android-json-form-wizard
+	url = git@github.com:tyolab/android-json-form-wizard.git

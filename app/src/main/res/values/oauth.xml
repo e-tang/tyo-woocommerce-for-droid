@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+	  Copyright (C) 2015 TYONLINE TECHNOLOGY PTY. LTD.
+	 
+	  Licensed under the Apache License, Version 2.0 (the "License");
+	  you may not use this file except in compliance with the License.
+	  You may obtain a copy of the License at
+	 
+	       http://www.apache.org/licenses/LICENSE-2.0
+	 
+	  Unless required by applicable law or agreed to in writing, software
+	  distributed under the License is distributed on an "AS IS" BASIS,
+	  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	  See the License for the specific language governing permissions and
+	  limitations under the License.
+ -->
+<resources>
+    <!--  for ANY -->
+    <string name="oauth_key">ck_848a5cca4505b5c48469ba4566db9198e97939cf</string>
+    <string name="oauth_secret">cs_28361d6337817918e5c14460bf6ddd85f775e150</string>
+    
+    <!--  for Twitter -->
+    <string name="oauth_key_twitter"></string>
+    <string name="oauth_secret_twitter"></string>
+    
+    
+</resources>
