@@ -79,6 +79,6 @@ public class PageMain extends PageCommonList<Controller> {
     protected void onPageBackgroundTaskFinished() {
         super.onPageBackgroundTaskFinished();
 
-
+        adapter.setItems(getController().getAppData().getProducts());
     }
 }
