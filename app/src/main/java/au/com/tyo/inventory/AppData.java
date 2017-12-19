@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import au.com.tyo.app.CommonAppData;
 import au.com.tyo.inventory.model.Product;
 import au.com.tyo.woocommerce.WooCommerceApi;
 import au.com.tyo.woocommerce.WooCommerceJson;
@@ -16,7 +17,7 @@ import au.com.tyo.woocommerce.WooCommerceJson;
  * Created by Eric Tang (eric.tang@tyo.com.au) on 13/12/17.
  */
 
-public class AppData {
+public class AppData extends CommonAppData {
 
     private static final String TAG = "AppData";
     //
@@ -36,6 +37,8 @@ public class AppData {
 
 
     public AppData(Context context) {
+        super(context);
+
         this.api = new WooCommerceApi(context);
         this.parser = new WooCommerceJson();
     }
