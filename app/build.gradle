@@ -44,6 +44,7 @@ android {
              * for gradle 2.3.*
              */
 
+            /*
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
                     project.ext { appName = 'roundtrip' }
@@ -54,20 +55,19 @@ android {
                     // outputFileName = newName
                 }
             }
+            */
             /**
              * for gradle 3.0 / android studio 3.*
              */
-            /*
             applicationVariants.all { variant ->
                 variant.outputs.all { output ->
-                    project.ext { appName = 'roundtrip' }
-                    def newName = output.outputFile.name
-                    newName = newName.replaceWith("-release", "-release-" + versionFullName)
+                    project.ext { appName = 'tyo-inventory' }
+                    def newName = output.name
+                    newName = newName.replace("-release", "-release-" + versionFullName)
                     //noinspection GroovyAssignabilityCheck
                     outputFileName = newName
                 }
             }
-            */
 
             /**
              * The dev build config
@@ -85,7 +85,7 @@ android {
             /*
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
-                    project.ext { appName = 'roundtrip' }
+                    project.ext { appName = 'app' }
                     def newName = output.outputFile.name
                     newName = newName.replaceWith("-bebug", "-debug-" + versionFullName)
                     //noinspection GroovyAssignabilityCheck
@@ -100,7 +100,7 @@ android {
             /*
             applicationVariants.all { variant ->
                 variant.outputs.all { output ->
-                    project.ext { appName = 'roundtrip' }
+                    project.ext { appName = 'app' }
                     def newName = output.outputFile.name
                     newName = newName.replaceWith("-debug", "-debug" + versionFullName)
                     //noinspection GroovyAssignabilityCheck
