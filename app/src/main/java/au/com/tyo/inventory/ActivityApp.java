@@ -9,5 +9,4 @@ import au.com.tyo.inventory.ui.activity.ActivityMain;
 public class ActivityApp extends ActivityMain {
 
     // the page class is defined in ActivityMain
-
 }

@@ -6,6 +6,7 @@ import au.com.tyo.app.CommonApp;
 import au.com.tyo.app.PageAgent;
 import au.com.tyo.inventory.ui.UI;
 import au.com.tyo.inventory.ui.page.PageCommon;
+import au.com.tyo.inventory.ui.page.PageInitializer;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 24/11/17.
@@ -35,5 +36,10 @@ public class App extends CommonApp<UI, Controller> implements Controller {
         return appData;
     }
 
+    @Override
+    public void initializeOnce() {
+        super.initializeOnce();
 
+        PageInitializer.setInstance(new PageInitializer());
+    }
 }

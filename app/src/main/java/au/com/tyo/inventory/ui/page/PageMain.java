@@ -2,13 +2,14 @@ package au.com.tyo.inventory.ui.page;
 
 import android.app.Activity;
 
-import au.com.tyo.app.Controller;
+import au.com.tyo.app.ui.page.PageCommonList;
+import au.com.tyo.inventory.Controller;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 27/11/17.
  */
 
-public class PageMain extends PageCommon {
+public class PageMain extends PageCommonList<Controller> {
 
     /**
      * @param controller
@@ -22,8 +23,8 @@ public class PageMain extends PageCommon {
     public void onActivityStart() {
         super.onActivityStart();
 
-        if (!controller.hasUserLoggedIn()) {
-            controller.getUi().gotoLoginPage();
+        if (!getController().hasUserLoggedIn()) {
+            getController().getUi().gotoLoginPage();
 
             finish();
         }
@@ -40,9 +41,9 @@ public class PageMain extends PageCommon {
 //            e.printStackTrace();
 //        }
         // for debugging
-        controller.getAppData().getApi().createCurlCommands();
+        getController().getAppData().getApi().createCurlCommands();
 
-        controller.getAppData().loadProducts();
+        getController().getAppData().loadProducts();
 
 
     }
