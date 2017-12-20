@@ -17,6 +17,8 @@
 package au.com.tyo.inventory.ui.page;
 
 import android.app.Activity;
+import android.view.View;
+import android.widget.AdapterView;
 
 import java.util.List;
 
@@ -96,5 +98,12 @@ public class PageMain extends PageCommonList<Controller> {
 
         adapter.setItems(productList);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        ProductListItem item = (ProductListItem) adapter.get(position);
+
+        getController().getUi().gotoProductDetailsPage();
     }
 }

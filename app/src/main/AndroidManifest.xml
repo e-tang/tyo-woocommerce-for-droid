@@ -66,6 +66,12 @@
                     android:path="@string/app_path_login" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.activity.ActivityProductDetails"
+            android:parentActivityName=".ActivityApp"
+            android:windowSoftInputMode="adjustPan"
+            android:label="@string/product_details"
+            />
     </application>
 
 </manifest>

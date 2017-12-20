@@ -18,4 +18,9 @@ public class AppUI extends UIBase implements UI {
     public void gotoLoginPage() {
         gotoPage(ActivityLogin.class);
     }
+
+    @Override
+    public void gotoProductDetailsPage() {
+
+    }
 }
