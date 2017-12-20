@@ -68,10 +68,8 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/product_image_view_container"
                 android:layout_toLeftOf="@+id/itl_image_button_container"
-                android:layout_centerInParent="true"
                 >
                 <LinearLayout
                     android:layout_width="match_parent"

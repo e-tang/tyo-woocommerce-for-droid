@@ -147,6 +147,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.+'
 
     compile project(path: ':CommonAppLib')
+    compile project(path: ':android-json-form')
 
 //    testCompile 'junit:junit:4.12'
     compile project(path: ':WooCommerceOnDroid')
