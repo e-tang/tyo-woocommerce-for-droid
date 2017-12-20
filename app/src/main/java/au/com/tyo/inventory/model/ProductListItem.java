@@ -19,6 +19,10 @@ package au.com.tyo.inventory.model;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
+import com.google.gson.internal.LinkedTreeMap;
+
+import java.util.List;
+
 import au.com.tyo.android.adapter.ListItem;
 
 /**
@@ -28,6 +32,7 @@ import au.com.tyo.android.adapter.ListItem;
 public class ProductListItem implements ListItem {
 
     private Product product;
+    private String imageUrl;
 
     public ProductListItem(Product product) {
         this.product = product;
@@ -71,5 +76,16 @@ public class ProductListItem implements ListItem {
     @Override
     public CharSequence getText2() {
         return null;
+    }
+
+    public String getProductImageUrl() {
+        if (imageUrl == null) {
+            List object = (List) product.get("images");
+            if (null != object && object.size() > 0) {
+                LinkedTreeMap imageJson = (LinkedTreeMap) object.get(0);
+                imageUrl = (String) imageJson.get("src");
+            }
+        }
+        return imageUrl;
     }
 }

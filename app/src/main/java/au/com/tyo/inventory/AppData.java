@@ -38,6 +38,9 @@ import au.com.tyo.woocommerce.WooCommerceJson;
 public class AppData extends CommonAppData {
 
     private static final String TAG = "AppData";
+
+    private static final String PRODUCTS_JSON_CACHE = "products.json";
+
     //
     // API
     //
@@ -78,7 +81,16 @@ public class AppData extends CommonAppData {
     }
 
     public void loadProducts() {
-        String json = api.getProductsJsonString();
+
+        String json;
+
+        if (!existsCacheFile(PRODUCTS_JSON_CACHE)) {
+            json = api.getProductsJsonString();
+            writeCacheFile(PRODUCTS_JSON_CACHE, json);
+        }
+        else {
+            json = (String) loadCacheFile(PRODUCTS_JSON_CACHE);
+        }
 
         Type collectionType = new TypeToken<List<Product>>(){}.getType();
         products = WooCommerceJson.getGson().fromJson(json, collectionType);

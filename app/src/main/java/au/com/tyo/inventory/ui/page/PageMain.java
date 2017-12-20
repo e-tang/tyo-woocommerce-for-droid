@@ -25,6 +25,7 @@ import au.com.tyo.app.ui.page.PageCommonList;
 import au.com.tyo.inventory.BuildConfig;
 import au.com.tyo.inventory.Controller;
 import au.com.tyo.inventory.model.ProductListItem;
+import au.com.tyo.inventory.ui.widget.ProductListItemFactory;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 27/11/17.
@@ -47,13 +48,15 @@ public class PageMain extends PageCommonList<Controller> {
         super.createAdapter();
 
         adapter = getListAdapter();
+        adapter.setItemFactory(new ProductListItemFactory(getActivity()));
     }
 
     @Override
     public void setupComponents() {
         super.setupComponents();
 
-        showSuggestionView();
+        showSearchBar();
+        // showSuggestionView();
     }
 
     @Override
