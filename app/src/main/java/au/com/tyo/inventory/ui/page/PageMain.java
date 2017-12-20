@@ -18,10 +18,13 @@ package au.com.tyo.inventory.ui.page;
 
 import android.app.Activity;
 
+import java.util.List;
+
 import au.com.tyo.android.adapter.ListViewItemAdapter;
 import au.com.tyo.app.ui.page.PageCommonList;
 import au.com.tyo.inventory.BuildConfig;
 import au.com.tyo.inventory.Controller;
+import au.com.tyo.inventory.model.ProductListItem;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 27/11/17.
@@ -44,6 +47,13 @@ public class PageMain extends PageCommonList<Controller> {
         super.createAdapter();
 
         adapter = getListAdapter();
+    }
+
+    @Override
+    public void setupComponents() {
+        super.setupComponents();
+
+        showSuggestionView();
     }
 
     @Override
@@ -79,6 +89,9 @@ public class PageMain extends PageCommonList<Controller> {
     protected void onPageBackgroundTaskFinished() {
         super.onPageBackgroundTaskFinished();
 
-        adapter.setItems(getController().getAppData().getProducts());
+        List<ProductListItem> productList = getController().getAppData().getProductList();
+
+        adapter.setItems(productList);
+        adapter.notifyDataSetChanged();
     }
 }

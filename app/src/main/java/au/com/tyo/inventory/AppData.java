@@ -22,9 +22,11 @@ import android.util.Log;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import au.com.tyo.app.CommonAppData;
+import au.com.tyo.inventory.model.Product;
 import au.com.tyo.inventory.model.ProductListItem;
 import au.com.tyo.woocommerce.WooCommerceApi;
 import au.com.tyo.woocommerce.WooCommerceJson;
@@ -49,7 +51,15 @@ public class AppData extends CommonAppData {
     //
     // MODELS
     //
-    private List<ProductListItem> products;
+    /**
+     * Product list from json
+     */
+    private List<Product> products;
+
+    /**
+     * Product list for listview
+     */
+    private List<ProductListItem> productListItems;
 
 
     public AppData(Context context) {
@@ -59,8 +69,8 @@ public class AppData extends CommonAppData {
         this.parser = new WooCommerceJson();
     }
 
-    public List<ProductListItem> getProducts() {
-        return products;
+    public List<ProductListItem> getProductList() {
+        return productListItems;
     }
 
     public WooCommerceApi getApi() {
@@ -70,9 +80,13 @@ public class AppData extends CommonAppData {
     public void loadProducts() {
         String json = api.getProductsJsonString();
 
-        Type collectionType = new TypeToken<List<ProductListItem>>(){}.getType();
+        Type collectionType = new TypeToken<List<Product>>(){}.getType();
         products = WooCommerceJson.getGson().fromJson(json, collectionType);
 
-        Log.d(TAG, "products loaded: total " + products.size());
+        Log.d(TAG, "productListItems loaded: total " + products.size());
+
+        productListItems = new ArrayList<>();
+        for (Product product : products)
+            productListItems.add(new ProductListItem(product));
     }
 }

@@ -18,7 +18,7 @@ package au.com.tyo.inventory.ui.page;
 
 import android.app.Activity;
 
-import au.com.tyo.app.Controller;
+import au.com.tyo.inventory.Controller;
 import au.com.tyo.inventory.R;
 
 /**

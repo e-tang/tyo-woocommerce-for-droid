@@ -25,7 +25,7 @@ import au.com.tyo.android.adapter.ListItem;
  * Created by Eric Tang (eric.tang@tyo.com.au) on 19/12/17.
  */
 
-public class ProductListItem extends Product implements ListItem {
+public class ProductListItem implements ListItem {
 
     private Product product;
 
