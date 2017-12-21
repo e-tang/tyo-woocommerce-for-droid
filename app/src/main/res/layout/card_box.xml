@@ -16,12 +16,8 @@
   -->
 
 <au.com.tyo.common.ui.CardBox xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="true"
-    android:clickable="true"
-    android:focusableInTouchMode="true"
     android:layout_marginRight="@dimen/box_margin_left"
     android:layout_marginEnd="@dimen/box_margin_right"
     android:layout_marginBottom="@dimen/box_margin_bottom"
@@ -31,56 +27,6 @@
     android:padding="4dp"
     >
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/preview_box_bg"
-        android:background="@android:color/transparent"
-        android:clipToPadding="false"
-        android:padding="2dp"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/empty_string"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:textColor="@color/lb_tv_white"
-            android:id="@+id/preview_box_alt"
-            android:focusable="false"
-            android:clickable="false"
-            />
-
-        <au.com.tyo.common.ui.BoxCardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/preview_box_bg_img"
-            card_view:cardUseCompatPadding="true"
-            card_view:cardElevation="2dp"
-            card_view:cardCornerRadius="1dp"
-            android:padding="1dp"
-            >
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:id="@+id/box_image_view"
-                android:src="@drawable/ic_launcher"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/empty_string"
-                android:textSize="@dimen/box_text_size_default"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:textColor="@color/lb_tv_white"
-                android:id="@+id/preview_box_title"
-                android:visibility="gone"
-                />
-
-        </au.com.tyo.common.ui.BoxCardView>
-    </FrameLayout>
+    <include layout="@layout/card_box_content" />
 
 </au.com.tyo.common.ui.CardBox>

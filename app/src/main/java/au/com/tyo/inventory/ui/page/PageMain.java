@@ -43,6 +43,7 @@ public class PageMain extends PageCommonList<Controller> {
      */
     public PageMain(Controller controller, Activity activity) {
         super(controller, activity);
+        setToShowSearchView(true);
     }
 
     @Override
@@ -57,7 +58,7 @@ public class PageMain extends PageCommonList<Controller> {
     public void setupComponents() {
         super.setupComponents();
 
-        showSearchBar();
+        // showSearchBar();
         // showSuggestionView();
     }
 
