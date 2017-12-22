@@ -19,6 +19,9 @@ package au.com.tyo.inventory.ui.page;
 import android.app.Activity;
 import android.content.Context;
 
+import java.util.Date;
+
+import au.com.tyo.android.utils.SimpleDateUtils;
 import au.com.tyo.inventory.Controller;
 import au.com.tyo.json.FormItem;
 import au.com.tyo.json.android.pages.PageForm;
@@ -35,6 +38,8 @@ public class PageProductDetails extends PageForm<Controller> {
      */
     public PageProductDetails(Controller controller, Activity activity) {
         super(controller, activity);
+
+        setSubpage(true);
     }
 
     @Override
@@ -50,5 +55,10 @@ public class PageProductDetails extends PageForm<Controller> {
     @Override
     public void onFormClick(Context context, String key, String text) {
 
+    }
+
+    @Override
+    public String formatDateTime(String key, Date date) {
+        return SimpleDateUtils.toSlashDelimAussieDate(date);
     }
 }

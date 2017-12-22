@@ -24,12 +24,16 @@ import com.google.gson.internal.LinkedTreeMap;
 import java.util.List;
 
 import au.com.tyo.android.adapter.ListItem;
+import au.com.tyo.json.FormBase;
+import au.com.tyo.json.FormItem;
+import au.com.tyo.json.JsonForm;
+import au.com.tyo.json.android.utils.FormHelper;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 19/12/17.
  */
 
-public class ProductListItem implements ListItem {
+public class ProductListItem extends FormBase implements ListItem, FormItem {
 
     private Product product;
     private String imageUrl;
@@ -87,5 +91,10 @@ public class ProductListItem implements ListItem {
             }
         }
         return imageUrl;
+    }
+
+    @Override
+    public JsonForm toJsonForm() {
+        return FormHelper.createForm(product);
     }
 }

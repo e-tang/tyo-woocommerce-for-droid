@@ -43,7 +43,9 @@ public class PageMain extends PageCommonList<Controller> {
      */
     public PageMain(Controller controller, Activity activity) {
         super(controller, activity);
-        setToShowSearchView(true);
+
+        // show it after the search functions are implemented
+        // setToShowSearchView(true);
     }
 
     @Override
@@ -104,7 +106,7 @@ public class PageMain extends PageCommonList<Controller> {
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ProductListItem item = (ProductListItem) adapter.get(position);
-
+        getController().setParcel(item);
         getController().getUi().gotoProductDetailsPage();
     }
 }
