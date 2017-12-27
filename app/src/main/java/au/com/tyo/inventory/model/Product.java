@@ -17,10 +17,54 @@
 package au.com.tyo.inventory.model;
 
 import com.google.api.client.json.GenericJson;
+import com.google.gson.internal.LinkedTreeMap;
+
+import java.util.List;
+import java.util.Map;
+
+import au.com.tyo.inventory.AppData;
+import au.com.tyo.json.FormItem;
+import au.com.tyo.json.JsonForm;
+import au.com.tyo.json.android.utils.FormHelper;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 13/12/17.
  */
 
-public class Product extends GenericJson  {
+public class Product extends GenericJson implements FormItem {
+
+    private String imageUrl;
+
+    public String getImageUrl() {
+        if (imageUrl == null) {
+            List object = (List) get("images");
+            if (null != object && object.size() > 0) {
+                LinkedTreeMap imageJson = (LinkedTreeMap) object.get(0);
+                imageUrl = (String) imageJson.get("src");
+            }
+        }
+        return imageUrl;
+    }
+
+    @Override
+    public JsonForm toJsonForm() {
+        return FormHelper.createForm(this);
+    }
+
+    @Override
+    public Map getFormKeyValueMap() {
+        return this;
+    }
+
+    @Override
+    public Map getFormMetaDataMap() {
+        return AppData.getProductFormMetaData();
+    }
+
+    @Override
+    public Object getValue(String key) {
+        if (key.equals("images"))
+            return getImageUrl();
+        return get(key);
+    }
 }

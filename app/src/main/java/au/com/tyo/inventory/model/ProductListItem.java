@@ -19,25 +19,16 @@ package au.com.tyo.inventory.model;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
-import com.google.gson.internal.LinkedTreeMap;
-
-import java.util.List;
-
 import au.com.tyo.android.adapter.ListItem;
-import au.com.tyo.inventory.AppData;
 import au.com.tyo.json.FormBase;
-import au.com.tyo.json.FormItem;
-import au.com.tyo.json.JsonForm;
-import au.com.tyo.json.android.utils.FormHelper;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 19/12/17.
  */
 
-public class ProductListItem extends FormBase implements ListItem, FormItem {
+public class ProductListItem extends FormBase implements ListItem {
 
     private Product product;
-    private String imageUrl;
 
     public ProductListItem(Product product) {
         this.product = product;
@@ -83,19 +74,7 @@ public class ProductListItem extends FormBase implements ListItem, FormItem {
         return null;
     }
 
-    public String getProductImageUrl() {
-        if (imageUrl == null) {
-            List object = (List) product.get("images");
-            if (null != object && object.size() > 0) {
-                LinkedTreeMap imageJson = (LinkedTreeMap) object.get(0);
-                imageUrl = (String) imageJson.get("src");
-            }
-        }
-        return imageUrl;
-    }
-
-    @Override
-    public JsonForm toJsonForm() {
-        return FormHelper.createForm(AppData.getProductFormMetaData(), product);
+    public Product getProduct() {
+        return product;
     }
 }
