@@ -2,15 +2,16 @@
     "id": {
         "i18n": {
             "en": "ID",
-            "cn": ""
+            "zh": ""
         },
         "type": "int",
-        "visible": true
+        "visible": false,
+        "display_order": -1
     },
     "type": {
         "i18n": {
             "en": "Type",
-            "cn": ""
+            "zh": ""
         },
         "type": "String",
         "visible": false
@@ -18,7 +19,7 @@
     "sku": {
         "i18n": {
             "en": "SKU",
-            "cn": ""
+            "zh": ""
         },
         "type": "String",
         "visible": true
@@ -26,7 +27,7 @@
     "name": {
         "i18n": {
             "en": "Name",
-            "cn": ""
+            "zh": ""
         },
         "type": "String",
         "visible": true
@@ -34,7 +35,7 @@
     "published": {
         "i18n": {
             "en": "Published",
-            "cn": ""
+            "zh": ""
         },
         "type": "",
         "visible": false
@@ -42,7 +43,7 @@
     "featured": {
         "i18n": {
             "en": "Is featured?",
-            "cn": ""
+            "zh": ""
         },
         "type": "boolean",
         "visible": false
@@ -50,7 +51,7 @@
     "catalog_visibility": {
         "i18n": {
             "en": "Visibility in catalog",
-            "cn": ""
+            "zh": ""
         },
         "type": "String",
         "visible": false
@@ -58,7 +59,7 @@
     "short_description": {
         "i18n": {
             "en": "Short description",
-            "cn": ""
+            "zh": ""
         },
         "type": "String",
         "visible": false
@@ -66,7 +67,7 @@
     "description": {
         "i18n": {
             "en": "Description",
-            "cn": ""
+            "zh": ""
         },
         "type": "String",
         "visible": true
@@ -74,7 +75,7 @@
     "date_on_sale_from": {
         "i18n": {
             "en": "Date sale price starts",
-            "cn": ""
+            "zh": ""
         },
         "type": "Object",
         "visible": false
@@ -82,7 +83,7 @@
     "date_on_sale_to": {
         "i18n": {
             "en": "Date sale price ends",
-            "cn": ""
+            "zh": ""
         },
         "type": "Object",
         "visible": false
@@ -90,7 +91,7 @@
     "tax_status": {
         "i18n": {
             "en": "Tax status",
-            "cn": ""
+            "zh": ""
         },
         "type": "String",
         "visible": false
@@ -98,7 +99,7 @@
     "tax_class": {
         "i18n": {
             "en": "Tax class",
-            "cn": ""
+            "zh": ""
         },
         "type": "String",
         "visible": false
@@ -106,7 +107,7 @@
     "stock_status": {
         "i18n": {
             "en": "In stock?",
-            "cn": ""
+            "zh": ""
         },
         "type": "",
         "visible": false
@@ -114,7 +115,7 @@
     "stock": {
         "i18n": {
             "en": "Stock",
-            "cn": ""
+            "zh": ""
         },
         "type": "",
         "visible": true
@@ -122,7 +123,7 @@
     "backorders": {
         "i18n": {
             "en": "Backorders allowed?",
-            "cn": ""
+            "zh": ""
         },
         "type": "String",
         "visible": false
@@ -130,7 +131,7 @@
     "sold_individually": {
         "i18n": {
             "en": "Sold individually?",
-            "cn": ""
+            "zh": ""
         },
         "type": "boolean",
         "visible": false
@@ -138,7 +139,7 @@
     "reviews_allowed": {
         "i18n": {
             "en": "Allow customer reviews?",
-            "cn": ""
+            "zh": ""
         },
         "type": "boolean",
         "visible": false
@@ -146,7 +147,7 @@
     "purchase_note": {
         "i18n": {
             "en": "Purchase note",
-            "cn": ""
+            "zh": ""
         },
         "type": "String",
         "visible": false
@@ -154,7 +155,7 @@
     "sale_price": {
         "i18n": {
             "en": "Sale price",
-            "cn": "促销价"
+            "zh": "促销价"
         },
         "type": "String",
         "visible": true
@@ -162,7 +163,7 @@
     "regular_price": {
         "i18n": {
             "en": "Regular price",
-            "cn": "销价"
+            "zh": "销价"
         },
         "type": "String",
         "visible": true
@@ -170,7 +171,7 @@
     "category_ids": {
         "i18n": {
             "en": "Categories",
-            "cn": ""
+            "zh": ""
         },
         "type": "",
         "visible": false
@@ -178,7 +179,7 @@
     "tag_ids": {
         "i18n": {
             "en": "Tags",
-            "cn": ""
+            "zh": ""
         },
         "type": "",
         "visible": false
@@ -186,7 +187,7 @@
     "shipping_class_id": {
         "i18n": {
             "en": "Shipping class",
-            "cn": ""
+            "zh": ""
         },
         "type": "int",
         "visible": false
@@ -194,7 +195,7 @@
     "images": {
         "i18n": {
             "en": "Images",
-            "cn": ""
+            "zh": ""
         },
         "type": {
             "id": "int",
@@ -207,12 +208,13 @@
             "alt": "String",
             "position": "int"
         },
-        "visible": true
+        "visible": true,
+        "widget": "ImageBoxFactory"
     },
     "download_limit": {
         "i18n": {
             "en": "Download limit",
-            "cn": ""
+            "zh": ""
         },
         "type": "int",
         "visible": false
@@ -220,7 +222,7 @@
     "download_expiry": {
         "i18n": {
             "en": "Download expiry days",
-            "cn": ""
+            "zh": ""
         },
         "type": "int",
         "visible": false
@@ -228,7 +230,7 @@
     "parent_id": {
         "i18n": {
             "en": "Parent",
-            "cn": ""
+            "zh": ""
         },
         "type": "int",
         "visible": false
@@ -236,7 +238,7 @@
     "grouped_products": {
         "i18n": {
             "en": "Grouped products",
-            "cn": ""
+            "zh": ""
         },
         "type": "List",
         "visible": false
@@ -244,7 +246,7 @@
     "upsell_ids": {
         "i18n": {
             "en": "Upsells",
-            "cn": ""
+            "zh": ""
         },
         "type": "List",
         "visible": false
@@ -252,7 +254,7 @@
     "cross_sell_ids": {
         "i18n": {
             "en": "Cross-sells",
-            "cn": ""
+            "zh": ""
         },
         "type": "List",
         "visible": false
@@ -260,7 +262,7 @@
     "product_url": {
         "i18n": {
             "en": "External URL",
-            "cn": ""
+            "zh": ""
         },
         "type": "",
         "visible": false
@@ -268,7 +270,7 @@
     "button_text": {
         "i18n": {
             "en": "Button text",
-            "cn": ""
+            "zh": ""
         },
         "type": "String",
         "visible": false
@@ -276,7 +278,7 @@
     "menu_order": {
         "i18n": {
             "en": "Position",
-            "cn": ""
+            "zh": ""
         },
         "type": "int",
         "visible": false

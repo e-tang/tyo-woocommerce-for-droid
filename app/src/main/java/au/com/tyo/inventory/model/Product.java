@@ -40,4 +40,11 @@ public class Product extends GenericJson  {
         return imageUrl;
     }
 
+    public int getId() {
+        try {
+            return Integer.parseInt((String) get("id"));
+        }
+        catch (Exception ex) {}
+        return -1;
+    }
 }
