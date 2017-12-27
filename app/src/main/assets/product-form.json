@@ -30,7 +30,8 @@
             "zh": ""
         },
         "type": "String",
-        "visible": true
+        "visible": true,
+      "orientation": "vertical"
     },
     "published": {
         "i18n": {
@@ -62,7 +63,9 @@
             "zh": ""
         },
         "type": "String",
-        "visible": false
+        "visible": false,
+      "orientation": "vertical",
+      "text_style": "html"
     },
     "description": {
         "i18n": {
@@ -70,7 +73,9 @@
             "zh": ""
         },
         "type": "String",
-        "visible": true
+        "visible": true,
+        "orientation": "vertical",
+        "text_style": "html"
     },
     "date_on_sale_from": {
         "i18n": {
@@ -209,7 +214,8 @@
             "position": "int"
         },
         "visible": true,
-        "widget": "ImageBoxFactory"
+        "widget": "ImageBoxFactory",
+        "orientation": "vertical"
     },
     "download_limit": {
         "i18n": {
