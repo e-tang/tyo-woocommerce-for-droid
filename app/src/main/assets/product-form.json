@@ -1,0 +1,284 @@
+{
+    "id": {
+        "i18n": {
+            "en": "ID",
+            "cn": ""
+        },
+        "type": "int",
+        "visible": true
+    },
+    "type": {
+        "i18n": {
+            "en": "Type",
+            "cn": ""
+        },
+        "type": "String",
+        "visible": false
+    },
+    "sku": {
+        "i18n": {
+            "en": "SKU",
+            "cn": ""
+        },
+        "type": "String",
+        "visible": true
+    },
+    "name": {
+        "i18n": {
+            "en": "Name",
+            "cn": ""
+        },
+        "type": "String",
+        "visible": true
+    },
+    "published": {
+        "i18n": {
+            "en": "Published",
+            "cn": ""
+        },
+        "type": "",
+        "visible": false
+    },
+    "featured": {
+        "i18n": {
+            "en": "Is featured?",
+            "cn": ""
+        },
+        "type": "boolean",
+        "visible": false
+    },
+    "catalog_visibility": {
+        "i18n": {
+            "en": "Visibility in catalog",
+            "cn": ""
+        },
+        "type": "String",
+        "visible": false
+    },
+    "short_description": {
+        "i18n": {
+            "en": "Short description",
+            "cn": ""
+        },
+        "type": "String",
+        "visible": false
+    },
+    "description": {
+        "i18n": {
+            "en": "Description",
+            "cn": ""
+        },
+        "type": "String",
+        "visible": true
+    },
+    "date_on_sale_from": {
+        "i18n": {
+            "en": "Date sale price starts",
+            "cn": ""
+        },
+        "type": "Object",
+        "visible": false
+    },
+    "date_on_sale_to": {
+        "i18n": {
+            "en": "Date sale price ends",
+            "cn": ""
+        },
+        "type": "Object",
+        "visible": false
+    },
+    "tax_status": {
+        "i18n": {
+            "en": "Tax status",
+            "cn": ""
+        },
+        "type": "String",
+        "visible": false
+    },
+    "tax_class": {
+        "i18n": {
+            "en": "Tax class",
+            "cn": ""
+        },
+        "type": "String",
+        "visible": false
+    },
+    "stock_status": {
+        "i18n": {
+            "en": "In stock?",
+            "cn": ""
+        },
+        "type": "",
+        "visible": false
+    },
+    "stock": {
+        "i18n": {
+            "en": "Stock",
+            "cn": ""
+        },
+        "type": "",
+        "visible": true
+    },
+    "backorders": {
+        "i18n": {
+            "en": "Backorders allowed?",
+            "cn": ""
+        },
+        "type": "String",
+        "visible": false
+    },
+    "sold_individually": {
+        "i18n": {
+            "en": "Sold individually?",
+            "cn": ""
+        },
+        "type": "boolean",
+        "visible": false
+    },
+    "reviews_allowed": {
+        "i18n": {
+            "en": "Allow customer reviews?",
+            "cn": ""
+        },
+        "type": "boolean",
+        "visible": false
+    },
+    "purchase_note": {
+        "i18n": {
+            "en": "Purchase note",
+            "cn": ""
+        },
+        "type": "String",
+        "visible": false
+    },
+    "sale_price": {
+        "i18n": {
+            "en": "Sale price",
+            "cn": "促销价"
+        },
+        "type": "String",
+        "visible": true
+    },
+    "regular_price": {
+        "i18n": {
+            "en": "Regular price",
+            "cn": "销价"
+        },
+        "type": "String",
+        "visible": true
+    },
+    "category_ids": {
+        "i18n": {
+            "en": "Categories",
+            "cn": ""
+        },
+        "type": "",
+        "visible": false
+    },
+    "tag_ids": {
+        "i18n": {
+            "en": "Tags",
+            "cn": ""
+        },
+        "type": "",
+        "visible": false
+    },
+    "shipping_class_id": {
+        "i18n": {
+            "en": "Shipping class",
+            "cn": ""
+        },
+        "type": "int",
+        "visible": false
+    },
+    "images": {
+        "i18n": {
+            "en": "Images",
+            "cn": ""
+        },
+        "type": {
+            "id": "int",
+            "date_created": "String",
+            "date_created_gmt": "String",
+            "date_modified": "String",
+            "date_modified_gmt": "String",
+            "src": "String",
+            "name": "String",
+            "alt": "String",
+            "position": "int"
+        },
+        "visible": true
+    },
+    "download_limit": {
+        "i18n": {
+            "en": "Download limit",
+            "cn": ""
+        },
+        "type": "int",
+        "visible": false
+    },
+    "download_expiry": {
+        "i18n": {
+            "en": "Download expiry days",
+            "cn": ""
+        },
+        "type": "int",
+        "visible": false
+    },
+    "parent_id": {
+        "i18n": {
+            "en": "Parent",
+            "cn": ""
+        },
+        "type": "int",
+        "visible": false
+    },
+    "grouped_products": {
+        "i18n": {
+            "en": "Grouped products",
+            "cn": ""
+        },
+        "type": "List",
+        "visible": false
+    },
+    "upsell_ids": {
+        "i18n": {
+            "en": "Upsells",
+            "cn": ""
+        },
+        "type": "List",
+        "visible": false
+    },
+    "cross_sell_ids": {
+        "i18n": {
+            "en": "Cross-sells",
+            "cn": ""
+        },
+        "type": "List",
+        "visible": false
+    },
+    "product_url": {
+        "i18n": {
+            "en": "External URL",
+            "cn": ""
+        },
+        "type": "",
+        "visible": false
+    },
+    "button_text": {
+        "i18n": {
+            "en": "Button text",
+            "cn": ""
+        },
+        "type": "String",
+        "visible": false
+    },
+    "menu_order": {
+        "i18n": {
+            "en": "Position",
+            "cn": ""
+        },
+        "type": "int",
+        "visible": false
+    }
+}

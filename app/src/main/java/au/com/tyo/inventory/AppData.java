@@ -27,6 +27,7 @@ import java.util.List;
 
 import au.com.tyo.app.CommonAppData;
 import au.com.tyo.inventory.model.Product;
+import au.com.tyo.inventory.model.ProductFormMetaData;
 import au.com.tyo.inventory.model.ProductListItem;
 import au.com.tyo.woocommerce.WooCommerceApi;
 import au.com.tyo.woocommerce.WooCommerceJson;
@@ -64,6 +65,8 @@ public class AppData extends CommonAppData {
      */
     private List<ProductListItem> productListItems;
 
+    private static ProductFormMetaData productFormMetaData;
+
 
     public AppData(Context context) {
         super(context);
@@ -100,5 +103,19 @@ public class AppData extends CommonAppData {
         productListItems = new ArrayList<>();
         for (Product product : products)
             productListItems.add(new ProductListItem(product));
+    }
+
+    public void load() {
+        loadProductFormMetaData();
+    }
+
+    private void loadProductFormMetaData() {
+        Type dataType = new TypeToken<ProductFormMetaData>(){}.getType();
+        String json = assetToString("product-form.json");
+        productFormMetaData = WooCommerceJson.getGson().fromJson(json, dataType);
+    }
+
+    public static ProductFormMetaData getProductFormMetaData() {
+        return productFormMetaData;
     }
 }

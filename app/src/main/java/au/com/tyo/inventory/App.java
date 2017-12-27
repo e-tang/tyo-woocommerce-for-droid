@@ -42,4 +42,11 @@ public class App extends CommonApp<UI, Controller> implements Controller {
 
         PageInitializer.setInstance(new PageInitializer());
     }
+
+    @Override
+    public void initializeInBackgroundThread(Context context) {
+        super.initializeInBackgroundThread(context);
+
+        appData.load();
+    }
 }

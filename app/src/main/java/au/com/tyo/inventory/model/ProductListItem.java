@@ -24,6 +24,7 @@ import com.google.gson.internal.LinkedTreeMap;
 import java.util.List;
 
 import au.com.tyo.android.adapter.ListItem;
+import au.com.tyo.inventory.AppData;
 import au.com.tyo.json.FormBase;
 import au.com.tyo.json.FormItem;
 import au.com.tyo.json.JsonForm;
@@ -95,6 +96,6 @@ public class ProductListItem extends FormBase implements ListItem, FormItem {
 
     @Override
     public JsonForm toJsonForm() {
-        return FormHelper.createForm(product);
+        return FormHelper.createForm(AppData.getProductFormMetaData(), product);
     }
 }
