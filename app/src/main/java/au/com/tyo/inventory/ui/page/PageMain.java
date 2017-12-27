@@ -106,7 +106,7 @@ public class PageMain extends PageCommonList<Controller> {
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ProductListItem item = (ProductListItem) adapter.get(position);
-        getController().setParcel(item.getProduct());
+        getController().setParcel(item);
         getController().getUi().gotoProductDetailsPage();
     }
 }

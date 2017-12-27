@@ -20,18 +20,12 @@ import com.google.api.client.json.GenericJson;
 import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.List;
-import java.util.Map;
-
-import au.com.tyo.inventory.AppData;
-import au.com.tyo.json.FormItem;
-import au.com.tyo.json.JsonForm;
-import au.com.tyo.json.android.utils.FormHelper;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 13/12/17.
  */
 
-public class Product extends GenericJson implements FormItem {
+public class Product extends GenericJson  {
 
     private String imageUrl;
 
@@ -46,25 +40,4 @@ public class Product extends GenericJson implements FormItem {
         return imageUrl;
     }
 
-    @Override
-    public JsonForm toJsonForm() {
-        return FormHelper.createForm(this);
-    }
-
-    @Override
-    public Map getFormKeyValueMap() {
-        return this;
-    }
-
-    @Override
-    public Map getFormMetaDataMap() {
-        return AppData.getProductFormMetaData();
-    }
-
-    @Override
-    public Object getValue(String key) {
-        if (key.equals("images"))
-            return getImageUrl();
-        return get(key);
-    }
 }

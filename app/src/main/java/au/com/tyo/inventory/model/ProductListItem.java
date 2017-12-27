@@ -19,8 +19,13 @@ package au.com.tyo.inventory.model;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
+import java.util.Map;
+
 import au.com.tyo.android.adapter.ListItem;
+import au.com.tyo.inventory.AppData;
 import au.com.tyo.json.FormBase;
+import au.com.tyo.json.JsonForm;
+import au.com.tyo.json.android.utils.FormHelper;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 19/12/17.
@@ -76,5 +81,31 @@ public class ProductListItem extends FormBase implements ListItem {
 
     public Product getProduct() {
         return product;
+    }
+
+    public String getProductImageUrl() {
+        return product.getImageUrl();
+    }
+
+    @Override
+    public JsonForm toJsonForm() {
+        return FormHelper.createForm(this);
+    }
+
+    @Override
+    public Map getFormKeyValueMap() {
+        return getProduct();
+    }
+
+    @Override
+    public Map getFormMetaDataMap() {
+        return AppData.getProductFormMetaData();
+    }
+
+    @Override
+    public Object getValue(String key) {
+        if (key.equals("images"))
+            return getProductImageUrl();
+        return product.get(key);
     }
 }
