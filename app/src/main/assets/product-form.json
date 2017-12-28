@@ -22,7 +22,8 @@
             "zh": ""
         },
         "type": "String",
-        "visible": true
+        "visible": true,
+        "orientation": "vertical"
     },
     "name": {
         "i18n": {
@@ -163,7 +164,8 @@
             "zh": "促销价"
         },
         "type": "String",
-        "visible": true
+        "visible": true,
+        "orientation": "vertical"
     },
     "regular_price": {
         "i18n": {
@@ -171,7 +173,8 @@
             "zh": "销价"
         },
         "type": "String",
-        "visible": true
+        "visible": true,
+        "orientation": "vertical"
     },
     "category_ids": {
         "i18n": {

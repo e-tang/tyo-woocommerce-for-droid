@@ -40,7 +40,7 @@ public class AppData extends CommonAppData {
 
     private static final String TAG = "AppData";
 
-    private static final String PRODUCTS_JSON_CACHE = "products.json";
+    public static final String PRODUCTS_JSON_CACHE = "products.json";
 
     //
     // API

@@ -17,6 +17,9 @@
 package au.com.tyo.inventory.ui.page;
 
 import android.app.Activity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -24,8 +27,10 @@ import java.util.List;
 
 import au.com.tyo.android.adapter.ListViewItemAdapter;
 import au.com.tyo.app.ui.page.PageCommonList;
+import au.com.tyo.inventory.AppData;
 import au.com.tyo.inventory.BuildConfig;
 import au.com.tyo.inventory.Controller;
+import au.com.tyo.inventory.R;
 import au.com.tyo.inventory.model.ProductListItem;
 import au.com.tyo.inventory.ui.widget.ProductListItemFactory;
 
@@ -108,5 +113,22 @@ public class PageMain extends PageCommonList<Controller> {
         ProductListItem item = (ProductListItem) adapter.get(position);
         getController().setParcel(item);
         getController().getUi().gotoProductDetailsPage();
+    }
+
+    @Override
+    protected void createMenu(MenuInflater menuInflater, Menu menu) {
+        super.createMenu(menuInflater, menu);
+
+        menuInflater.inflate(R.menu.reload_only, menu);
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        if (item.getItemId() == R.id.menuItemReload) {
+            getController().getAppData().deleteCacheFile(AppData.PRODUCTS_JSON_CACHE);
+            startBackgroundTask();
+            return true;
+        }
+        return super.onMenuItemClick(item);
     }
 }

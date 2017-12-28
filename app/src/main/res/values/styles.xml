@@ -12,5 +12,12 @@
 
     </style>
 
+    <style name="AppMenuStyle.Light">
+        <item name="android:tint">@color/white</item>
+    </style>
+
+    <style name="AppMenuStyle.Dark">
+        <item name="android:tint">@color/black</item>
+    </style>
 
 </resources>
