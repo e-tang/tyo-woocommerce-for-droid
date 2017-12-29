@@ -72,6 +72,10 @@
             android:windowSoftInputMode="adjustPan"
             android:label="@string/product_details"
             />
+
+        <activity
+            android:name="au.com.tyo.app.CommonActivityWebView"
+            />
     </application>
 
 </manifest>

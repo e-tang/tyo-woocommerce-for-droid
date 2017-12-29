@@ -21,6 +21,6 @@
         android:id="@+id/menuItemReload"
         android:title="@string/empty_string"
         android:icon="@drawable/ic_refresh_black_24dp"
-        android:iconTint="@color/white"
+        android:iconTint="@color/blue"
         app:showAsAction="never"></item>
 </menu>
