@@ -20,5 +20,5 @@ package au.com.tyo.inventory.ui.activity;
  * Created by Eric Tang (eric.tang@tyo.com.au) on 29/12/17.
  */
 
-public class ActivityStockIn {
+public class ActivityStockIn extends ActivityBase {
 }

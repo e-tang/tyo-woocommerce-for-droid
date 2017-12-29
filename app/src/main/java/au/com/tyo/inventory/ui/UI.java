@@ -11,4 +11,6 @@ public interface UI extends au.com.tyo.app.ui.UI {
     void gotoProductDetailsPage();
 
     void gotoProductStockInPage();
+
+    void gotoBarcodeScannerPage();
 }

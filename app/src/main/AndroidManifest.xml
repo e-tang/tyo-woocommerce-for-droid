@@ -76,6 +76,15 @@
         <activity
             android:name="au.com.tyo.app.CommonActivityWebView"
             />
+
+        <activity android:name=".ui.activity.ActivityScan"
+            android:label="@string/scan_barcode"
+            />
+
+        <activity android:name=".ui.activity.ActivityStockIn"
+            android:label="@string/stock_in"
+            />
+
     </application>
 
 </manifest>

@@ -124,9 +124,14 @@ public class PageMain extends PageCommonList<Controller> {
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        if (item.getItemId() == R.id.menuItemReload) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.menuItemReload) {
             getController().getAppData().getCacheManager().clear();
             startBackgroundTask();
+            return true;
+        }
+        else if (itemId == R.id.menuItemScan) {
+            getController().getUi().gotoBarcodeScannerPage();
             return true;
         }
         return super.onMenuItemClick(item);

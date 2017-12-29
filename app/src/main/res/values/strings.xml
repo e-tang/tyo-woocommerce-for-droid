@@ -19,4 +19,6 @@
     <string name="stock">Stock:</string>
     <string name="reload">Reload</string>
     <string name="scan">Scan</string>
+    <string name="scan_barcode">Scan Barcode</string>
+    <string name="stock_in">Stock In</string>
 </resources>

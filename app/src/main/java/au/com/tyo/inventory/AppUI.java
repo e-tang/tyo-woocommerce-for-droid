@@ -4,6 +4,7 @@ import au.com.tyo.app.ui.UIBase;
 import au.com.tyo.inventory.ui.UI;
 import au.com.tyo.inventory.ui.activity.ActivityLogin;
 import au.com.tyo.inventory.ui.activity.ActivityProductDetails;
+import au.com.tyo.inventory.ui.activity.ActivityScan;
 import au.com.tyo.inventory.ui.activity.ActivityStockIn;
 
 /**
@@ -29,5 +30,10 @@ public class AppUI extends UIBase implements UI {
     @Override
     public void gotoProductStockInPage() {
         gotoPage(ActivityStockIn.class);
+    }
+
+    @Override
+    public void gotoBarcodeScannerPage() {
+        gotoPage(ActivityScan.class);
     }
 }

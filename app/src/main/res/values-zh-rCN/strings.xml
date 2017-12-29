@@ -15,14 +15,7 @@
   ~  limitations under the License.
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <item
-        android:id="@+id/menuItemScan"
-        android:title="@string/scan"
-        android:icon="@drawable/ic_camera_black_24dp"
-        android:iconTint="@color/white"
-        app:showAsAction="always"
-        />
-</menu>
+<resources>
+    <string name="app_name">Inventory</string>
+    <string name="stock_in">入库</string>
+</resources>
