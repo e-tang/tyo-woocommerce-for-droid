@@ -78,4 +78,7 @@ public class ScannerFragment extends CommonFragment<Controller> implements ZXing
         mScannerView.stopCamera();
     }
 
+    public void resumePreview() {
+        mScannerView.resumeCameraPreview(ScannerFragment.this);
+    }
 }

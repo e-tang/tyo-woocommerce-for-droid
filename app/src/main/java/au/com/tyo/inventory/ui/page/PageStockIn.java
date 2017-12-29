@@ -16,9 +16,22 @@
 
 package au.com.tyo.inventory.ui.page;
 
+import android.app.Activity;
+
+import au.com.tyo.inventory.Controller;
+
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 29/12/17.
  */
 
-public class PageStockIn {
+public class PageStockIn extends PageCommon {
+
+    /**
+     * @param controller
+     * @param activity
+     */
+    public PageStockIn(Controller controller, Activity activity) {
+        super(controller, activity);
+    }
+
 }

@@ -17,6 +17,7 @@
 package au.com.tyo.inventory.ui.page;
 
 import android.app.Activity;
+import android.widget.Toast;
 
 import com.google.zxing.Result;
 
@@ -32,6 +33,10 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class PageScan extends PageCommon implements ZXingScannerView.ResultHandler {
 
+    private String barcode;
+
+    ScannerFragment scannerFragment;
+
     /**
      * @param controller
      * @param activity
@@ -44,17 +49,44 @@ public class PageScan extends PageCommon implements ZXingScannerView.ResultHandl
     public void setupComponents() {
         super.setupComponents();
 
-        ScannerFragment fragment = new ScannerFragment();
-        fragment.setResultHandler(this);
-        addFragmentToContainer(fragment);
+        scannerFragment = new ScannerFragment();
+        scannerFragment.setResultHandler(this);
+        addFragmentToContainer(scannerFragment);
     }
 
     @Override
     public void handleResult(Result result) {
-        String text = result.getText();
+        showProgressBar("checking product");
 
-        ProductBarcode productBarcode = ProductBarcode.parse(text);
+        barcode = result.getText();
+
+        startBackgroundTask();
+    }
+
+    @Override
+    public void run() {
+        if (null == barcode)
+            return;
+
+        ProductBarcode productBarcode = ProductBarcode.parse(barcode);
 
         Product product = getController().getAppData().lookupProductById(productBarcode.getId());
+
+        setResult(product);
+    }
+
+    @Override
+    protected void onPageBackgroundTaskFinished() {
+        hideProgressBar();
+
+        Product product = (Product) getResult();
+
+        if (null != product)
+            getController().getUi().gotoProductStockInPage();
+        else {
+            Toast.makeText(getActivity(), "Can't find the product", Toast.LENGTH_SHORT).show();
+            scannerFragment.resumePreview();
+        }
+
     }
 }
