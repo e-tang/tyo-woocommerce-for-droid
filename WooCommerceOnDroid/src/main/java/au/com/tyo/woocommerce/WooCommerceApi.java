@@ -65,6 +65,10 @@ public class WooCommerceApi extends CommonApiJson {
         return json;
     }
 
+    public String updateProductStock(int id, int stock) {
+        return post(getProductsApiUrl() + "/" + id, "{'stock_quantity': '" + stock + "'}");
+    }
+
     public void createCurlCommands() {
         createCurlCommandListAllProducts();
     }

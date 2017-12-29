@@ -151,4 +151,9 @@ dependencies {
 
 //    testCompile 'junit:junit:4.12'
     compile project(path: ':WooCommerceOnDroid')
+
+    // ## Barcode
+    // https://mvnrepository.com/artifact/com.google.zxing/core
+    compile group: 'com.google.zxing', name: 'core', version: '3.3.1'
+    compile 'me.dm7.barcodescanner:zxing:1.9.8'
 }

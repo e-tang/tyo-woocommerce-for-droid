@@ -15,14 +15,20 @@
   ~  limitations under the License.
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/menuItemReload"
-        android:title="@string/reload"
-        android:icon="@drawable/ic_refresh_black_24dp"
-        android:iconTint="@color/blue"
-        app:showAsAction="never">
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/scanner_container"
+    >
 
-    </item>
-</menu>
+    <!--
+    <fragment android:name="au.com.tyo.inventory.ui.fragment.ScannerFragment"
+        android:id="@+id/scanner_fragment"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+        -->
+
+</FrameLayout>

@@ -27,7 +27,6 @@ import java.util.List;
 
 import au.com.tyo.android.adapter.ListViewItemAdapter;
 import au.com.tyo.app.ui.page.PageCommonList;
-import au.com.tyo.inventory.AppData;
 import au.com.tyo.inventory.BuildConfig;
 import au.com.tyo.inventory.Controller;
 import au.com.tyo.inventory.R;
@@ -120,12 +119,13 @@ public class PageMain extends PageCommonList<Controller> {
         super.createMenu(menuInflater, menu);
 
         menuInflater.inflate(R.menu.reload_only, menu);
+        menuInflater.inflate(R.menu.scan_only, menu);
     }
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         if (item.getItemId() == R.id.menuItemReload) {
-            getController().getAppData().deleteCacheFile(AppData.PRODUCTS_JSON_CACHE);
+            getController().getAppData().getCacheManager().clear();
             startBackgroundTask();
             return true;
         }

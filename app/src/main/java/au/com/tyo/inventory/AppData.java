@@ -21,14 +21,18 @@ import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import au.com.tyo.android.CommonCache;
 import au.com.tyo.app.CommonAppData;
 import au.com.tyo.inventory.model.Product;
 import au.com.tyo.inventory.model.ProductFormMetaData;
 import au.com.tyo.inventory.model.ProductListItem;
+import au.com.tyo.io.IO;
+import au.com.tyo.io.WildcardFileStack;
 import au.com.tyo.woocommerce.WooCommerceApi;
 import au.com.tyo.woocommerce.WooCommerceJson;
 
@@ -67,12 +71,16 @@ public class AppData extends CommonAppData {
 
     private static ProductFormMetaData productFormMetaData;
 
+    private static Type productsType = new TypeToken<List<Product>>(){}.getType();
+    private static Type productType = new TypeToken<Product>(){}.getType();
 
     public AppData(Context context) {
         super(context);
 
         this.api = new WooCommerceApi(context);
         this.parser = new WooCommerceJson();
+
+        setCacheManager(new CommonCache(context, "products"));
     }
 
     public List<ProductListItem> getProductList() {
@@ -87,16 +95,41 @@ public class AppData extends CommonAppData {
 
         String json;
 
-        if (!existsCacheFile(PRODUCTS_JSON_CACHE)) {
-            json = api.getProductsJsonString();
-            writeCacheFile(PRODUCTS_JSON_CACHE, json);
+        WildcardFileStack fileStack = null;
+        try {
+            fileStack = new WildcardFileStack(getCacheManager().getCacheDir());
+            fileStack.listFiles();
+        } catch (Exception e) {
+
         }
-        else {
-            json = (String) loadCacheFile(PRODUCTS_JSON_CACHE);
+        if (fileStack != null && fileStack.size() > 0) {
+            products = new ArrayList();
+            File file = fileStack.next();
+            while (null != file) {
+                String productJson = new String(IO.readFileIntoBytes(file));
+                try {
+                    Product product = WooCommerceJson.getGson().fromJson(productJson, productType);
+                    products.add(product);
+                }
+                catch (Exception ex) {
+                    // if any errors we clear the cache
+                    products.clear();
+                    getCacheManager().clear();
+                    break;
+                }
+            }
         }
 
-        Type collectionType = new TypeToken<List<Product>>(){}.getType();
-        products = WooCommerceJson.getGson().fromJson(json, collectionType);
+        if (null == products || products.size() == 0) {
+            json = api.getProductsJsonString();
+            products = WooCommerceJson.getGson().fromJson(json, productsType);
+
+            for (int i = 0; i < products.size(); ++i) {
+                Product product = products.get(i);
+                String productJson = product.toString();
+                writeCacheFile("" + product.getId() + ".json", productJson);
+            }
+        }
 
         Log.d(TAG, "productListItems loaded: total " + products.size());
 
@@ -117,5 +150,33 @@ public class AppData extends CommonAppData {
 
     public static ProductFormMetaData getProductFormMetaData() {
         return productFormMetaData;
+    }
+
+    public Product lookupProductById(int id) {
+        for (int i = 0; i < products.size(); ++i) {
+            Product product = products.get(i);
+
+            if (product.getId() == id) {
+                return product;
+            }
+        }
+        return null;
+    }
+
+    public Product updateProductStock(Product product, int stock) {
+        int oldStock = product.getStock();
+        if (oldStock < 0)
+            oldStock = 0;
+
+        Product newProductPtr;
+
+        String result = api.updateProductStock(product.getId(), oldStock + stock);
+        try {
+            newProductPtr = WooCommerceJson.getGson().fromJson(result, productType);
+        }
+        catch (Exception ex) {
+            newProductPtr = product;
+        }
+        return newProductPtr;
     }
 }

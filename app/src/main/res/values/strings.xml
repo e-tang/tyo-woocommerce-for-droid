@@ -15,4 +15,8 @@
     </string>
     <string name="log_in">Log In</string>
     <string name="product_details">Product Details</string>
+    <string name="price">Price:</string>
+    <string name="stock">Stock:</string>
+    <string name="reload">Reload</string>
+    <string name="scan">Scan</string>
 </resources>

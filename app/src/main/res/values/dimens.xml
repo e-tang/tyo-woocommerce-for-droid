@@ -16,8 +16,9 @@
   -->
 
 <resources>
-    <dimen name="image_text_list_text2_margin_top">2dp</dimen>
+    <dimen name="image_text_list_text2_margin_top">8dp</dimen>
     <dimen name="image_text_list_text2_margin_bottom">2dp</dimen>
+
     <dimen name="image_list_cell_height">128dp</dimen>
     <dimen name="image_list_cell_button_width">24dp</dimen>
     <dimen name="image_list_cell_button_height">24dp</dimen>

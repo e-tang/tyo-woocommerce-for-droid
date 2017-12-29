@@ -41,10 +41,22 @@ public class Product extends GenericJson  {
     }
 
     public int getId() {
+        return getInt("id");
+    }
+
+    public int getSku() {
+        return getInt("sku");
+    }
+
+    private int getInt(String key) {
         try {
-            return Integer.parseInt((String) get("id"));
+            return Integer.parseInt((String) get(key));
         }
         catch (Exception ex) {}
         return -1;
+    }
+
+    public int getStock() {
+        return getInt("stock_quantity");
     }
 }
