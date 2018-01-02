@@ -16,6 +16,8 @@
 
 package au.com.tyo.inventory.model;
 
+import java.util.Map;
+
 import au.com.tyo.json.android.utils.FormBase;
 
 /**
@@ -25,6 +27,10 @@ import au.com.tyo.json.android.utils.FormBase;
 public abstract class ProductFormBase extends FormBase {
 
     private Product product;
+
+    public ProductFormBase(Product product) {
+        this.product = product;
+    }
 
     public Product getProduct() {
         return product;
@@ -39,6 +45,11 @@ public abstract class ProductFormBase extends FormBase {
         if (key.equals("images"))
             return getProductImageUrl();
         return product.get(key);
+    }
+
+    @Override
+    public Map getFormKeyValueMap() {
+        return getProduct();
     }
 
     public String getProductImageUrl() {

@@ -59,4 +59,5 @@ public class Product extends GenericJson  {
     public int getStock() {
         return getInt("stock_quantity");
     }
+
 }

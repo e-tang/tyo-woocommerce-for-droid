@@ -82,7 +82,7 @@ public class PageScan extends PageCommon implements ZXingScannerView.ResultHandl
         Product product = (Product) getResult();
 
         if (null != product)
-            getController().getUi().gotoProductStockInPage(listItem.getProduct());
+            getController().getUi().gotoProductStockInPage(product);
         else {
             Toast.makeText(getActivity(), "Can't find the product", Toast.LENGTH_SHORT).show();
             scannerFragment.resumePreview();

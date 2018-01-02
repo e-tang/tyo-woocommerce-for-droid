@@ -31,7 +31,7 @@ import au.com.tyo.inventory.AppData;
 public class ProductListItem extends ProductFormBase implements ListItem {
 
     public ProductListItem(Product product) {
-        this.setProduct(product);
+        super(product);
     }
 
     @Override
@@ -72,11 +72,6 @@ public class ProductListItem extends ProductFormBase implements ListItem {
     @Override
     public CharSequence getText2() {
         return null;
-    }
-
-    @Override
-    public Map getFormKeyValueMap() {
-        return getProduct();
     }
 
     @Override

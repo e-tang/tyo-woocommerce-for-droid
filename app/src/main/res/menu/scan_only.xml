@@ -21,7 +21,7 @@
     <item
         android:id="@+id/menuItemScan"
         android:title="@string/scan"
-        android:icon="@drawable/ic_camera_black_24dp"
+        android:icon="@drawable/ic_camera_white_24dp"
         android:iconTint="@color/white"
         app:showAsAction="always"
         />

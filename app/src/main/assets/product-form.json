@@ -164,7 +164,7 @@
             "zh": "促销价"
         },
         "type": "String",
-        "visible": true,
+        "visible": false,
         "orientation": "vertical"
     },
     "regular_price": {

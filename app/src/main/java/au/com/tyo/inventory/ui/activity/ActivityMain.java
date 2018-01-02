@@ -26,8 +26,6 @@ public class ActivityMain extends ActivityBase {
 
     @Override
     protected void loadPageClass() {
-        super.loadPageClass();
-
         getAgent().setPageClass(PageMain.class);
     }
 }

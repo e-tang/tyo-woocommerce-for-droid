@@ -39,20 +39,24 @@ public class ProductStockIn extends ProductFormBase {
 //    public String currentStock;
 //
 //    @Key
-//    public String newStock;
-//
+    public int newStock;
+
+    public ProductStockIn(Product product) {
+        super(product);
+    }
+
+    public int getNewStock() {
+        return newStock;
+    }
+
+    //
 //    public int getNewStockCount() {
 //        return Integer.parseInt(newStock);
 //    }
-
-
-    @Override
-    public Map getFormKeyValueMap() {
-        return null;
-    }
 
     @Override
     public Map getFormMetaDataMap() {
         return AppData.getProductStockInMetaData();
     }
+
 }

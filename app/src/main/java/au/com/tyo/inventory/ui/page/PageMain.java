@@ -62,8 +62,6 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
 
         adapter = getListAdapter();
         adapter.setItemFactory(new ProductListItemFactory(getActivity()));
-
-        getListView().setOnItemLongClickListener(this);
     }
 
     @Override
@@ -72,6 +70,7 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
 
         // showSearchBar();
         // showSuggestionView();
+        getListView().setOnItemLongClickListener(this);
     }
 
     @Override
@@ -165,6 +164,6 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
             }
         });
 
-        return false;
+        return true;
     }
 }
