@@ -71,7 +71,7 @@ public class PageProductDetails extends PageForm<Controller> {
             CardBox cardBox = (CardBox) v;
             final java.lang.Object imageUrl = cardBox.getPreviewItem();
             if (null != imageUrl)
-                getController().getUi().viewHtmlPageFromAsset("html/center_image.html", "Image", null, new PageWebView.WebPageListener() {
+                getController().getUi().viewHtmlPageFromAsset("html/center_image.html", "Product Image", null, new PageWebView.WebPageListener() {
                     @Override
                     public void onPageFinishedLoading(WebView webView) {
                         PageWebView.call(webView, "updateImage", new String[] {imageUrl.toString()}, null);

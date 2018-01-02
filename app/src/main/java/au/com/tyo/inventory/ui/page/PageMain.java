@@ -17,6 +17,7 @@
 package au.com.tyo.inventory.ui.page;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,6 +42,8 @@ import au.com.tyo.inventory.ui.widget.ProductListItemFactory;
  */
 
 public class PageMain extends PageCommonList<Controller> implements AdapterView.OnItemLongClickListener {
+
+    private static final String LOG = "PageMain";
 
     private ListViewItemAdapter adapter;
     private Button stockInButton;
@@ -84,6 +87,11 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
         }
 
         startBackgroundTask();
+    }
+
+    @Override
+    public void showProgressBar() {
+        showProgressBar("loading products");
     }
 
     @Override
@@ -165,5 +173,27 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
         });
 
         return true;
+    }
+
+    @Override
+    public void onFinish() {
+        super.onFinish();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+    }
+
+    @Override
+    public void finishCompletely() {
+        super.finishCompletely();
+    }
+
+    @Override
+    public boolean onDestroy() {
+        if (getActivity().isFinishing())
+            Log.d(LOG, "System is low on space");
+        return super.onDestroy();
     }
 }

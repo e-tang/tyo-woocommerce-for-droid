@@ -5,7 +5,7 @@
       "zh": "名称"
     },
     "type": "String",
-    "visible": false,
+    "visible": true,
     "display_order": 0
   },
   "stock_quantity": {
@@ -14,7 +14,7 @@
       "zh": "当前库存"
     },
     "type": "String",
-    "visible": false,
+    "visible": true,
     "display_order": 1
   },
   "newStock": {
@@ -23,7 +23,7 @@
       "zh": "入库数量"
     },
     "type": "int",
-    "visible": false,
+    "visible": true,
     "display_order": 2
   }
 }
