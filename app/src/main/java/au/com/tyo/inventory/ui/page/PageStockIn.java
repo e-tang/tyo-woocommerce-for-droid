@@ -17,14 +17,22 @@
 package au.com.tyo.inventory.ui.page;
 
 import android.app.Activity;
+import android.content.Context;
+import android.view.View;
+
+import java.util.Date;
 
 import au.com.tyo.inventory.Controller;
+import au.com.tyo.inventory.model.ProductStockIn;
+import au.com.tyo.json.android.pages.PageForm;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 29/12/17.
  */
 
-public class PageStockIn extends PageCommon {
+public class PageStockIn extends PageForm<Controller> {
+
+    private ProductStockIn productStockIn;
 
     /**
      * @param controller
@@ -34,4 +42,40 @@ public class PageStockIn extends PageCommon {
         super(controller, activity);
     }
 
+    @Override
+    public void bindData() {
+        super.bindData();
+    }
+
+    @Override
+    public void onDataBound() {
+        super.onDataBound();
+
+        productStockIn = (ProductStockIn) getForm();
+    }
+
+    @Override
+    protected void onFormCheckFailed() {
+
+    }
+
+    @Override
+    protected void saveFormData(Object form) {
+
+    }
+
+    @Override
+    public void onFormClick(Context context, String key, String text) {
+
+    }
+
+    @Override
+    public String formatDateTime(String key, Date date) {
+        return null;
+    }
+
+    @Override
+    public void onFieldClick(View v) {
+
+    }
 }

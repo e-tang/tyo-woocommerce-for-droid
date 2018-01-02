@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 TYONLINE TECHNOLOGY PTY. LTD. (TYO Lab)
+ * Copyright (c) 2018 TYONLINE TECHNOLOGY PTY. LTD. (TYO Lab)
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -19,19 +19,8 @@ package au.com.tyo.inventory.model;
 import au.com.tyo.json.FormMetaDataGson;
 
 /**
- * Created by Eric Tang (eric.tang@tyo.com.au) on 27/12/17.
+ * Created by Eric Tang (eric.tang@tyo.com.au) on 2/1/18.
  */
 
-/**
- *   JSON:
- *
- *   {
- *
- *   }
- *
- *
- */
-public class ProductFormMetaData extends FormMetaDataGson {
-
-
+public class ProductStockInMetaData extends FormMetaDataGson {
 }

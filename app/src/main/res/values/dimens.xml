@@ -25,4 +25,7 @@
 
     <dimen name="image_list_cell_image_width">72dp</dimen>
     <dimen name="image_list_cell_image_height">72dp</dimen>
+    <dimen name="actions_padding_left">24dp</dimen>
+    <dimen name="actions_padding_right">24dp</dimen>
+    <dimen name="actions_padding_bottom">12dp</dimen>
 </resources>

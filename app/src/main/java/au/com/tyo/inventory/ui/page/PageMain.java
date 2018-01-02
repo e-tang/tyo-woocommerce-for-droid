@@ -17,11 +17,14 @@
 package au.com.tyo.inventory.ui.page;
 
 import android.app.Activity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 
 import java.util.List;
 
@@ -37,9 +40,10 @@ import au.com.tyo.inventory.ui.widget.ProductListItemFactory;
  * Created by Eric Tang (eric.tang@tyo.com.au) on 27/11/17.
  */
 
-public class PageMain extends PageCommonList<Controller> {
+public class PageMain extends PageCommonList<Controller> implements AdapterView.OnItemLongClickListener {
 
     private ListViewItemAdapter adapter;
+    private Button stockInButton;
 
     /**
      * @param controller
@@ -58,6 +62,8 @@ public class PageMain extends PageCommonList<Controller> {
 
         adapter = getListAdapter();
         adapter.setItemFactory(new ProductListItemFactory(getActivity()));
+
+        getListView().setOnItemLongClickListener(this);
     }
 
     @Override
@@ -137,4 +143,28 @@ public class PageMain extends PageCommonList<Controller> {
         return super.onMenuItemClick(item);
     }
 
+    @Override
+    protected void setupPageOverlay(View pageOverlay) {
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        View actionsView = inflater.inflate(R.layout.actions, (ViewGroup) pageOverlay, false);
+        ((ViewGroup) pageOverlay).addView(actionsView);
+
+        stockInButton = actionsView.findViewById(R.id.btn_stock_in);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        final ProductListItem listItem = (ProductListItem) adapter.get(position);
+
+        showPageOverlay();
+
+        stockInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getController().getUi().gotoProductStockInPage(listItem.getProduct());
+            }
+        });
+
+        return false;
+    }
 }

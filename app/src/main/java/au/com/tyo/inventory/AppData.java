@@ -31,6 +31,7 @@ import au.com.tyo.app.CommonAppData;
 import au.com.tyo.inventory.model.Product;
 import au.com.tyo.inventory.model.ProductFormMetaData;
 import au.com.tyo.inventory.model.ProductListItem;
+import au.com.tyo.inventory.model.ProductStockInMetaData;
 import au.com.tyo.io.IO;
 import au.com.tyo.io.WildcardFileStack;
 import au.com.tyo.woocommerce.WooCommerceApi;
@@ -73,6 +74,9 @@ public class AppData extends CommonAppData {
 
     private static Type productsType = new TypeToken<List<Product>>(){}.getType();
     private static Type productType = new TypeToken<Product>(){}.getType();
+    private static Type productStockInMetaDataType = new TypeToken<ProductStockInMetaData>(){}.getType();
+
+    private static ProductStockInMetaData productStockInMetaData;
 
     public AppData(Context context) {
         super(context);
@@ -140,6 +144,12 @@ public class AppData extends CommonAppData {
 
     public void load() {
         loadProductFormMetaData();
+        loadProductStockInFormMetaData();
+    }
+
+    private void loadProductStockInFormMetaData() {
+        String json = assetToString("product-stock-in-form.json");
+        productStockInMetaData = WooCommerceJson.getGson().fromJson(json, productStockInMetaDataType);
     }
 
     private void loadProductFormMetaData() {
@@ -150,6 +160,10 @@ public class AppData extends CommonAppData {
 
     public static ProductFormMetaData getProductFormMetaData() {
         return productFormMetaData;
+    }
+
+    public static ProductStockInMetaData getProductStockInMetaData() {
+        return productStockInMetaData;
     }
 
     public Product lookupProductById(int id) {
@@ -179,4 +193,5 @@ public class AppData extends CommonAppData {
         }
         return newProductPtr;
     }
+
 }

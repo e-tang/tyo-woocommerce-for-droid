@@ -1,0 +1,29 @@
+{
+  "name": {
+    "i18n": {
+      "en": "Name",
+      "zh": "名称"
+    },
+    "type": "int",
+    "visible": false,
+    "display_order": -1
+  },
+  "currentStock": {
+    "i18n": {
+      "en": "Current Stock",
+      "zh": "当前库存"
+    },
+    "type": "int",
+    "visible": false,
+    "display_order": -1
+  },
+  "newStock": {
+    "i18n": {
+      "en": "New Stock",
+      "zh": "入库数量"
+    },
+    "type": "int",
+    "visible": false,
+    "display_order": -1
+  }
+}

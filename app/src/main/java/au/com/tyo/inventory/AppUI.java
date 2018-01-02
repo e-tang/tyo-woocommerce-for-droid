@@ -1,6 +1,7 @@
 package au.com.tyo.inventory;
 
 import au.com.tyo.app.ui.UIBase;
+import au.com.tyo.inventory.model.Product;
 import au.com.tyo.inventory.ui.UI;
 import au.com.tyo.inventory.ui.activity.ActivityLogin;
 import au.com.tyo.inventory.ui.activity.ActivityProductDetails;
@@ -28,8 +29,8 @@ public class AppUI extends UIBase implements UI {
     }
 
     @Override
-    public void gotoProductStockInPage() {
-        gotoPage(ActivityStockIn.class);
+    public void gotoProductStockInPage(Product product) {
+        gotoPageWithData(ActivityStockIn.class, product);
     }
 
     @Override

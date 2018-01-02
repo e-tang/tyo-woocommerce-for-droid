@@ -27,7 +27,6 @@ import au.com.tyo.android.utils.SimpleDateUtils;
 import au.com.tyo.app.ui.page.PageWebView;
 import au.com.tyo.common.ui.CardBox;
 import au.com.tyo.inventory.Controller;
-import au.com.tyo.json.FormItem;
 import au.com.tyo.json.android.pages.PageForm;
 
 /**
@@ -52,7 +51,7 @@ public class PageProductDetails extends PageForm<Controller> {
     }
 
     @Override
-    protected void saveFormData(FormItem form) {
+    protected void saveFormData(Object form) {
 
     }
 
@@ -70,7 +69,7 @@ public class PageProductDetails extends PageForm<Controller> {
     public void onFieldClick(View v) {
         if (v instanceof CardBox) {
             CardBox cardBox = (CardBox) v;
-            final Object imageUrl = cardBox.getPreviewItem();
+            final java.lang.Object imageUrl = cardBox.getPreviewItem();
             if (null != imageUrl)
                 getController().getUi().viewHtmlPageFromAsset("html/center_image.html", "Image", null, new PageWebView.WebPageListener() {
                     @Override

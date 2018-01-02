@@ -23,20 +23,15 @@ import java.util.Map;
 
 import au.com.tyo.android.adapter.ListItem;
 import au.com.tyo.inventory.AppData;
-import au.com.tyo.json.FormBase;
-import au.com.tyo.json.JsonForm;
-import au.com.tyo.json.android.utils.FormHelper;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 19/12/17.
  */
 
-public class ProductListItem extends FormBase implements ListItem {
-
-    private Product product;
+public class ProductListItem extends ProductFormBase implements ListItem {
 
     public ProductListItem(Product product) {
-        this.product = product;
+        this.setProduct(product);
     }
 
     @Override
@@ -56,7 +51,7 @@ public class ProductListItem extends FormBase implements ListItem {
 
     @Override
     public CharSequence getText1() {
-        return (CharSequence) product.get("name");
+        return (CharSequence) getValue("name");
     }
 
     @Override
@@ -79,19 +74,6 @@ public class ProductListItem extends FormBase implements ListItem {
         return null;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public String getProductImageUrl() {
-        return product.getImageUrl();
-    }
-
-    @Override
-    public JsonForm toJsonForm() {
-        return FormHelper.createForm(this);
-    }
-
     @Override
     public Map getFormKeyValueMap() {
         return getProduct();
@@ -102,10 +84,4 @@ public class ProductListItem extends FormBase implements ListItem {
         return AppData.getProductFormMetaData();
     }
 
-    @Override
-    public Object getValue(String key) {
-        if (key.equals("images"))
-            return getProductImageUrl();
-        return product.get(key);
-    }
 }
