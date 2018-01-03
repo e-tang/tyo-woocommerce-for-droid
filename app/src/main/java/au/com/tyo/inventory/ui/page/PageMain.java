@@ -57,6 +57,7 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
 
         // show it after the search functions are implemented
         // setToShowSearchView(true);
+        setSubpage(false);
     }
 
     @Override
@@ -86,7 +87,10 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
             finish();
         }
 
-        startBackgroundTask();
+        if (getController().getAppData().getProductList() == null)
+            startBackgroundTask();
+        else
+            showProductList();
     }
 
     @Override
@@ -114,6 +118,10 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
     protected void onPageBackgroundTaskFinished() {
         super.onPageBackgroundTaskFinished();
 
+        showProductList();
+    }
+
+    private void showProductList() {
         List<ProductListItem> productList = getController().getAppData().getProductList();
 
         adapter.setItems(productList);
@@ -194,6 +202,7 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
     public boolean onDestroy() {
         if (getActivity().isFinishing())
             Log.d(LOG, "System is low on space");
+        Log.d(LOG, "Main page just got destroyed");
         return super.onDestroy();
     }
 }
