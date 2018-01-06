@@ -9,7 +9,7 @@
     </style>
 
     <style name="AppTheme" parent="AppThemeBase">
-
+        <item name="android:actionMenuTextColor">@color/white</item>
     </style>
 
     <style name="AppMenuStyle.Light">
@@ -31,6 +31,9 @@
 
     <style name="AppTextStyle">
 
+    </style>
+    <style name="ToolbarStyle">
+        <item name="popupTheme">@style/CommonPopupTheme.Dark</item>
     </style>
 
 </resources>

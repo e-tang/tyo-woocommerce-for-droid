@@ -176,6 +176,7 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
         stockInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hidePageOverlay();
                 getController().getUi().gotoProductStockInPage(listItem.getProduct());
             }
         });

@@ -24,6 +24,7 @@
     },
     "type": "int",
     "visible": true,
-    "display_order": 2
+    "display_order": 2,
+    "widget": "TitledEditTextFactory"
   }
 }
