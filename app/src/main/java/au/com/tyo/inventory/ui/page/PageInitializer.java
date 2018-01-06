@@ -20,6 +20,7 @@ import android.app.Activity;
 
 import au.com.tyo.app.ui.page.Page;
 import au.com.tyo.inventory.R;
+import au.com.tyo.json.android.pages.PageForm;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 19/12/17.
@@ -33,6 +34,11 @@ public class PageInitializer extends au.com.tyo.app.ui.page.PageInitializer {
 
         page.setToolbarColor(activity.getResources().getColor(R.color.toolbarColor));
         page.setTitleTextColor(activity.getResources().getColor(R.color.white));
+
+        if (page instanceof PageForm) {
+            PageForm pageForm = (PageForm) page;
+            pageForm.setExitAfterSaveAction(false);
+        }
     }
 
     @Override
