@@ -41,7 +41,7 @@ import au.com.tyo.inventory.ui.widget.ProductListItemFactory;
  * Created by Eric Tang (eric.tang@tyo.com.au) on 27/11/17.
  */
 
-public class PageMain extends PageCommonList<Controller> implements AdapterView.OnItemLongClickListener {
+public class PageMain extends PageCommonList<Controller> implements AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener {
 
     private static final String LOG = "PageMain";
 
@@ -126,6 +126,11 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
 
         adapter.setItems(productList);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public AdapterView.OnItemClickListener getOnItemClickListener() {
+        return this;
     }
 
     @Override

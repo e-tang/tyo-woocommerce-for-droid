@@ -59,4 +59,11 @@ public class ProductStockIn extends ProductFormBase {
         return AppData.getProductStockInMetaData();
     }
 
+    @Override
+    public void setValue(String key, String childKey, Object value) {
+        if (key.equals("newStock"))
+            newStock = Integer.parseInt(value.toString());
+        else
+            super.setValue(key, childKey, value);
+    }
 }

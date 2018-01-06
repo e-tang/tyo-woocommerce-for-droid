@@ -55,4 +55,9 @@ public abstract class ProductFormBase extends FormBase {
     public String getProductImageUrl() {
         return product.getImageUrl();
     }
+
+    @Override
+    public void setValue(String key, String childKey, Object value) {
+        product.put(key, value);
+    }
 }

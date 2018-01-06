@@ -20,8 +20,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 
-import java.util.Date;
-
 import au.com.tyo.inventory.Controller;
 import au.com.tyo.inventory.model.ProductStockIn;
 import au.com.tyo.json.android.pages.PageForm;
@@ -61,17 +59,12 @@ public class PageStockIn extends PageForm<Controller> {
 
     @Override
     protected void saveFormData(Object form) {
-
+        getController().getAppData().updateProductStock(productStockIn.getProduct(), productStockIn.getNewStock());
     }
 
     @Override
     public void onFormClick(Context context, String key, String text) {
 
-    }
-
-    @Override
-    public String formatDateTime(String key, Date date) {
-        return null;
     }
 
     @Override
