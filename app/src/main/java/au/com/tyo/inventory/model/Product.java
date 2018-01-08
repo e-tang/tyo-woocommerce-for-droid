@@ -57,4 +57,7 @@ public class Product extends DataJson {
         return getFloatString("regular_price");
     }
 
+    public String getPermalink() {
+        return (String) get("permalink");
+    }
 }

@@ -1,6 +1,7 @@
 package au.com.tyo.inventory.ui;
 
 import au.com.tyo.inventory.model.Product;
+import au.com.tyo.inventory.model.ProductBarcode;
 import au.com.tyo.inventory.model.ProductForm;
 
 /**
@@ -18,4 +19,6 @@ public interface UI extends au.com.tyo.app.ui.UI {
     void gotoProductStockInPage(Product product);
 
     void gotoBarcodeScannerPage();
+
+    void gotoBarcodeInfoPage(ProductBarcode productBarcode);
 }

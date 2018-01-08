@@ -83,6 +83,11 @@
             android:label="@string/stock_in"
             />
 
+        <activity android:name=".ui.activity.ActivityBarcode"
+            android:windowSoftInputMode="adjustPan"
+            android:label="@string/product_barcode"
+            />
+
     </application>
 
 </manifest>

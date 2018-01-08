@@ -61,4 +61,7 @@ public class ProductBarcode extends ProductParcel {
         return null;
     }
 
+    public static ProductBarcode toParcel(ProductParcel parcel, String url) {
+        return new ProductBarcode(parcel, url);
+    }
 }

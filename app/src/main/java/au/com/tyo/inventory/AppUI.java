@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import au.com.tyo.inventory.model.Product;
+import au.com.tyo.inventory.model.ProductBarcode;
 import au.com.tyo.inventory.model.ProductForm;
 import au.com.tyo.inventory.model.ProductStockInForm;
 import au.com.tyo.inventory.ui.UI;
@@ -54,5 +55,10 @@ public class AppUI extends JsonFormUI implements UI {
     @Override
     public void gotoBarcodeScannerPage() {
         gotoPage(ActivityScan.class);
+    }
+
+    @Override
+    public void gotoBarcodeInfoPage(ProductBarcode productBarcode) {
+
     }
 }

@@ -32,6 +32,7 @@ import au.com.tyo.common.ui.CardBox;
 import au.com.tyo.inventory.Controller;
 import au.com.tyo.inventory.R;
 import au.com.tyo.inventory.model.Product;
+import au.com.tyo.inventory.model.ProductBarcode;
 import au.com.tyo.inventory.model.ProductForm;
 import au.com.tyo.json.android.pages.PageForm;
 
@@ -107,7 +108,8 @@ public class PageProductDetails extends PageForm<Controller> {
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         if (item.getItemId() == R.id.menuItemBarcode) {
-            getController().getUi().gotoBarcodeInfoPage()
+            getController().getUi().gotoBarcodeInfoPage(ProductBarcode.toParcel(productForm,
+                    productForm.getProduct().getPermalink()));
         }
         return super.onMenuItemClick(item);
     }
