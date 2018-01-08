@@ -21,7 +21,7 @@ import android.content.Context;
 import android.view.View;
 
 import au.com.tyo.inventory.Controller;
-import au.com.tyo.inventory.model.ProductStockIn;
+import au.com.tyo.inventory.model.ProductStockInForm;
 import au.com.tyo.json.android.pages.PageForm;
 
 /**
@@ -30,7 +30,7 @@ import au.com.tyo.json.android.pages.PageForm;
 
 public class PageStockIn extends PageForm<Controller> {
 
-    private ProductStockIn productStockIn;
+    private ProductStockInForm productStockIn;
 
     /**
      * @param controller
@@ -49,7 +49,7 @@ public class PageStockIn extends PageForm<Controller> {
     public void onDataBound() {
         super.onDataBound();
 
-        productStockIn = (ProductStockIn) getForm();
+        productStockIn = (ProductStockInForm) getForm();
     }
 
     @Override
@@ -70,5 +70,20 @@ public class PageStockIn extends PageForm<Controller> {
     @Override
     public void onFieldClick(View v) {
 
+    }
+
+    @Override
+    protected void setFieldValue(String key, String childKey, Object value) {
+        if (key.equals("newStock"))
+            productStockIn.put(key, value);
+        else
+            super.setFieldValue(key, childKey, value);
+    }
+
+    @Override
+    protected void onPageBackgroundTaskFinished() {
+        super.onPageBackgroundTaskFinished();
+
+        getController().getUi().gotoProductDetailsPage(productStockIn.getProduct());
     }
 }

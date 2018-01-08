@@ -28,10 +28,10 @@ import au.com.tyo.inventory.AppData;
  * Created by Eric Tang (eric.tang@tyo.com.au) on 19/12/17.
  */
 
-public class ProductListItem extends ProductFormBase implements ListItem {
+public class ProductForm extends ProductFormBase implements ListItem {
 
-    public ProductListItem(Product product) {
-        super(product);
+    public ProductForm(ProductContainer productContainer, int productId) {
+        super(productContainer, productId);
     }
 
     @Override

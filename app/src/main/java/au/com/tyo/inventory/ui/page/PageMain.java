@@ -34,7 +34,7 @@ import au.com.tyo.app.ui.page.PageCommonList;
 import au.com.tyo.inventory.BuildConfig;
 import au.com.tyo.inventory.Controller;
 import au.com.tyo.inventory.R;
-import au.com.tyo.inventory.model.ProductListItem;
+import au.com.tyo.inventory.model.ProductForm;
 import au.com.tyo.inventory.ui.widget.ProductListItemFactory;
 
 /**
@@ -122,7 +122,7 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
     }
 
     private void showProductList() {
-        List<ProductListItem> productList = getController().getAppData().getProductList();
+        List<ProductForm> productList = getController().getAppData().getProductList();
 
         adapter.setItems(productList);
         adapter.notifyDataSetChanged();
@@ -135,9 +135,8 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ProductListItem item = (ProductListItem) adapter.get(position);
-        getController().setParcel(item);
-        getController().getUi().gotoProductDetailsPage();
+        ProductForm item = (ProductForm) adapter.get(position);
+        getController().getUi().gotoProductDetailsPage(item);
     }
 
     @Override
@@ -174,7 +173,7 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        final ProductListItem listItem = (ProductListItem) adapter.get(position);
+        final ProductForm listItem = (ProductForm) adapter.get(position);
 
         showPageOverlay();
 

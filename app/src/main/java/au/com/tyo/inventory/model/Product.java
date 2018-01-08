@@ -25,7 +25,9 @@ import java.util.List;
  * Created by Eric Tang (eric.tang@tyo.com.au) on 13/12/17.
  */
 
-public class Product extends GenericJson  {
+public class Product extends GenericJson {
+
+    private int index;
 
     private String imageUrl;
 
@@ -60,4 +62,11 @@ public class Product extends GenericJson  {
         return getInt("stock_quantity");
     }
 
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
 }

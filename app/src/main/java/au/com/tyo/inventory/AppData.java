@@ -24,13 +24,16 @@ import com.google.gson.reflect.TypeToken;
 import java.io.File;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import au.com.tyo.android.CommonCache;
 import au.com.tyo.app.CommonAppData;
 import au.com.tyo.inventory.model.Product;
+import au.com.tyo.inventory.model.ProductContainer;
+import au.com.tyo.inventory.model.ProductForm;
 import au.com.tyo.inventory.model.ProductFormMetaData;
-import au.com.tyo.inventory.model.ProductListItem;
 import au.com.tyo.inventory.model.ProductStockInMetaData;
 import au.com.tyo.io.IO;
 import au.com.tyo.io.WildcardFileStack;
@@ -41,7 +44,7 @@ import au.com.tyo.woocommerce.WooCommerceJson;
  * Created by Eric Tang (eric.tang@tyo.com.au) on 13/12/17.
  */
 
-public class AppData extends CommonAppData {
+public class AppData extends CommonAppData implements ProductContainer {
 
     private static final String TAG = "AppData";
 
@@ -68,7 +71,7 @@ public class AppData extends CommonAppData {
     /**
      * Product list for listview
      */
-    private List<ProductListItem> productListItems;
+    private Map<Integer, Product> productMap;
 
     private static ProductFormMetaData productFormMetaData;
 
@@ -84,11 +87,15 @@ public class AppData extends CommonAppData {
         this.api = new WooCommerceApi(context);
         this.parser = new WooCommerceJson();
 
+        productMap = new HashMap<>();
+
         setCacheManager(new CommonCache(context, "products"));
     }
 
-    public List<ProductListItem> getProductList() {
-        return productListItems;
+    public List<ProductForm> getProductList() {
+        if (null == products || products.size() == 0)
+            return null;
+        return createProductList();
     }
 
     public WooCommerceApi getApi() {
@@ -135,11 +142,22 @@ public class AppData extends CommonAppData {
             }
         }
 
-        Log.d(TAG, "productListItems loaded: total " + products.size());
+        for (int i = 0; i < products.size(); ++i) {
+            Product product = products.get(i);
+            product.setIndex(i);
 
+            productMap.put(product.getId(), product);
+        }
+
+        Log.d(TAG, "productListItems loaded: total " + products.size());
+    }
+
+    public List<ProductForm> createProductList() {
+        List<ProductForm> productListItems;
         productListItems = new ArrayList<>();
         for (Product product : products)
-            productListItems.add(new ProductListItem(product));
+            productListItems.add(new ProductForm(this, product.getId()));
+        return productListItems;
     }
 
     public void load() {
@@ -177,7 +195,7 @@ public class AppData extends CommonAppData {
         return null;
     }
 
-    public Product updateProductStock(Product product, int stock) {
+    public void updateProductStock(Product product, int stock) {
         int oldStock = product.getStock();
         if (oldStock < 0)
             oldStock = 0;
@@ -191,7 +209,19 @@ public class AppData extends CommonAppData {
         catch (Exception ex) {
             newProductPtr = product;
         }
-        return newProductPtr;
+
+        updateProduct(newProductPtr);
     }
+
+    private void updateProduct(Product newProductPtr) {
+        if (null != newProductPtr)
+            productMap.put(newProductPtr.getId(), newProductPtr);
+    }
+
+    @Override
+    public Product getProduct(int id) {
+        return productMap.get(id);
+    }
+
 
 }

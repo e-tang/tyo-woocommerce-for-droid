@@ -26,25 +26,24 @@ import au.com.tyo.json.android.utils.FormBase;
 
 public abstract class ProductFormBase extends FormBase {
 
-    private Product product;
+    private int productId;
 
-    public ProductFormBase(Product product) {
-        this.product = product;
+    private ProductContainer product;
+
+    public ProductFormBase(ProductContainer productContainer, int productId) {
+        this.product = productContainer;
+        this.productId = productId;
     }
 
     public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
+        return product.getProduct(productId);
     }
 
     @Override
     public Object getValue(String key) {
         if (key.equals("images"))
             return getProductImageUrl();
-        return product.get(key);
+        return getProduct().get(key);
     }
 
     @Override
@@ -53,11 +52,11 @@ public abstract class ProductFormBase extends FormBase {
     }
 
     public String getProductImageUrl() {
-        return product.getImageUrl();
+        return getProduct().getImageUrl();
     }
 
     @Override
-    public void setValue(String key, String childKey, Object value) {
-        product.put(key, value);
+    public void put(String key, Object value) {
+        getProduct().put(key, value);
     }
 }

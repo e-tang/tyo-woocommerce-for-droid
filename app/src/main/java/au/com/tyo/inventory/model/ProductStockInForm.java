@@ -24,7 +24,7 @@ import au.com.tyo.inventory.AppData;
  * Created by Eric Tang (eric.tang@tyo.com.au) on 2/1/18.
  */
 
-public class ProductStockIn extends ProductFormBase {
+public class ProductStockInForm extends ProductFormBase {
 
 //    public ProductStockIn() {
 //        put("name", null);
@@ -41,12 +41,16 @@ public class ProductStockIn extends ProductFormBase {
 //    @Key
     public int newStock;
 
-    public ProductStockIn(Product product) {
-        super(product);
+    public ProductStockInForm(ProductContainer productContainer, int productId) {
+        super(productContainer, productId);
     }
 
     public int getNewStock() {
         return newStock;
+    }
+
+    public void setNewStock(int newStock) {
+        this.newStock = newStock;
     }
 
     //
@@ -60,10 +64,10 @@ public class ProductStockIn extends ProductFormBase {
     }
 
     @Override
-    public void setValue(String key, String childKey, Object value) {
+    public void put(String key, Object value) {
         if (key.equals("newStock"))
-            newStock = Integer.parseInt(value.toString());
+            setNewStock(Integer.parseInt(value.toString()));
         else
-            super.setValue(key, childKey, value);
+            super.put(key, value);
     }
 }

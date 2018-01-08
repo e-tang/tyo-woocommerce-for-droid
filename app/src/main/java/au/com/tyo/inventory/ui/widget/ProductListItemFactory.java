@@ -24,7 +24,7 @@ import au.com.tyo.android.adapter.InflaterFactory;
 import au.com.tyo.android.adapter.ListItemFactory;
 import au.com.tyo.common.ui.CardBox;
 import au.com.tyo.inventory.R;
-import au.com.tyo.inventory.model.ProductListItem;
+import au.com.tyo.inventory.model.ProductForm;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 20/12/17.
@@ -60,7 +60,7 @@ public class ProductListItemFactory extends ListItemFactory {
         findImageBox((ViewHolder) holder);
 
         if (null != viewHolder.imageBox) {
-            ProductListItem item = (ProductListItem) obj;
+            ProductForm item = (ProductForm) obj;
 
             viewHolder.imageBox.addPreviewItem(item.getProductImageUrl());
         }
