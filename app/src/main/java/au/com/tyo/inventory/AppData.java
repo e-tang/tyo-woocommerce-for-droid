@@ -35,7 +35,6 @@ import au.com.tyo.inventory.model.ProductContainer;
 import au.com.tyo.inventory.model.ProductForm;
 import au.com.tyo.inventory.model.ProductFormMetaData;
 import au.com.tyo.inventory.model.ProductStockInMetaData;
-import au.com.tyo.io.IO;
 import au.com.tyo.io.WildcardFileStack;
 import au.com.tyo.woocommerce.WooCommerceApi;
 import au.com.tyo.woocommerce.WooCommerceJson;
@@ -117,10 +116,11 @@ public class AppData extends CommonAppData implements ProductContainer {
             products = new ArrayList();
             File file = fileStack.next();
             while (null != file) {
-                String productJson = new String(IO.readFileIntoBytes(file));
                 try {
+                    String productJson = getCacheManager().readText(file);
                     Product product = WooCommerceJson.getGson().fromJson(productJson, productType);
                     products.add(product);
+                    file = fileStack.next();
                 }
                 catch (Exception ex) {
                     // if any errors we clear the cache
@@ -137,8 +137,12 @@ public class AppData extends CommonAppData implements ProductContainer {
 
             for (int i = 0; i < products.size(); ++i) {
                 Product product = products.get(i);
-                String productJson = product.toString();
-                writeCacheFile("" + product.getId() + ".json", productJson);
+                String productJson = WooCommerceJson.getGson().toJson(product);
+                try {
+                    getCacheManager().writeText("" + product.getId() + ".json", productJson);
+                } catch (Exception e) {
+                    Log.e(TAG, au.com.tyo.utils.StringUtils.exceptionStackTraceToString(e));
+                }
             }
         }
 

@@ -19,6 +19,7 @@ package au.com.tyo.inventory.ui.widget;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import au.com.tyo.android.adapter.InflaterFactory;
 import au.com.tyo.android.adapter.ListItemFactory;
@@ -41,7 +42,7 @@ public class ProductListItemFactory extends ListItemFactory {
         ViewHolder holder = (ViewHolder) super.createViewHolder(convertView, parent);
 
         findImageBox(holder);
-
+        holder.tvStock = holder.view.findViewById(R.id.text3);
         return holder;
     }
 
@@ -63,6 +64,7 @@ public class ProductListItemFactory extends ListItemFactory {
             ProductForm item = (ProductForm) obj;
 
             viewHolder.imageBox.addPreviewItem(item.getProductImageUrl());
+            viewHolder.tvStock.setText(item.getStockString());
         }
     }
 
@@ -72,5 +74,6 @@ public class ProductListItemFactory extends ListItemFactory {
 
     public static class ViewHolder extends InflaterFactory.ViewHolder {
         public CardBox imageBox;
+        public TextView tvStock;
     }
 }

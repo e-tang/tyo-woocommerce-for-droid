@@ -16,18 +16,17 @@
 
 package au.com.tyo.inventory.model;
 
-import com.google.api.client.json.GenericJson;
 import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.List;
+
+import au.com.tyo.json.DataJson;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 13/12/17.
  */
 
-public class Product extends GenericJson {
-
-    private int index;
+public class Product extends DataJson {
 
     private String imageUrl;
 
@@ -50,23 +49,12 @@ public class Product extends GenericJson {
         return getInt("sku");
     }
 
-    private int getInt(String key) {
-        try {
-            return Integer.parseInt((String) get(key));
-        }
-        catch (Exception ex) {}
-        return -1;
-    }
-
     public int getStock() {
-        return getInt("stock_quantity");
+        return (int) getDouble("stock_quantity");
     }
 
-    public int getIndex() {
-        return index;
+    public float getPrice() {
+        return getFloatString("regular_price");
     }
 
-    public void setIndex(int index) {
-        this.index = index;
-    }
 }

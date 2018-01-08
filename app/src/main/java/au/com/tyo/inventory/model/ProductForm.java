@@ -21,14 +21,13 @@ import android.view.View;
 
 import java.util.Map;
 
-import au.com.tyo.android.adapter.ListItem;
 import au.com.tyo.inventory.AppData;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 19/12/17.
  */
 
-public class ProductForm extends ProductFormBase implements ListItem {
+public class ProductForm extends ProductFormBase implements ProductItem {
 
     public ProductForm(ProductContainer productContainer, int productId) {
         super(productContainer, productId);
@@ -71,7 +70,7 @@ public class ProductForm extends ProductFormBase implements ListItem {
 
     @Override
     public CharSequence getText2() {
-        return null;
+        return getPriceString();
     }
 
     @Override
@@ -79,4 +78,13 @@ public class ProductForm extends ProductFormBase implements ListItem {
         return AppData.getProductFormMetaData();
     }
 
+    @Override
+    public String getPriceString() {
+        return String.valueOf(getProduct().getPrice());
+    }
+
+    @Override
+    public String getStockString() {
+        return String.valueOf(getProduct().getStock());
+    }
 }

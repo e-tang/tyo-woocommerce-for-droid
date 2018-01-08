@@ -28,6 +28,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import au.com.tyo.android.adapter.ListViewItemAdapter;
 import au.com.tyo.app.ui.page.PageCommonList;
@@ -41,7 +43,7 @@ import au.com.tyo.inventory.ui.widget.ProductListItemFactory;
  * Created by Eric Tang (eric.tang@tyo.com.au) on 27/11/17.
  */
 
-public class PageMain extends PageCommonList<Controller> implements AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener {
+public class PageMain extends PageCommonList<Controller> implements AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener, Observer {
 
     private static final String LOG = "PageMain";
 
@@ -58,6 +60,8 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
         // show it after the search functions are implemented
         // setToShowSearchView(true);
         setSubpage(false);
+
+        controller.getAppData().addObserver(this);
     }
 
     @Override
@@ -209,5 +213,10 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
             Log.d(LOG, "System is low on space");
         Log.d(LOG, "Main page just got destroyed");
         return super.onDestroy();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        adapter.notifyDataSetChanged();
     }
 }
