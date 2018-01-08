@@ -24,7 +24,7 @@ import au.com.tyo.inventory.AppData;
  * Created by Eric Tang (eric.tang@tyo.com.au) on 2/1/18.
  */
 
-public class ProductStockInForm extends ProductFormBase {
+public class ProductStockInForm extends ProductParcel {
 
 //    public ProductStockIn() {
 //        put("name", null);

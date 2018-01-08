@@ -45,8 +45,8 @@ public class Product extends DataJson {
         return (int) getDouble("id");
     }
 
-    public int getSku() {
-        return getInt("sku");
+    public String getSku() {
+        return (String) get("sku");
     }
 
     public int getStock() {

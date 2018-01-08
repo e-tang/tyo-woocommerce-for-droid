@@ -128,6 +128,8 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
     private void showProductList() {
         List<ProductForm> productList = getController().getAppData().getProductList();
 
+        adapter.clear();
+
         adapter.setItems(productList);
         adapter.notifyDataSetChanged();
     }

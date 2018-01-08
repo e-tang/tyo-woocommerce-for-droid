@@ -28,48 +28,37 @@ import android.net.Uri;
  * link?code=1:id:sku
  *
  */
-public class ProductBarcode {
+public class ProductBarcode extends ProductParcel {
 
     private static final String VERSION = "1";
     private static final String SEPARATOR = "|";
 
-    private int id;
-
-    private int sku;
-
     private String url;
 
-    public ProductBarcode(int id, int sku, String url) {
-        this.id = id;
-        this.sku = sku;
+    public ProductBarcode(ProductParcel parcel, String url) {
+        super(parcel);
         this.url = url;
     }
 
     public String createBarcodeText() {
-        return url + "?code=" + VERSION + SEPARATOR + id + SEPARATOR + sku;
+        return url + "?code=" + VERSION + SEPARATOR + getProductId() + SEPARATOR + getProduct().getSku();
     }
 
-    public static ProductBarcode parse(String text) {
+    /**
+     *
+     * @param text
+     * @return
+     */
+    public static String[] parse(String text) {
         try {
             Uri uri = Uri.parse(text);
             String barcode = uri.getQueryParameter("code");
             String[] tokens = barcode.split(SEPARATOR);
             String url = uri.getPath();
-            return new ProductBarcode(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1]), url);
+            return new String[] {VERSION, tokens[0], tokens[1], url};
         }
         catch (Exception e) {}
         return null;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public int getSku() {
-        return sku;
-    }
-
-    public void setSku(int sku) {
-        this.sku = sku;
-    }
 }

@@ -27,7 +27,7 @@ import au.com.tyo.inventory.AppData;
  * Created by Eric Tang (eric.tang@tyo.com.au) on 19/12/17.
  */
 
-public class ProductForm extends ProductFormBase implements ProductItem {
+public class ProductForm extends ProductParcel implements ProductItem {
 
     public ProductForm(ProductContainer productContainer, int productId) {
         super(productContainer, productId);

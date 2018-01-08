@@ -18,6 +18,9 @@ package au.com.tyo.inventory.ui.page;
 
 import android.app.Activity;
 import android.content.Context;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 
@@ -27,6 +30,9 @@ import au.com.tyo.android.utils.SimpleDateUtils;
 import au.com.tyo.app.ui.page.PageWebView;
 import au.com.tyo.common.ui.CardBox;
 import au.com.tyo.inventory.Controller;
+import au.com.tyo.inventory.R;
+import au.com.tyo.inventory.model.Product;
+import au.com.tyo.inventory.model.ProductForm;
 import au.com.tyo.json.android.pages.PageForm;
 
 /**
@@ -34,6 +40,8 @@ import au.com.tyo.json.android.pages.PageForm;
  */
 
 public class PageProductDetails extends PageForm<Controller> {
+
+    private ProductForm productForm;
 
     /**
      * @param controller
@@ -43,6 +51,12 @@ public class PageProductDetails extends PageForm<Controller> {
         super(controller, activity);
 
         setSubpage(true);
+    }
+
+    @Override
+    public void onDataBound() {
+        super.onDataBound();
+        productForm = (ProductForm) getForm();
     }
 
     @Override
@@ -58,6 +72,11 @@ public class PageProductDetails extends PageForm<Controller> {
     @Override
     public void onFormClick(Context context, String key, String text) {
 
+    }
+    @Override
+    protected void createMenu(MenuInflater menuInflater, Menu menu) {
+        super.createMenu(menuInflater, menu);
+        menuInflater.inflate(R.menu.barcode_only, menu);
     }
 
     @Override
@@ -83,5 +102,13 @@ public class PageProductDetails extends PageForm<Controller> {
                     }
                 });
         }
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        if (item.getItemId() == R.id.menuItemBarcode) {
+            getController().getUi().gotoBarcodeInfoPage()
+        }
+        return super.onMenuItemClick(item);
     }
 }

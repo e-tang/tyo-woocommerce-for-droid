@@ -24,19 +24,23 @@ import au.com.tyo.json.android.utils.FormBase;
  * Created by Eric Tang (eric.tang@tyo.com.au) on 2/1/18.
  */
 
-public abstract class ProductFormBase extends FormBase {
+public class ProductParcel extends FormBase {
 
     private int productId;
 
-    private ProductContainer product;
+    private ProductContainer productContainer;
 
-    public ProductFormBase(ProductContainer productContainer, int productId) {
-        this.product = productContainer;
+    public ProductParcel(ProductContainer productContainer, int productId) {
+        this.productContainer = productContainer;
         this.productId = productId;
     }
 
+    public ProductParcel(ProductParcel parcel) {
+        this(parcel.getProductContainer(), parcel.getProductId());
+    }
+
     public Product getProduct() {
-        return product.getProduct(productId);
+        return productContainer.getProduct(productId);
     }
 
     @Override
@@ -58,5 +62,26 @@ public abstract class ProductFormBase extends FormBase {
     @Override
     public void put(String key, Object value) {
         getProduct().put(key, value);
+    }
+
+    public ProductParcel toParcel() {
+        return new ProductParcel(this);
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public ProductContainer getProductContainer() {
+        return productContainer;
+    }
+
+    @Override
+    public Map getFormMetaDataMap() {
+        return null;
+    }
+
+    public String getProductSku() {
+        return getProduct().getSku();
     }
 }
