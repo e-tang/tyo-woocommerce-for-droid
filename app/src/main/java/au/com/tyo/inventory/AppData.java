@@ -137,12 +137,7 @@ public class AppData extends CommonAppData implements ProductContainer {
 
             for (int i = 0; i < products.size(); ++i) {
                 Product product = products.get(i);
-                String productJson = WooCommerceJson.getGson().toJson(product);
-                try {
-                    getCacheManager().writeText("" + product.getId() + ".json", productJson);
-                } catch (Exception e) {
-                    Log.e(TAG, au.com.tyo.utils.StringUtils.exceptionStackTraceToString(e));
-                }
+                saveProductCache(product);
             }
         }
 
@@ -154,6 +149,15 @@ public class AppData extends CommonAppData implements ProductContainer {
         }
 
         Log.d(TAG, "productListItems loaded: total " + products.size());
+    }
+
+    private void saveProductCache(Product product) {
+        String productJson = WooCommerceJson.getGson().toJson(product);
+        try {
+            getCacheManager().writeText("" + product.getId() + ".json", productJson);
+        } catch (Exception e) {
+            Log.e(TAG, au.com.tyo.utils.StringUtils.exceptionStackTraceToString(e));
+        }
     }
 
     public List<ProductForm> createProductList() {
@@ -214,12 +218,16 @@ public class AppData extends CommonAppData implements ProductContainer {
             newProductPtr = product;
         }
 
-        updateProduct(newProductPtr);
+        if (null != newProductPtr && newProductPtr.getStock() != product.getStock()) {
+            updateProduct(newProductPtr);
+        }
     }
 
     private void updateProduct(Product newProductPtr) {
-        if (null != newProductPtr)
+        if (null != newProductPtr) {
             productMap.put(newProductPtr.getId(), newProductPtr);
+            saveProductCache(newProductPtr);
+        }
     }
 
     @Override

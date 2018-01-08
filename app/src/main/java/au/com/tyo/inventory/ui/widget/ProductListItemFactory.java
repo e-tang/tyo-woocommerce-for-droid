@@ -42,7 +42,8 @@ public class ProductListItemFactory extends ListItemFactory {
         ViewHolder holder = (ViewHolder) super.createViewHolder(convertView, parent);
 
         findImageBox(holder);
-        holder.tvStock = holder.view.findViewById(R.id.text3);
+        holder.tvStock = holder.view.findViewById(R.id.tv_stock);
+        holder.tvPrice = holder.view.findViewById(R.id.tv_price);
         return holder;
     }
 
@@ -65,6 +66,7 @@ public class ProductListItemFactory extends ListItemFactory {
 
             viewHolder.imageBox.addPreviewItem(item.getProductImageUrl());
             viewHolder.tvStock.setText(item.getStockString());
+            viewHolder.tvPrice.setText(item.getPriceString());
         }
     }
 
@@ -75,5 +77,6 @@ public class ProductListItemFactory extends ListItemFactory {
     public static class ViewHolder extends InflaterFactory.ViewHolder {
         public CardBox imageBox;
         public TextView tvStock;
+        public TextView tvPrice;
     }
 }

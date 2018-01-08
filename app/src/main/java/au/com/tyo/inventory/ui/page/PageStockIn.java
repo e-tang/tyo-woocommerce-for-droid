@@ -84,6 +84,8 @@ public class PageStockIn extends PageForm<Controller> {
     protected void onPageBackgroundTaskFinished() {
         super.onPageBackgroundTaskFinished();
 
+        getController().getAppData().notifyDataCacheObservers();
+
         getController().getUi().gotoProductDetailsPage(productStockIn.getProduct());
     }
 }

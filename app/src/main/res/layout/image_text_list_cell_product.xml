@@ -114,7 +114,7 @@
 								/>
 
 							<TextView
-								android:id="@+id/text2"
+								android:id="@+id/tv_price"
 								android:layout_width="0dp"
 								android:layout_height="wrap_content"
 								android:lines="1"
@@ -142,7 +142,7 @@
 								/>
 
 							<TextView
-								android:id="@+id/text3"
+								android:id="@+id/tv_stock"
 								android:layout_width="0dp"
 								android:layout_height="wrap_content"
 								android:lines="1"

@@ -42,7 +42,7 @@ public class Product extends DataJson {
     }
 
     public int getId() {
-        return getInt("id");
+        return (int) getDouble("id");
     }
 
     public int getSku() {
@@ -50,7 +50,7 @@ public class Product extends DataJson {
     }
 
     public int getStock() {
-        return (int) getDouble("stock_quantity");
+        return getInt("stock_quantity");
     }
 
     public float getPrice() {

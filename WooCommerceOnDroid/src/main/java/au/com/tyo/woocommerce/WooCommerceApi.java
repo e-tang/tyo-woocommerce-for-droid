@@ -54,19 +54,23 @@ public class WooCommerceApi extends CommonApiJson {
     }
 
     public String getProductsApiUrl() {
-        return getBaseUrl() + productsPath;
+        return getApiUrl(null);
+    }
+
+    public String getApiUrl(String path) {
+        return getBaseUrl() + productsPath + (null != path ? "/" + path : "") + (null != authorizationParameters ? "?" + authorizationParameters : "");
     }
 
     public String getProductsJsonString() {
         String json;
 
-        json = loadUrl(getProductsApiUrl() + "?" + authorizationParameters);
+        json = loadUrl(getProductsApiUrl());
 
         return json;
     }
 
     public String updateProductStock(int id, int stock) {
-        return post(getProductsApiUrl() + "/" + id, "{'stock_quantity': '" + stock + "'}");
+        return post(getApiUrl("" + id), "{\"stock_quantity\": " + stock + "}");
     }
 
     public void createCurlCommands() {
@@ -77,4 +81,26 @@ public class WooCommerceApi extends CommonApiJson {
         Log.d(TAG, "curl " + getProductsApiUrl() + " -u " + basicAuthorizationString);
         Log.d(TAG, "curl " + getProductsApiUrl() + "?" + authorizationParameters);
     }
+
+//    @Override
+//    protected String post(String url, String json) {
+//        InputStream inputStream = null;
+//        String result = null;
+//        try {
+//            HttpConnection http = new HttpJavaNet();
+//            inputStream = http.postJSON(url, json);
+//            result = HttpConnection.httpInputStreamToText(inputStream);
+//        }
+//        catch (Exception ex) {
+//            Log.e(TAG, StringUtils.exceptionStackTraceToString(ex));
+//            return "";
+//        }
+//        finally {
+//            if (null != inputStream)
+//                try {
+//                    inputStream.close();
+//                } catch (IOException e) { }
+//        }
+//        return result;
+//    }
 }
