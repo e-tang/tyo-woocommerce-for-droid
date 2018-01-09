@@ -118,12 +118,12 @@
         "type": "",
         "visible": false
     },
-    "stock": {
+    "stock_quantity": {
         "i18n": {
             "en": "Stock",
             "zh": ""
         },
-        "type": "",
+        "type": "int",
         "visible": true
     },
     "backorders": {
@@ -202,8 +202,8 @@
     },
     "images": {
         "i18n": {
-            "en": "Images",
-            "zh": ""
+            "en": "Image",
+            "zh": "图片"
         },
         "type": {
             "id": "int",
