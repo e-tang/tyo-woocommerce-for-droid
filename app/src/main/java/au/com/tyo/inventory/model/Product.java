@@ -60,4 +60,8 @@ public class Product extends DataJson {
     public String getPermalink() {
         return (String) get("permalink");
     }
+
+    public String getName() {
+        return (String) get("name");
+    }
 }

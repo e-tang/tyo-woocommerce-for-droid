@@ -31,7 +31,6 @@ import au.com.tyo.app.ui.page.PageWebView;
 import au.com.tyo.common.ui.CardBox;
 import au.com.tyo.inventory.Controller;
 import au.com.tyo.inventory.R;
-import au.com.tyo.inventory.model.Product;
 import au.com.tyo.inventory.model.ProductBarcode;
 import au.com.tyo.inventory.model.ProductForm;
 import au.com.tyo.json.android.pages.PageForm;
@@ -81,6 +80,15 @@ public class PageProductDetails extends PageForm<Controller> {
     }
 
     @Override
+    protected boolean onMenuCreated(Menu menu) {
+        boolean ret = super.onMenuCreated(menu);
+
+        getActionBarMenu().setMenuItemVisible(R.id.menuItemOne, false);
+
+        return ret;
+    }
+
+    @Override
     public String formatDateTime(String key, Date date) {
         return SimpleDateUtils.toSlashDelimAussieDate(date);
     }
@@ -93,7 +101,7 @@ public class PageProductDetails extends PageForm<Controller> {
             if (null != imageUrl)
                 getController().getUi().viewHtmlPageFromAsset("html/center_image.html", "Product Image", null, new PageWebView.WebPageListener() {
                     @Override
-                    public void onPageFinishedLoading(WebView webView) {
+                    public void onPageFinishedLoading(WebView webView, String url) {
                         PageWebView.call(webView, "updateImage", new String[] {imageUrl.toString()}, null);
                     }
 
@@ -110,7 +118,12 @@ public class PageProductDetails extends PageForm<Controller> {
         if (item.getItemId() == R.id.menuItemBarcode) {
             getController().getUi().gotoBarcodeInfoPage(ProductBarcode.toParcel(productForm,
                     productForm.getProduct().getPermalink()));
+            return true;
         }
         return super.onMenuItemClick(item);
+    }
+
+    protected void setMenuItemEdit() {
+        // show no info
     }
 }

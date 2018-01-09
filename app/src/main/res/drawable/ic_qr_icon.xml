@@ -14,209 +14,212 @@
   ~  limitations under the License.
   -->
 
-<vector android:height="24dp" android:viewportHeight="329.71652"
-    android:viewportWidth="349.31235" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+<vector android:height="24dp" 
+    android:viewportHeight="329.71652"
+    android:viewportWidth="349.31235" 
+    android:width="24dp" 
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
         <clip-path android:pathData="m0,0l349.3,0l0,329.7l-349.3,0l0,-329.7z M 0,0"/>
-        <path android:fillAlpha="0.0" android:fillColor="#000000"
+        <path android:fillAlpha="0.0" android:fillColor="@color/toolbarIconColor"
             android:fillType="evenOdd"
             android:pathData="m0 0l349.31235 0l0 329.71652l-349.31235 0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m6,7.1l159.2,0l0,144.9l-159.2,0zM24.1,25.2l0,108.7l123,0l0,-108.7z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m6,7.1l159.2,0l0,144.9l-159.2,0zM24.1,25.2l0,108.7l123,0l0,-108.7z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m5.9960628 7.1154857l159.2126 0l0 144.94489l-159.2126 0zm18.11811 18.118109l0 108.708664l122.97637 0l0 -108.708664z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m5.9960628 7.1154857l159.2126 0l0 144.94489l-159.2126 0zm18.11811 18.118109l0 108.708664l122.97637 0l0 -108.708664z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m184.8,7.1l159.2,0l0,144.9l-159.2,0zM202.9,25.2l0,108.7l123,0l0,-108.7z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m184.8,7.1l159.2,0l0,144.9l-159.2,0zM202.9,25.2l0,108.7l123,0l0,-108.7z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m184.77034 7.1154857l159.2126 0l0 144.94489l-159.2126 0zm18.118118 18.118109l0 108.708664l122.97638 0l0 -108.708664z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m184.77034 7.1154857l159.2126 0l0 144.94489l-159.2126 0zm18.118118 18.118109l0 108.708664l122.97638 0l0 -108.708664z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m6,174.6l159.2,0l0,144.9l-159.2,0zM24.1,192.8l0,108.7l123,0l0,-108.7z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m6,174.6l159.2,0l0,144.9l-159.2,0zM24.1,192.8l0,108.7l123,0l0,-108.7z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m5.9960628 174.64305l159.2126 0l0 144.94487l-159.2126 0zm18.11811 18.118103l0 108.708664l122.97637 0l0 -108.708664z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m5.9960628 174.64305l159.2126 0l0 144.94487l-159.2126 0zm18.11811 18.118103l0 108.708664l122.97637 0l0 -108.708664z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m53.2,46.3l64.8,0l0,66.5l-64.8,0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m53.2,46.3l64.8,0l0,66.5l-64.8,0z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m53.20866 46.328083l64.7874 0l0 66.519684l-64.7874 0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m53.20866 46.328083l64.7874 0l0 66.519684l-64.7874 0z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m232,46.3l64.8,0l0,66.5l-64.8,0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m232,46.3l64.8,0l0,66.5l-64.8,0z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m231.98294 46.328083l64.787415 0l0 66.519684l-64.787415 0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m231.98294 46.328083l64.787415 0l0 66.519684l-64.787415 0z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m53.2,213.9l64.8,0l0,66.5l-64.8,0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m53.2,213.9l64.8,0l0,66.5l-64.8,0z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m53.20866 213.85564l64.7874 0l0 66.5197l-64.7874 0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m53.20866 213.85564l64.7874 0l0 66.5197l-64.7874 0z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m184.8,174.6l17.8,0l0,144.9l-17.8,0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m184.8,174.6l17.8,0l0,144.9l-17.8,0z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m184.77034 174.64305l17.826767 0l0 144.94487l-17.826767 0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m184.77034 174.64305l17.826767 0l0 144.94487l-17.826767 0z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m202.6,174.6l64.8,0l0,19.6l-64.8,0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m202.6,174.6l64.8,0l0,19.6l-64.8,0z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m202.5971 174.64305l64.787415 0l0 19.590546l-64.787415 0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m202.5971 174.64305l64.787415 0l0 19.590546l-64.787415 0z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m283.5,302.5l57.9,0l0,17.1l-57.9,0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m283.5,302.5l57.9,0l0,17.1l-57.9,0z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m283.45407 302.5118l57.921265 0l0 17.070862l-57.921265 0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m283.45407 302.5118l57.921265 0l0 17.070862l-57.921265 0z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m323.5,174.6l17.8,0l0,101l-17.8,0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m323.5,174.6l17.8,0l0,101l-17.8,0z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m323.5433 174.64305l17.826782 0l0 100.976364l-17.826782 0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m323.5433 174.64305l17.826782 0l0 100.976364l-17.826782 0z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m216.3,209.3l17.8,0l0,17.1l-17.8,0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m216.3,209.3l17.8,0l0,17.1l-17.8,0z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m216.28609 209.3307l17.826767 0l0 17.070877l-17.826767 0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m216.28609 209.3307l17.826767 0l0 17.070877l-17.826767 0z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m282,258.5l17.8,0l0,17.1l-17.8,0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m282,258.5l17.8,0l0,17.1l-17.8,0z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m281.958 258.54593l17.826782 0l0 17.070862l-17.826782 0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m281.958 258.54593l17.826782 0l0 17.070862l-17.826782 0z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m234.1,302.5l17.8,0l0,17.1l-17.8,0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m234.1,302.5l17.8,0l0,17.1l-17.8,0z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m234.11285 302.51706l17.826782 0l0 17.070862l-17.826782 0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m234.11285 302.51706l17.826782 0l0 17.070862l-17.826782 0z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m245.3,239.8l17.8,0l0,17.1l-17.8,0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m245.3,239.8l17.8,0l0,17.1l-17.8,0z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
-        <path android:fillColor="#000000" android:fillType="evenOdd"
+        <path android:fillColor="@color/toolbarIconColor" android:fillType="evenOdd"
             android:pathData="m245.26772 239.83989l17.826767 0l0 17.070877l-17.826767 0z"
-            android:strokeColor="#00000000" android:strokeLineCap="square"/>
-        <path android:fillColor="#00000000" android:fillType="evenOdd"
+            android:strokeColor="@color/toolbarIconColorAlpha" android:strokeLineCap="square"/>
+        <path android:fillColor="@color/toolbarIconColorAlpha" android:fillType="evenOdd"
             android:pathData="m245.26772 239.83989l17.826767 0l0 17.070877l-17.826767 0z"
-            android:strokeColor="#000000" android:strokeLineCap="butt"
+            android:strokeColor="@color/toolbarIconColor" android:strokeLineCap="butt"
             android:strokeLineJoin="round" android:strokeWidth="1.0"/>
     </group>
 </vector>

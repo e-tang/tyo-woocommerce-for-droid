@@ -28,4 +28,5 @@
     <dimen name="actions_padding_left">24dp</dimen>
     <dimen name="actions_padding_right">24dp</dimen>
     <dimen name="actions_padding_bottom">12dp</dimen>
+    <dimen name="page_barcode_padding">32dp</dimen>
 </resources>

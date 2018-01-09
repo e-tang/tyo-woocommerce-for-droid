@@ -12,28 +12,43 @@
         <item name="android:actionMenuTextColor">@color/white</item>
     </style>
 
-    <style name="AppMenuStyle.Light">
+    <style name="AppStyle.Menu.Light">
         <item name="android:tint">@color/white</item>
     </style>
 
-    <style name="AppMenuStyle.Dark">
+    <style name="AppStyle.Menu.Dark">
         <item name="android:tint">@color/black</item>
     </style>
 
-    <style name="AppTextStyle.ListItem.Title">
+    <style name="AppStyle.Text.ListItem.Title">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">18sp</item>
     </style>
 
-    <style name="AppTextStyle.ListItem">
-
-    </style>
-
-    <style name="AppTextStyle">
-
-    </style>
     <style name="ToolbarStyle">
         <item name="popupTheme">@style/CommonPopupTheme.Dark</item>
     </style>
+
+    <style name="AppStyle">
+
+    </style>
+
+    <style name="AppStyle.Menu"></style>
+
+    <style name="AppStyle.Text"></style>
+
+    <style name="AppStyle.Text.ListItem"></style>
+
+    <style name="AppStyle.Button">
+        <item name="android:background">@drawable/card_bg_sun_selectable</item>
+    </style>
+
+    <style name="AppStyle.Product.Info.Text">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+    <style name="AppStyle.Product.Info"></style>
+
+    <style name="AppStyle.Product"></style>
 
 </resources>

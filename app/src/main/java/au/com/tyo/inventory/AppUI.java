@@ -1,5 +1,8 @@
 package au.com.tyo.inventory;
 
+import android.content.Context;
+import android.net.Uri;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,11 +11,13 @@ import au.com.tyo.inventory.model.ProductBarcode;
 import au.com.tyo.inventory.model.ProductForm;
 import au.com.tyo.inventory.model.ProductStockInForm;
 import au.com.tyo.inventory.ui.UI;
+import au.com.tyo.inventory.ui.activity.ActivityBarcode;
 import au.com.tyo.inventory.ui.activity.ActivityLogin;
 import au.com.tyo.inventory.ui.activity.ActivityProductDetails;
 import au.com.tyo.inventory.ui.activity.ActivityScan;
 import au.com.tyo.inventory.ui.activity.ActivityStockIn;
 import au.com.tyo.json.android.JsonFormUI;
+import au.com.tyo.services.android.google.activity.CloudPrintDialog;
 
 import static au.com.tyo.app.Constants.DATA;
 
@@ -59,6 +64,12 @@ public class AppUI extends JsonFormUI implements UI {
 
     @Override
     public void gotoBarcodeInfoPage(ProductBarcode productBarcode) {
+        gotoPageWithData(ActivityBarcode.class, productBarcode);
+    }
 
+    @Override
+    public void openCloudPrintDialog(Uri docUri, String docMimeType, String title) {
+        Context context = getCurrentPage().getActivity();
+        CloudPrintDialog.printDocument(context, docUri, docMimeType, title);
     }
 }

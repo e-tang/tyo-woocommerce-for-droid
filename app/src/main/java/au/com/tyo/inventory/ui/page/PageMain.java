@@ -149,8 +149,8 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
     protected void createMenu(MenuInflater menuInflater, Menu menu) {
         super.createMenu(menuInflater, menu);
 
-        menuInflater.inflate(R.menu.reload_only, menu);
         menuInflater.inflate(R.menu.scan_only, menu);
+        menuInflater.inflate(R.menu.reload_only, menu);
     }
 
     @Override

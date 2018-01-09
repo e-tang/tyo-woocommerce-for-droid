@@ -17,12 +17,32 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/page_barcode_padding">
 
     <include layout="@layout/card_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:id="@+id/barcode_box"
+        android:layout_centerInParent="true"
         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/barcode_box"
+        android:layout_marginTop="12dp">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_print_barcode"
+            android:layout_gravity="center_horizontal"
+            style="@style/AppStyle.Button"
+            android:text="@string/print_barcode"
+            />
+
+    </LinearLayout>
 
 </RelativeLayout>

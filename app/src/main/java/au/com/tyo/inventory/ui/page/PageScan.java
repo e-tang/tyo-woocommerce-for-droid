@@ -68,11 +68,13 @@ public class PageScan extends PageCommon implements ZXingScannerView.ResultHandl
         if (null == barcode)
             return;
 
-        ProductBarcode productBarcode = ProductBarcode.parse(barcode);
+        String[] tokens = ProductBarcode.parse(barcode);
 
-        Product product = getController().getAppData().lookupProductById(productBarcode.getId());
+        if (null != tokens && tokens.length > 1) {
+            Product product = getController().getAppData().lookupProductById(Integer.parseInt(tokens[1]));
 
-        setResult(product);
+            setResult(product);
+        }
     }
 
     @Override

@@ -80,6 +80,8 @@ public class AppData extends CommonAppData implements ProductContainer {
 
     private static ProductStockInMetaData productStockInMetaData;
 
+    private CommonCache barcodeImageCache;
+
     public AppData(Context context) {
         super(context);
 
@@ -89,6 +91,11 @@ public class AppData extends CommonAppData implements ProductContainer {
         productMap = new HashMap<>();
 
         setCacheManager(new CommonCache(context, "products"));
+        barcodeImageCache = new CommonCache(context, "barcode");
+    }
+
+    public CommonCache getBarcodeImageCache() {
+        return barcodeImageCache;
     }
 
     public List<ProductForm> getProductList() {

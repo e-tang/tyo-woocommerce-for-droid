@@ -23,4 +23,6 @@
     <string name="stock_in">Stock In</string>
     <string name="qr_code">QR Code</string>
     <string name="product_barcode">Product QR Code</string>
+    <string name="print_barcode">Print Barcode</string>
+    <string name="error_cache_barcode">Can\'t save the barcode image cache</string>
 </resources>

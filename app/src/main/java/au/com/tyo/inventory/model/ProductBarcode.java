@@ -20,7 +20,14 @@ package au.com.tyo.inventory.model;
  * Created by Eric Tang (eric.tang@tyo.com.au) on 29/12/17.
  */
 
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.util.Log;
+
+import com.google.zxing.WriterException;
+
+import au.com.tyo.inventory.utils.BarcodeUtils;
+import au.com.tyo.utils.StringUtils;
 
 /**
  * v1:
@@ -32,6 +39,8 @@ public class ProductBarcode extends ProductParcel {
 
     private static final String VERSION = "1";
     private static final String SEPARATOR = "|";
+
+    private static final String TAG = "ProductBarcode";
 
     private String url;
 
@@ -63,5 +72,16 @@ public class ProductBarcode extends ProductParcel {
 
     public static ProductBarcode toParcel(ProductParcel parcel, String url) {
         return new ProductBarcode(parcel, url);
+    }
+
+    public Bitmap getQrCodeBitmap() {
+        String text = createBarcodeText();
+        Bitmap bitmap = null;
+        try {
+            bitmap = BarcodeUtils.toQRCodeBitmap(text, 200, 200);
+        } catch (WriterException e) {
+            Log.e(TAG, StringUtils.exceptionStackTraceToString(e));
+        }
+        return bitmap;
     }
 }

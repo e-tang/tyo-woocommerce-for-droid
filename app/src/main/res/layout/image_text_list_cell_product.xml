@@ -84,7 +84,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="First Line"
-                        style="@style/AppTextStyle.ListItem.Title"
+                        style="@style/AppStyle.Text.ListItem.Title"
                         android:lines="1"
                         />
 
@@ -101,27 +101,25 @@
 							android:layout_width="0dp"
 							android:layout_height="wrap_content"
 							android:orientation="horizontal"
-							android:weightSum="2"
-                            android:layout_weight="1"
+							android:layout_weight="1"
 							>
 							<TextView
-								android:layout_width="0dp"
+								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:lines="1"
 								android:text="@string/price"
-                                android:layout_weight="1"
                                 android:gravity="left"
+								android:layout_marginRight="6dp"
 								/>
 
 							<TextView
 								android:id="@+id/tv_price"
-								android:layout_width="0dp"
+								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:lines="1"
 								android:ellipsize="end"
 								android:text="0.00"
-                                android:layout_weight="1"
-                                android:gravity="right"
+								style="@style/AppStyle.Product.Info.Text"
 								/>
 						</LinearLayout>
 
@@ -129,27 +127,25 @@
 							android:layout_width="0dp"
 							android:layout_height="wrap_content"
 							android:orientation="horizontal"
-							android:weightSum="2"
                             android:layout_weight="1"
 							>
 							<TextView
-								android:layout_width="0dp"
+								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:lines="1"
 								android:text="@string/stock"
-                                android:layout_weight="1"
                                 android:gravity="right"
+								android:layout_marginRight="6dp"
 								/>
 
 							<TextView
 								android:id="@+id/tv_stock"
-								android:layout_width="0dp"
+								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:lines="1"
 								android:ellipsize="end"
 								android:text="0"
-                                android:layout_weight="1"
-                                android:gravity="right"
+								style="@style/AppStyle.Product.Info.Text"
 								/>
 						</LinearLayout>
 					</LinearLayout>

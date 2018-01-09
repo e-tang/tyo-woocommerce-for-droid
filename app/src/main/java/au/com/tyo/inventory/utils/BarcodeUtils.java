@@ -36,8 +36,12 @@ public class BarcodeUtils {
     private static final int WHITE = 0xFFFFFFFF;
     private static final int BLACK = 0xFF000000;
 
-    Bitmap encodeAsBitmap(String contents, BarcodeFormat format, int img_width, int img_height) throws WriterException {
-        String contentsToEncode = contents;
+    public static Bitmap toQRCodeBitmap(String content, int imgWidth, int imgHeight) throws WriterException {
+        return encodeAsBitmap(content, BarcodeFormat.QR_CODE, imgWidth, imgHeight);
+    }
+
+    public static Bitmap encodeAsBitmap(String content, BarcodeFormat format, int imgWidth, int imgHeight) throws WriterException {
+        String contentsToEncode = content;
         if (contentsToEncode == null) {
             return null;
         }
@@ -50,7 +54,7 @@ public class BarcodeUtils {
         MultiFormatWriter writer = new MultiFormatWriter();
         BitMatrix result;
         try {
-            result = writer.encode(contentsToEncode, format, img_width, img_height, hints);
+            result = writer.encode(contentsToEncode, format, imgWidth, imgHeight, hints);
         } catch (IllegalArgumentException iae) {
             // Unsupported format
             return null;
