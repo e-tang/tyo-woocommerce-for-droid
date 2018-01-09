@@ -27,11 +27,13 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 
-import au.com.tyo.android.utils.BitmapUtils;
+import au.com.tyo.android.utils.PdfUtils;
+import au.com.tyo.android.utils.PrintHelper;
 import au.com.tyo.common.ui.CardBox;
 import au.com.tyo.inventory.Controller;
 import au.com.tyo.inventory.R;
 import au.com.tyo.inventory.model.ProductBarcode;
+import au.com.tyo.inventory.utils.LabelHelper;
 import au.com.tyo.utils.StringUtils;
 
 /**
@@ -60,7 +62,7 @@ public class PageBarcode extends PageCommon implements View.OnClickListener {
         super.bindData();
 
         productBarcode = (ProductBarcode) getController().getParcel();
-        qrCodeBitmap = productBarcode.getQrCodeBitmap();
+        qrCodeBitmap = productBarcode.getQrCodeBitmap(200/*PrintHelper.millimeterToPoint(LabelHelper.LABEL_SIZE_DYMO_30252[1]) - 4*/);
     }
 
     @Override
@@ -76,13 +78,16 @@ public class PageBarcode extends PageCommon implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
-        String pngFile = getController().getAppData().getBarcodeImageCache().getCacheFilePathName(productBarcode.getProductId() + ".png");
+        String pngFile = getController().getAppData().getBarcodeImageCache().getCacheFilePathName(productBarcode.getProductId() + ".pdf");
         File file = new File(pngFile);
         Uri uri;
+        double[] sa = LabelHelper.LABEL_SIZE_DYMO_30252;
+        int width = (int) PrintHelper.millimeterToPoint(sa[0]);
+        int height = (int) PrintHelper.millimeterToPoint(sa[1]);
         if (!file.exists() || file.length() == 0) {
             try {
-                BitmapUtils.toPNG(qrCodeBitmap, file);
+                PdfUtils.writeBitmapToOutputStream(qrCodeBitmap, width, height, 2, 2, 200, file);
+                // BitmapUtils.toPNG(qrCodeBitmap, file);
             } catch (IOException e) {
                 Log.e(TAG, StringUtils.exceptionStackTraceToString(e));
                 file = null;
@@ -90,7 +95,9 @@ public class PageBarcode extends PageCommon implements View.OnClickListener {
         }
         if (null != file) {
             uri = Uri.fromFile(file);
-            getController().getUi().openCloudPrintDialog(uri, "image/png", productBarcode.getProduct().getName());
+            int widthMills = PrintHelper.pointToMillis(width);
+            int heightMills = PrintHelper.pointToMillis(height);
+            getController().getUi().openCloudPrintDialog(uri, "application/pdf", productBarcode.getProduct().getName(), widthMills, heightMills);
         }
         else
             Toast.makeText(getActivity(), getResources().getString(R.string.error_cache_barcode), Toast.LENGTH_SHORT);

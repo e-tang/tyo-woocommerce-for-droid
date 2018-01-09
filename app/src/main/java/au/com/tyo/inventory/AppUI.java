@@ -68,8 +68,8 @@ public class AppUI extends JsonFormUI implements UI {
     }
 
     @Override
-    public void openCloudPrintDialog(Uri docUri, String docMimeType, String title) {
+    public void openCloudPrintDialog(Uri docUri, String docMimeType, String title, int widthMills, int heightMills) {
         Context context = getCurrentPage().getActivity();
-        CloudPrintDialog.printDocument(context, docUri, docMimeType, title);
+        CloudPrintDialog.printDocument(context, docUri, docMimeType, title, widthMills, heightMills);
     }
 }

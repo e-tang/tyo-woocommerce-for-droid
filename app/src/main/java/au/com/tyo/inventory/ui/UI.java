@@ -24,5 +24,5 @@ public interface UI extends au.com.tyo.app.ui.UI {
 
     void gotoBarcodeInfoPage(ProductBarcode productBarcode);
 
-    void openCloudPrintDialog(Uri docUri, String docMimeType, String title);
+    void openCloudPrintDialog(Uri docUri, String docMimeType, String title, int widthMills, int heightMills);
 }

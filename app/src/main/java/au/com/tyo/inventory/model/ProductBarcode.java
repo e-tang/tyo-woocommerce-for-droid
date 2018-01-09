@@ -74,14 +74,19 @@ public class ProductBarcode extends ProductParcel {
         return new ProductBarcode(parcel, url);
     }
 
-    public Bitmap getQrCodeBitmap() {
+    public Bitmap getQrCodeBitmap(int width, int height) {
         String text = createBarcodeText();
         Bitmap bitmap = null;
         try {
-            bitmap = BarcodeUtils.toQRCodeBitmap(text, 200, 200);
+            bitmap = BarcodeUtils.toQRCodeBitmap(text, width, height);
         } catch (WriterException e) {
             Log.e(TAG, StringUtils.exceptionStackTraceToString(e));
         }
         return bitmap;
+    }
+
+    public Bitmap getQrCodeBitmap(double v) {
+        int size = (int) v;
+        return getQrCodeBitmap(size, size);
     }
 }
