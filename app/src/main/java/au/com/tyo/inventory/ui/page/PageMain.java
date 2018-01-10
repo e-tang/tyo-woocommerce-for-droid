@@ -23,10 +23,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -45,7 +47,7 @@ import au.com.tyo.inventory.ui.widget.ProductListItemFactory;
 
 public class PageMain extends PageCommonList<Controller> implements AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener, Observer {
 
-    private static final String LOG = "PageMain";
+    private static final String TAG = "PageMain";
 
     private ListViewItemAdapter adapter;
     private Button stockInButton;
@@ -84,6 +86,18 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
     @Override
     public void onActivityStart() {
         super.onActivityStart();
+
+        try {
+            ViewConfiguration config = ViewConfiguration.get(getActivity());
+            Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
+            if (menuKeyField != null) {
+                menuKeyField.setAccessible(true);
+                menuKeyField.setBoolean(config, false);
+            }
+        } catch (Exception ex) {
+            // Ignore
+            Log.e(TAG, "setting menu");
+        }
 
         if (!getController().hasUserLoggedIn()) {
             getController().getUi().gotoLoginPage();
@@ -223,8 +237,8 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
     @Override
     public boolean onDestroy() {
         if (getActivity().isFinishing())
-            Log.d(LOG, "System is low on space");
-        Log.d(LOG, "Main page just got destroyed");
+            Log.d(TAG, "System is low on space");
+        Log.d(TAG, "Main page just got destroyed");
         return super.onDestroy();
     }
 
@@ -232,5 +246,6 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
     public void update(Observable o, Object arg) {
         adapter.notifyDataSetChanged();
     }
+
 
 }
