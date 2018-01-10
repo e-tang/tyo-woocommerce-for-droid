@@ -124,7 +124,8 @@
             "zh": ""
         },
         "type": "int",
-        "visible": true
+        "visible": true,
+        "orientation": "vertical"
     },
     "backorders": {
         "i18n": {

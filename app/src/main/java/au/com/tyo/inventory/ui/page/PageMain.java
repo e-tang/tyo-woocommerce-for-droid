@@ -146,11 +146,22 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
     }
 
     @Override
-    protected void createMenu(MenuInflater menuInflater, Menu menu) {
-        super.createMenu(menuInflater, menu);
+    public boolean onCreateOptionsMenu(MenuInflater menuInflater, Menu menu) {
+//        menuInflater.inflate(R.menu.scan_only, menu);
+//        menuInflater.inflate(R.menu.reload_only, menu);
+        getActivity().getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menuInflater, menu);
+    }
 
-        menuInflater.inflate(R.menu.scan_only, menu);
-        menuInflater.inflate(R.menu.reload_only, menu);
+    @Override
+    protected void createMenu(MenuInflater menuInflater, Menu menu) {
+        // super.createMenu(menuInflater, menu);
+    }
+
+    @Override
+    protected boolean onMenuCreated(Menu menu) {
+        super.onMenuCreated(menu);
+        return true;
     }
 
     @Override
@@ -221,4 +232,5 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
     public void update(Observable o, Object arg) {
         adapter.notifyDataSetChanged();
     }
+
 }

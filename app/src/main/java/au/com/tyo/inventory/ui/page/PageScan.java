@@ -16,12 +16,16 @@
 
 package au.com.tyo.inventory.ui.page;
 
+import android.Manifest;
 import android.app.Activity;
+import android.media.MediaPlayer;
 import android.widget.Toast;
 
 import com.google.zxing.Result;
 
+import au.com.tyo.android.CommonPermission;
 import au.com.tyo.inventory.Controller;
+import au.com.tyo.inventory.R;
 import au.com.tyo.inventory.model.Product;
 import au.com.tyo.inventory.model.ProductBarcode;
 import au.com.tyo.inventory.ui.fragment.ScannerFragment;
@@ -33,6 +37,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class PageScan extends PageCommon implements ZXingScannerView.ResultHandler {
 
+    private final MediaPlayer player;
     private String barcode;
 
     ScannerFragment scannerFragment;
@@ -43,6 +48,10 @@ public class PageScan extends PageCommon implements ZXingScannerView.ResultHandl
      */
     public PageScan(Controller controller, Activity activity) {
         super(controller, activity);
+
+        setRequiredPermissions(CommonPermission.PERMISSIONS_CAMERA);
+
+        player = MediaPlayer.create(activity, R.raw.bell);
     }
 
     @Override
@@ -56,6 +65,8 @@ public class PageScan extends PageCommon implements ZXingScannerView.ResultHandl
 
     @Override
     public void handleResult(Result result) {
+        player.start();
+
         showProgressBar("checking product");
 
         barcode = result.getText();
@@ -83,12 +94,20 @@ public class PageScan extends PageCommon implements ZXingScannerView.ResultHandl
 
         Product product = (Product) getResult();
 
-        if (null != product)
+        if (null != product) {
             getController().getUi().gotoProductStockInPage(product);
+            finish();
+        }
         else {
             Toast.makeText(getActivity(), "Can't find the product", Toast.LENGTH_SHORT).show();
             scannerFragment.resumePreview();
         }
 
+    }
+
+    @Override
+    public void onRequestedPermissionsDenied(String permission) {
+        if (permission.equals(Manifest.permission.CAMERA))
+            Toast.makeText(getActivity(), getResources().getString(R.string.need_camera_permission), Toast.LENGTH_SHORT).show();
     }
 }

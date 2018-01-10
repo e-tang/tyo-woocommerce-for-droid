@@ -25,4 +25,5 @@
     <string name="product_barcode">Product QR Code</string>
     <string name="print_barcode">Print Barcode</string>
     <string name="error_cache_barcode">Can\'t save the barcode image cache</string>
+    <string name="need_camera_permission">Please grant camera permission to use the QR Scanner</string>
 </resources>

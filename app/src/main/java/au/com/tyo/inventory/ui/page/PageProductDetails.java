@@ -73,10 +73,16 @@ public class PageProductDetails extends PageForm<Controller> {
     public void onFormClick(Context context, String key, String text) {
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(MenuInflater menuInflater, Menu menu) {
+        menuInflater.inflate(R.menu.product, menu);
+        return super.onCreateOptionsMenu(menuInflater, menu);
+    }
+
     @Override
     protected void createMenu(MenuInflater menuInflater, Menu menu) {
-        super.createMenu(menuInflater, menu);
-        menuInflater.inflate(R.menu.barcode_only, menu);
+        // super.createMenu(menuInflater, menu);
     }
 
     @Override

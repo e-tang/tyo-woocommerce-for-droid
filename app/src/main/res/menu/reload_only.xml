@@ -22,7 +22,7 @@
         android:title="@string/reload"
         android:icon="@drawable/ic_refresh_white_24dp"
         android:iconTint="@color/blue"
-        app:showAsAction="never">
+        app:showAsAction="never|withText">
 
     </item>
 </menu>

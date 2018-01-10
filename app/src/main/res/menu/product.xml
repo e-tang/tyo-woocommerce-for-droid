@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) 2017 TYONLINE TECHNOLOGY PTY. LTD. (TYO Lab)
+  ~ Copyright (c) 2018 TYONLINE TECHNOLOGY PTY. LTD. (TYO Lab)
   ~
   ~  Licensed under the Apache License, Version 2.0 (the "License");
   ~  you may not use this file except in compliance with the License.
@@ -17,11 +17,16 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <item
-        android:id="@+id/menuItemScan"
-        android:title="@string/scan"
-        android:icon="@drawable/ic_camera_white_24dp"
+        android:id="@+id/menuItemBarcode"
+        android:title="@string/qr_code"
+        android:icon="@drawable/ic_qr_icon"
+        android:iconTint="@color/white"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/menuItemStockIn"
+        android:title="@string/stock_in"
         app:showAsAction="never|withText"
         />
 </menu>

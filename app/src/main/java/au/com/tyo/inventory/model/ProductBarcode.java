@@ -62,9 +62,9 @@ public class ProductBarcode extends ProductParcel {
         try {
             Uri uri = Uri.parse(text);
             String barcode = uri.getQueryParameter("code");
-            String[] tokens = barcode.split(SEPARATOR);
+            String[] tokens = barcode.split("\\" + SEPARATOR);
             String url = uri.getPath();
-            return new String[] {VERSION, tokens[0], tokens[1], url};
+            return new String[] {tokens[0], tokens[1], url};
         }
         catch (Exception e) {}
         return null;
@@ -89,4 +89,6 @@ public class ProductBarcode extends ProductParcel {
         int size = (int) v;
         return getQrCodeBitmap(size, size);
     }
+
+
 }

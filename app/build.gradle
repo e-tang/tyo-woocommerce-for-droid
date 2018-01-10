@@ -20,7 +20,7 @@ def versionFullName = "${versionMajor}.${versionMinor}.${versionPatch}${versionR
 def buildName = "build${buildTime()}"
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion "26.0.2"
 
     defaultConfig {
@@ -146,7 +146,7 @@ dependencies {
 //    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
 //        exclude group: 'com.android.support', module: 'support-annotations'
 //    })
-    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support:appcompat-v7:27.0.2'
 
     compile project(path: ':CommonAppLib')
     compile project(path: ':android-json-form')
