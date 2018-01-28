@@ -14,6 +14,8 @@
         completions."
     </string>
     <string name="log_in">Log In</string>
+
+    <!-- Inventory -->
     <string name="product_details">Product Details</string>
     <string name="price">Price:</string>
     <string name="stock">Stock:</string>
@@ -26,4 +28,6 @@
     <string name="print_barcode">Print Barcode</string>
     <string name="error_cache_barcode">Can\'t save the barcode image cache</string>
     <string name="need_camera_permission">Please grant camera permission to use the QR Scanner</string>
+    <string name="scan_api_key_text">Scan your WooCommerce API Key\'s QRCode</string>
+    <string name="scan_qrcode">Scan QRCode</string>
 </resources>

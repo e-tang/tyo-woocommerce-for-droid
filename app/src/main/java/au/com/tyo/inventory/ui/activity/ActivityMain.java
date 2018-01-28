@@ -16,6 +16,9 @@
 
 package au.com.tyo.inventory.ui.activity;
 
+import android.view.Menu;
+
+import au.com.tyo.inventory.R;
 import au.com.tyo.inventory.ui.page.PageMain;
 
 /**
@@ -32,5 +35,11 @@ public class ActivityMain extends ActivityBase {
     @Override
     public void finish() {
         super.finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true; // super.onCreateOptionsMenu(menu);
     }
 }

@@ -85,6 +85,7 @@
 
         <activity android:name=".ui.activity.ActivityBarcode"
             android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
             android:label="@string/product_barcode"
             />
 

@@ -25,69 +25,107 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <AutoCompleteTextView
-                android:id="@+id/email"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:id="@+id/email_login_form"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_email"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:focusableInTouchMode="true"
-                android:focusable="true"
-                android:singleLine="true" />
+                android:orientation="vertical"
+                android:visibility="gone"
+                >
 
-            <EditText
-                android:id="@+id/password"
+                <AutoCompleteTextView
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_email"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:focusableInTouchMode="true"
+                    android:focusable="true"
+                    android:singleLine="true" />
+
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_password"
+                    android:imeActionId="@+id/login"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:focusableInTouchMode="true"
+                    android:focusable="true"
+                    android:singleLine="true" />
+
+                <Button
+                    android:id="@+id/email_sign_in_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/log_in"
+                    android:textStyle="bold" />
+
+                <!--
+                <Button
+                    android:id="@+id/sign_up_button"
+                    style="@style/AppTextStyle.Button.Login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/sign_up"
+                    android:textStyle="bold" />
+                -->
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_forgot_your_password"
+                    android:layout_gravity="center"
+                    android:autoLink="web"
+                    android:clickable="true"
+                    android:textColorLink="@color/blue"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_password"
-                android:imeActionId="@+id/login"
-                android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionUnspecified"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:focusableInTouchMode="true"
-                android:focusable="true"
-                android:singleLine="true" />
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/email_sign_in_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/log_in"
-                android:textStyle="bold" />
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/scan_api_key_text"
+                        android:layout_gravity="center"
+                        />
+                </FrameLayout>
 
-            <!--
-            <Button
-                android:id="@+id/sign_up_button"
-                style="@style/AppTextStyle.Button.Login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/sign_up"
-                android:textStyle="bold" />
-            -->
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_forgot_your_password"
-                android:layout_gravity="center"
-                android:autoLink="web"
-                android:clickable="true"
-                android:textColorLink="@color/blue"
-                />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/AppStyle.Button"
+                    android:text="@string/scan_qrcode"
+                    android:gravity="center"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="12dp"
+                    />
+            </LinearLayout>
 
         </LinearLayout>
+
     </ScrollView>
 </LinearLayout>
