@@ -30,6 +30,7 @@ import android.widget.Button;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -37,6 +38,7 @@ import au.com.tyo.android.adapter.ListViewItemAdapter;
 import au.com.tyo.app.ui.page.PageCommonList;
 import au.com.tyo.inventory.BuildConfig;
 import au.com.tyo.inventory.Controller;
+import au.com.tyo.inventory.DataLoader;
 import au.com.tyo.inventory.R;
 import au.com.tyo.inventory.model.ProductForm;
 import au.com.tyo.inventory.ui.widget.ProductListItemFactory;
@@ -45,7 +47,7 @@ import au.com.tyo.inventory.ui.widget.ProductListItemFactory;
  * Created by Eric Tang (eric.tang@tyo.com.au) on 27/11/17.
  */
 
-public class PageMain extends PageCommonList<Controller> implements AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener, Observer {
+public class PageMain extends PageCommonList<Controller> implements AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener, Observer, DataLoader {
 
     private static final String TAG = "PageMain";
 
@@ -99,16 +101,20 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
             Log.e(TAG, "setting menu");
         }
 
-        if (!getController().hasUserLoggedIn()) {
-            getController().getUi().gotoLoginPage();
-
-            finish();
-        }
+        checkUserLoginStatus();
 
         if (getController().getAppData().getProductList() == null)
             startBackgroundTask();
         else
             showProductList();
+    }
+
+    private void checkUserLoginStatus() {
+        if (!getController().hasUserLoggedIn()) {
+            getController().getUi().gotoLoginPage();
+
+            finish();
+        }
     }
 
     @Override
@@ -128,7 +134,7 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
         if (BuildConfig.DEBUG)
             getController().getAppData().getApi().createCurlCommands();
 
-        getController().getAppData().loadProducts();
+        getController().getAppData().loadProducts(this);
 
     }
 
@@ -248,4 +254,13 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
     }
 
 
+    @Override
+    public void onLoadDataFailedGeneral(Map map) {
+
+    }
+
+    @Override
+    public void onLoadDataFailedBecauseOfUnauthorization() {
+        checkUserLoginStatus();
+    }
 }

@@ -73,6 +73,11 @@ public class PageStockIn extends PageForm<Controller> {
     }
 
     @Override
+    public void onFieldValueClear(String key) {
+
+    }
+
+    @Override
     protected void setFieldValue(String key, String childKey, Object value) {
         if (key.equals("newStock"))
             productStockIn.put(key, value);

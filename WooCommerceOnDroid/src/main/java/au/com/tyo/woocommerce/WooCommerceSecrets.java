@@ -6,7 +6,7 @@ package au.com.tyo.woocommerce;
 
 public class WooCommerceSecrets {
 
-    public static String CONSUMER_KEY= null;
+    public static String CONSUMER_KEY = null;
 
     public static String CONSUMER_SECRET = null;
 

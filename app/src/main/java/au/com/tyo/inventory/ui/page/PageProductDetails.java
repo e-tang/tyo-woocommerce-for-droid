@@ -120,6 +120,11 @@ public class PageProductDetails extends PageForm<Controller> {
     }
 
     @Override
+    public void onFieldValueClear(String key) {
+
+    }
+
+    @Override
     public boolean onMenuItemClick(MenuItem item) {
         if (item.getItemId() == R.id.menuItemBarcode) {
             getController().getUi().gotoBarcodeInfoPage(ProductBarcode.toParcel(productForm,

@@ -2,6 +2,7 @@ package au.com.tyo.woocommerce;
 
 import android.content.Context;
 
+import au.com.tyo.android.AndroidUtils;
 import au.com.tyo.services.sn.Message;
 import au.com.tyo.services.sn.SNBase;
 
@@ -14,14 +15,20 @@ public class WooCommerceAuthentication extends SNBase {
     private String userId = "wc";
 
     public WooCommerceAuthentication(Context context) {
-        if (WooCommerceSecrets.CONSUMER_KEY == null || WooCommerceSecrets.CONSUMER_SECRET == null) {
-            consumerKey = context.getResources().getString(R.string.oauth_key);
-            consumerKeySecret = context.getResources().getString(R.string.oauth_secret);
+        super();
+
+        // we need to do the testing in emulator
+        if (AndroidUtils.isEmulator()) {
+            if (WooCommerceSecrets.CONSUMER_KEY == null || WooCommerceSecrets.CONSUMER_SECRET == null) {
+                consumerKey = context.getResources().getString(R.string.oauth_key);
+                consumerKeySecret = context.getResources().getString(R.string.oauth_secret);
+            } else {
+                consumerKey = WooCommerceSecrets.CONSUMER_KEY;
+                consumerKeySecret = WooCommerceSecrets.CONSUMER_SECRET;
+            }
         }
-        else {
-            consumerKey = WooCommerceSecrets.CONSUMER_KEY;
-            consumerKeySecret = WooCommerceSecrets.CONSUMER_SECRET;
-        }
+        else
+            loadSecretsFromSafe();
     }
 
     @Override

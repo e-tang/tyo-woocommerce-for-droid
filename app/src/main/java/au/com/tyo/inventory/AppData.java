@@ -108,7 +108,7 @@ public class AppData extends CommonAppData implements ProductContainer {
         return api;
     }
 
-    public void loadProducts() {
+    public void loadProducts(DataLoader dataLoader) {
 
         String json;
 
@@ -140,11 +140,37 @@ public class AppData extends CommonAppData implements ProductContainer {
 
         if (null == products || products.size() == 0) {
             json = api.getProductsJsonString();
-            products = WooCommerceJson.getGson().fromJson(json, productsType);
+            try {
+                products = WooCommerceJson.getGson().fromJson(json, productsType);
 
-            for (int i = 0; i < products.size(); ++i) {
-                Product product = products.get(i);
-                saveProductCache(product);
+                for (int i = 0; i < products.size(); ++i) {
+                    Product product = products.get(i);
+                    saveProductCache(product);
+                }
+            }
+            catch (Exception ex) {
+                Map map;
+                try {
+                    map = WooCommerceJson.getGson().fromJson(json, HashMap.class);
+                    if (map.containsKey("data")) {
+                        Map smap = (Map) map.get("data");
+                        if (smap.containsKey("status")) {
+                            int status = (int) ((double) smap.get("status"));
+                            if (status == 401) {
+                                getApi().getAuthentication().clearSecret();
+                                dataLoader.onLoadDataFailedBecauseOfUnauthorization();
+                                return;
+                            }
+                        }
+                    }
+                    dataLoader.onLoadDataFailedGeneral(map);
+                    return;
+                }
+                catch (Exception ex2) {
+                    String msg = "unable pass the server response";
+                    Log.e(TAG, msg, ex2);
+                    throw new IllegalStateException("");
+                }
             }
         }
 

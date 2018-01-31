@@ -16,8 +16,8 @@
  -->
 <resources>
     <!--  for ANY -->
-    <string name="oauth_key">ck_ec4c28df9ce253cb3b937777f80bf9136cbe7c48</string>
-    <string name="oauth_secret">cs_51c73fb001bfd40bc78b42352632f32e126d6560</string>
+    <string name="oauth_key"></string>
+    <string name="oauth_secret"></string>
     
     <!--  for Twitter -->
     <string name="oauth_key_twitter"></string>
