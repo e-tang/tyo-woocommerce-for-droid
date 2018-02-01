@@ -44,7 +44,14 @@
             android:label="@string/app_name"
             android:windowSoftInputMode="stateHidden|adjustPan"
             android:screenOrientation="portrait"
-            ></activity>
+            >
+
+            <intent-filter>
+                <data android:scheme="*"
+                    android:pathPattern=".*\\.(csv|tsv)" />
+            </intent-filter>
+
+        </activity>
 
         <activity
             android:name=".ui.activity.ActivityLogin"

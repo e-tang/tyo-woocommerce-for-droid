@@ -29,12 +29,6 @@
         <item name="popupTheme">@style/CommonPopupTheme.Dark</item>
     </style>
 
-    <style name="AppStyle">
-
-    </style>
-
-    <style name="AppStyle.Menu"></style>
-
     <style name="AppStyle.Text"></style>
 
     <style name="AppStyle.Text.ListItem"></style>

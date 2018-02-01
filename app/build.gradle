@@ -26,7 +26,7 @@ android {
     defaultConfig {
         applicationId "au.com.tyo.inventory"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode "${buildNumber}".toInteger()
         versionName "${versionFullName}"
 
