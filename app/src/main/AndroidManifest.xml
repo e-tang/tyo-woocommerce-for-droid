@@ -18,8 +18,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        >
+        android:theme="@style/AppTheme">
 
         <activity
             android:name="au.com.tyo.app.SplashScreen"
@@ -27,9 +26,8 @@
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:logo="@mipmap/ic_launcher"
-            android:theme="@style/CommonAppTheme.Dark.NoActionBar.Splash"
             android:screenOrientation="portrait"
-            >
+            android:theme="@style/CommonAppTheme.Dark.NoActionBar.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,9 +38,49 @@
 
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
+            <!--
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+            -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.PICK" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="file" />
+                <data android:scheme="content" />
+                <data android:mimeType="*/*" />
+
+                <data android:pathPattern=".*\\.csv" />
+                <data android:pathPattern=".*\\.tsv" />
+                <data android:pathPattern=".*\\.json" />
+                <!---->
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.PICK" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:mimeType="*/*" />
+                <data android:host="*" />
+
+                <data android:mimeType="application/csv" />
+                <data android:mimeType="application/tsv" />
+                <data android:mimeType="application/json" />
+                <data android:mimeType="text/*" />
+                <!---->
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="*/*"/>
+                <data android:host="*" />
+                <data android:scheme="*" />
             </intent-filter>
         </activity>
 
@@ -50,66 +88,54 @@
             android:name=".ActivityApp"
             android:configChanges="orientation"
             android:label="@string/app_name"
-            android:windowSoftInputMode="stateHidden|adjustPan"
             android:screenOrientation="portrait"
-            >
-
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="*"
-                    android:pathPattern=".*\\.(csv|tsv|json)"
-                    android:host="*" />
-            </intent-filter>
-
+            android:windowSoftInputMode="stateHidden|adjustPan">
         </activity>
 
         <activity
             android:name=".ui.activity.ActivityLogin"
             android:label="@string/login"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"
-            >
+            android:windowSoftInputMode="adjustPan">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ActivityApp" />
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="@string/app_scheme"
+                <data
                     android:host="@string/app_host"
-                    android:path="@string/app_path_login" />
+                    android:path="@string/app_path_login"
+                    android:scheme="@string/app_scheme" />
             </intent-filter>
+            -->
         </activity>
 
-        <activity android:name=".ui.activity.ActivityProductDetails"
-            android:windowSoftInputMode="adjustPan"
+        <activity
+            android:name=".ui.activity.ActivityProductDetails"
             android:label="@string/product_details"
-            />
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity android:name="au.com.tyo.app.CommonActivityWebView" />
 
         <activity
-            android:name="au.com.tyo.app.CommonActivityWebView"
-            />
+            android:name=".ui.activity.ActivityScan"
+            android:label="@string/scan" />
 
-        <activity android:name=".ui.activity.ActivityScan"
-            android:label="@string/scan"
-            />
-
-        <activity android:name=".ui.activity.ActivityStockIn"
-            android:windowSoftInputMode="adjustPan"
+        <activity
+            android:name=".ui.activity.ActivityStockIn"
             android:label="@string/stock_in"
-            />
+            android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".ui.activity.ActivityBarcode"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"
+        <activity
+            android:name=".ui.activity.ActivityBarcode"
             android:label="@string/product_barcode"
-            />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name="au.com.tyo.services.android.google.activity.CloudPrintDialog"
-            android:label="@string/print_barcode"
-            />
+        <activity
+            android:name="au.com.tyo.services.android.google.activity.CloudPrintDialog"
+            android:label="@string/print_barcode" />
 
     </application>
 

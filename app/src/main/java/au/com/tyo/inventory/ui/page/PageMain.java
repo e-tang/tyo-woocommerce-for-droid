@@ -28,6 +28,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -265,7 +266,13 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
 
     @Override
     public void onLoadDataFailedGeneral(Map map) {
+        String message;
+        if (map.containsKey("message"))
+            message = (String) map.get("message");
+        else
+            message = "Something wrong with your key permission, please check with your site's administrator";
 
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG);
     }
 
     @Override
