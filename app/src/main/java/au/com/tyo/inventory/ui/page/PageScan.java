@@ -127,6 +127,7 @@ public class PageScan extends PageCommon implements ZXingScannerView.ResultHandl
                         consumerSecret = tokens[i];
                 }
                 getController().getAppData().getApi().getAuthentication().saveConsumerKeyPair(consumerKey, consumerSecret);
+                getController().getAppData().getApi().createAuthorizationStrings();
             }
 
             if (getController().getAppData().getApi().getAuthentication().hasConsumerKeyPair())

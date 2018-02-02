@@ -37,7 +37,7 @@ public class WooCommerceApi extends CommonApiJson {
             createAuthorizationStrings();
     }
 
-    private void createAuthorizationStrings() {
+    public void createAuthorizationStrings() {
         String key = authentication.getConsumerKey();
         String secret = authentication.getConsumerKeySecret();
         basicAuthorizationString = key + ":" + secret;

@@ -18,6 +18,7 @@ package au.com.tyo.inventory.ui.page;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -270,13 +271,22 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
         if (map.containsKey("message"))
             message = (String) map.get("message");
         else
-            message = "Something wrong with your key permission, please check with your site's administrator";
+            message = "Something wrong with your api key, please check with your site's administrator";
 
         Toast.makeText(getActivity(), message, Toast.LENGTH_LONG);
     }
 
     @Override
     public void onLoadDataFailedBecauseOfUnauthorization() {
-        checkUserLoginStatus();
+        String message = "API Key Pair is incorrect";
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG);
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                checkUserLoginStatus();
+            }
+        }, 3000);
     }
 }
