@@ -3,22 +3,22 @@ package au.com.tyo.woocommerce;
 import android.content.Context;
 
 import au.com.tyo.android.AndroidUtils;
+import au.com.tyo.services.android.auth.AuthDroid;
 import au.com.tyo.services.sn.Message;
-import au.com.tyo.services.sn.SNBase;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 28/11/17.
  */
 
-public class WooCommerceAuthentication extends SNBase {
+public class WooCommerceAuthentication extends AuthDroid {
 
     private String userId = "wc";
 
     public WooCommerceAuthentication(Context context) {
-        super();
+        super(context);
 
         // we need to do the testing in emulator
-        if (AndroidUtils.isEmulator()) {
+        if (!hasConsumerKeyPair() && AndroidUtils.isEmulator()) {
             if (WooCommerceSecrets.CONSUMER_KEY == null || WooCommerceSecrets.CONSUMER_SECRET == null) {
                 consumerKey = context.getResources().getString(R.string.oauth_key);
                 consumerKeySecret = context.getResources().getString(R.string.oauth_secret);
@@ -27,8 +27,6 @@ public class WooCommerceAuthentication extends SNBase {
                 consumerKeySecret = WooCommerceSecrets.CONSUMER_SECRET;
             }
         }
-        else
-            loadSecretsFromSafe();
     }
 
     @Override

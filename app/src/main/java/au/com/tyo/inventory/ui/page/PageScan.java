@@ -18,12 +18,14 @@ package au.com.tyo.inventory.ui.page;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.widget.Toast;
 
 import com.google.zxing.Result;
 
 import au.com.tyo.android.CommonPermission;
+import au.com.tyo.app.Constants;
 import au.com.tyo.inventory.Controller;
 import au.com.tyo.inventory.R;
 import au.com.tyo.inventory.model.Product;
@@ -41,6 +43,8 @@ public class PageScan extends PageCommon implements ZXingScannerView.ResultHandl
     private String barcode;
 
     ScannerFragment scannerFragment;
+
+    private int op;
 
     /**
      * @param controller
@@ -64,6 +68,13 @@ public class PageScan extends PageCommon implements ZXingScannerView.ResultHandl
     }
 
     @Override
+    public void bindData(Intent intent) {
+        super.bindData(intent);
+
+        op = intent.getIntExtra(Constants.DATA, au.com.tyo.inventory.Constants.OPERATION_SCAN_PRODUCT);
+    }
+
+    @Override
     public void handleResult(Result result) {
         player.start();
 
@@ -79,12 +90,14 @@ public class PageScan extends PageCommon implements ZXingScannerView.ResultHandl
         if (null == barcode)
             return;
 
-        String[] tokens = ProductBarcode.parse(barcode);
+        if (op == au.com.tyo.inventory.Constants.OPERATION_SCAN_PRODUCT) {
+            String[] tokens = ProductBarcode.parse(barcode);
 
-        if (null != tokens && tokens.length > 1) {
-            Product product = getController().getAppData().lookupProductById(Integer.parseInt(tokens[1]));
+            if (null != tokens && tokens.length > 1) {
+                Product product = getController().getAppData().lookupProductById(Integer.parseInt(tokens[1]));
 
-            setResult(product);
+                setResult(product);
+            }
         }
     }
 
@@ -92,17 +105,35 @@ public class PageScan extends PageCommon implements ZXingScannerView.ResultHandl
     protected void onPageBackgroundTaskFinished() {
         hideProgressBar();
 
-        Product product = (Product) getResult();
+        if (op == au.com.tyo.inventory.Constants.OPERATION_SCAN_PRODUCT) {
+            Product product = (Product) getResult();
 
-        if (null != product) {
-            getController().getUi().gotoProductStockInPage(product);
-            finish();
+            if (null != product) {
+                getController().getUi().gotoProductStockInPage(product);
+                finish();
+            } else {
+                Toast.makeText(getActivity(), "Can't find the product", Toast.LENGTH_SHORT).show();
+                scannerFragment.resumePreview();
+            }
         }
         else {
-            Toast.makeText(getActivity(), "Can't find the product", Toast.LENGTH_SHORT).show();
-            scannerFragment.resumePreview();
-        }
+            if (barcode.contains("cs_") && barcode.contains("ck_")) {
+                String tokens[] = barcode.split("\\|");
+                String consumerKey = null, consumerSecret = null;
+                for (int i = 0; i < tokens.length; ++i) {
+                    if (tokens[i].startsWith("ck_"))
+                        consumerKey = tokens[i];
+                    else
+                        consumerSecret = tokens[i];
+                }
+                getController().getAppData().getApi().getAuthentication().saveConsumerKeyPair(consumerKey, consumerSecret);
+            }
 
+            if (getController().getAppData().getApi().getAuthentication().hasConsumerKeyPair())
+                finish();
+            else
+                scannerFragment.resumePreview();
+        }
     }
 
     @Override

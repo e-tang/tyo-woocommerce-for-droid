@@ -58,8 +58,8 @@ public class AppUI extends JsonFormUI implements UI {
     }
 
     @Override
-    public void gotoBarcodeScannerPage() {
-        gotoPage(ActivityScan.class);
+    public void gotoBarcodeScannerPage(int op) {
+        gotoPage(ActivityScan.class, op);
     }
 
     @Override

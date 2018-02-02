@@ -17,7 +17,10 @@
 package au.com.tyo.inventory.ui.page;
 
 import android.app.Activity;
+import android.view.View;
+import android.widget.Button;
 
+import au.com.tyo.inventory.Constants;
 import au.com.tyo.inventory.Controller;
 import au.com.tyo.inventory.R;
 
@@ -35,5 +38,28 @@ public class PageLogin extends PageEmailPassword {
         super(controller, activity);
 
         setContentViewResId(R.layout.login);
+    }
+
+    @Override
+    public void setupComponents() {
+        super.setupComponents();
+
+        Button button = (Button) findViewById(R.id.btn_scan);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getController().getUi().gotoBarcodeScannerPage(Constants.OPERATION_SCAN_API_KEY);
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (getController().getAppData().getApi().getAuthentication().hasConsumerKeyPair()) {
+            getController().startMainActivity();
+            finish();
+        }
     }
 }

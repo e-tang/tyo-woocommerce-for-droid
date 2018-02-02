@@ -2,6 +2,13 @@
 
     package="au.com.tyo.inventory">
 
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -11,7 +18,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        >
 
         <activity
             android:name="au.com.tyo.app.SplashScreen"
@@ -47,8 +55,11 @@
             >
 
             <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="*"
-                    android:pathPattern=".*\\.(csv|tsv)" />
+                    android:pathPattern=".*\\.(csv|tsv|json)"
+                    android:host="*" />
             </intent-filter>
 
         </activity>
@@ -82,7 +93,7 @@
             />
 
         <activity android:name=".ui.activity.ActivityScan"
-            android:label="@string/scan_barcode"
+            android:label="@string/scan"
             />
 
         <activity android:name=".ui.activity.ActivityStockIn"

@@ -17,6 +17,7 @@
 package au.com.tyo.inventory.ui.page;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,6 +38,7 @@ import java.util.Observer;
 import au.com.tyo.android.adapter.ListViewItemAdapter;
 import au.com.tyo.app.ui.page.PageCommonList;
 import au.com.tyo.inventory.BuildConfig;
+import au.com.tyo.inventory.Constants;
 import au.com.tyo.inventory.Controller;
 import au.com.tyo.inventory.DataLoader;
 import au.com.tyo.inventory.R;
@@ -86,6 +88,11 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
     }
 
     @Override
+    public void bindData(Intent intent) {
+        super.bindData(intent);
+    }
+
+    @Override
     public void onActivityStart() {
         super.onActivityStart();
 
@@ -101,20 +108,22 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
             Log.e(TAG, "setting menu");
         }
 
-        checkUserLoginStatus();
-
-        if (getController().getAppData().getProductList() == null)
-            startBackgroundTask();
-        else
-            showProductList();
+        if (checkUserLoginStatus()) {
+            if (getController().getAppData().getProductList() == null)
+                startBackgroundTask();
+            else
+                showProductList();
+        }
     }
 
-    private void checkUserLoginStatus() {
+    private boolean checkUserLoginStatus() {
         if (!getController().hasUserLoggedIn()) {
             getController().getUi().gotoLoginPage();
 
             finish();
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -193,7 +202,7 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
             return true;
         }
         else if (itemId == R.id.menuItemScan) {
-            getController().getUi().gotoBarcodeScannerPage();
+            getController().getUi().gotoBarcodeScannerPage(Constants.OPERATION_SCAN_PRODUCT);
             return true;
         }
         return super.onMenuItemClick(item);

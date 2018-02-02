@@ -20,7 +20,7 @@ public interface UI extends au.com.tyo.app.ui.UI {
 
     void gotoProductStockInPage(Product product);
 
-    void gotoBarcodeScannerPage();
+    void gotoBarcodeScannerPage(int op);
 
     void gotoBarcodeInfoPage(ProductBarcode productBarcode);
 
