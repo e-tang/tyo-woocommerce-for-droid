@@ -30,4 +30,5 @@
     <string name="need_camera_permission">Please grant camera permission to use the QR Scanner</string>
     <string name="scan_api_key_text">Scan your WooCommerce API Key\'s QRCode</string>
     <string name="scan_qrcode">Scan QRCode</string>
+    <string name="import_str">Import</string>
 </resources>

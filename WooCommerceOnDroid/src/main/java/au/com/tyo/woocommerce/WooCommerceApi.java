@@ -14,6 +14,10 @@ public class WooCommerceApi extends CommonApiJson {
 
     private static final String TAG = WooCommerceApi.class.getSimpleName();
 
+    private static final String PATH_PRODUCTS = "/products";
+
+    private static final String PATH_CATEGORIES = PATH_PRODUCTS + "/categories";
+
     private WooCommerceAuthentication authentication;
 
     private String productsPath;
@@ -54,11 +58,15 @@ public class WooCommerceApi extends CommonApiJson {
     }
 
     public String getProductsApiUrl() {
-        return getApiUrl(null);
+        return getApiUrl(productsPath);
+    }
+
+    public String getProductCategoriesApiUrl() {
+        return getApiUrl(PATH_CATEGORIES);
     }
 
     public String getApiUrl(String path) {
-        return getBaseUrl() + productsPath + (null != path ? "/" + path : "") + (null != authorizationParameters ? "?" + authorizationParameters : "");
+        return getBaseUrl() + (null != path ? path : "") + (null != authorizationParameters ? "?" + authorizationParameters : "");
     }
 
     public String getProductsJsonString() {
@@ -70,7 +78,7 @@ public class WooCommerceApi extends CommonApiJson {
     }
 
     public String updateProductStock(int id, int stock) {
-        return post(getApiUrl("" + id), "{\"stock_quantity\": " + stock + "}");
+        return post(getProductsApiUrl() + "/" + id, "{\"stock_quantity\": " + stock + "}");
     }
 
     public void createCurlCommands() {
@@ -80,6 +88,10 @@ public class WooCommerceApi extends CommonApiJson {
     private void createCurlCommandListAllProducts() {
         Log.d(TAG, "curl " + getProductsApiUrl() + " -u " + basicAuthorizationString);
         Log.d(TAG, "curl " + getProductsApiUrl() + "?" + authorizationParameters);
+    }
+
+    public String createProductCategory(String name) {
+        return post(getProductCategoriesApiUrl(), "{ \"name\":" + "\"" + name + " \"}");
     }
 
 //    @Override

@@ -269,4 +269,13 @@ public class AppData extends CommonAppData implements ProductContainer {
     }
 
 
+    public void importCategories(List<String> cats) {
+        for (String cat : cats)
+            importCategory(cat);
+    }
+
+    public void importCategory(String cat) {
+        String json = getApi().createProductCategory(cat);
+        Log.i(TAG, json);
+    }
 }
