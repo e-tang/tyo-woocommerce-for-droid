@@ -20,5 +20,5 @@
     <item
         android:id="@+id/menuItemEditOrders"
         android:title="@string/edit_orders"
-        app:showAsAction="always|withText"></item>
+        app:showAsAction="never"></item>
 </menu>

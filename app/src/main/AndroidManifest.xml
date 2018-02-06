@@ -150,6 +150,10 @@
             android:name="au.com.tyo.services.android.google.activity.CloudPrintDialog"
             android:label="@string/print_barcode" />
 
+        <activity android:name="au.com.tyo.app.CommonActivityList"
+            android:label="@string/pick_from_list"
+            />
+
     </application>
 
 </manifest>

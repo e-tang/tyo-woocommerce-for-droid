@@ -26,7 +26,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,8 +46,9 @@ public class PageImport extends PageForm<Controller> {
 
     private static final String TAG = "PageImport";
 
+    private Object data;
     private Uri uri;
-    private String data;
+    private String content;
 
     /**
      * @param controller
@@ -69,8 +69,7 @@ public class PageImport extends PageForm<Controller> {
     public void bindData(Intent intent) {
         super.bindData(intent);
 
-        uri = intent.getData();
-
+        data = uri = intent.getData();
     }
 
     private void uriToData() {
@@ -79,7 +78,7 @@ public class PageImport extends PageForm<Controller> {
             try {
                 inputStream = getActivity().getContentResolver().openInputStream(uri);
 
-                data = new String(IO.inputStreamToBytes(inputStream));
+                content = new String(IO.inputStreamToBytes(inputStream));
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -101,14 +100,7 @@ public class PageImport extends PageForm<Controller> {
         super.bindData();
 
         if (getController().getParcel() != null && getController().getParcel() instanceof List) {
-            List list = (List) getController().getParcel();
-
-            if (list.size() > 0) {
-                if (list.size() == 1)
-                    uri = Uri.fromFile(new File((String) list.get(0)));
-                else
-                    getController().getUi().pickFromList(list, getActivity().getResources().getString(R.string.pick_file_to_import));
-            }
+            data =
         }
     }
 
@@ -140,12 +132,12 @@ public class PageImport extends PageForm<Controller> {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (data != null)
+                if (content != null)
                     uriToData();
                 startBackgroundTask(new Runnable() {
                     @Override
                     public void run() {
-                        importCategories(data);
+                        importCategories(content);
                     }
                 });
             }
@@ -154,7 +146,7 @@ public class PageImport extends PageForm<Controller> {
 
     private void importCategories(String data) {
         if (data == null) {
-            Toast.makeText(getActivity(), "Invalid data", Toast.LENGTH_LONG);
+            Toast.makeText(getActivity(), "Invalid content", Toast.LENGTH_LONG);
             return;
         }
 
