@@ -31,4 +31,7 @@
     <string name="scan_api_key_text">Scan your WooCommerce API Key\'s QRCode</string>
     <string name="scan_qrcode">Scan QRCode</string>
     <string name="import_str">Import</string>
+    <string name="import_from_file">Import From File</string>
+    <string name="edit_orders">Edit Attribute Orders</string>
+    <string name="pick_file_to_import">Pick file to import</string>
 </resources>

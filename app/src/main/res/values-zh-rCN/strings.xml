@@ -16,8 +16,10 @@
   -->
 
 <resources>
-    <string name="app_name">Inventory</string>
+    <string name="app_name">嘀澳库存</string>
     <string name="stock_in">入库</string>
     <string name="print_barcode">打印二维码</string>
     <string name="error_cache_barcode">Can\'t save the barcode image cache</string>
+    <string name="edit_orders">编辑属性顺序</string>
+    <string name="pick_file_to_import">请选择您要导入的文件</string>
 </resources>

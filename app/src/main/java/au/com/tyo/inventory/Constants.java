@@ -25,4 +25,9 @@ public interface Constants {
     int OPERATION_SCAN_PRODUCT = 0;
     int OPERATION_SCAN_API_KEY = 1;
 
+
+    String FOLDER_APP = "TyoInventory";
+    String FILE_IMPORT = "import.tsv";
+
+    String FOLDER_DOWNLOAD = "Download";
 }

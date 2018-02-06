@@ -18,18 +18,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menuItemScan"
-        android:title="@string/scan"
-        android:icon="@drawable/ic_camera_white_24dp"
-        app:showAsAction="always"
-        />
-    <item
-        android:id="@+id/menuItemReload"
-        android:title="@string/reload"
-        android:icon="@drawable/ic_refresh_white_24dp"
-        app:showAsAction="never|withText" />
-    <item
-        android:id="@+id/menuItemImportFromFile"
-        android:title="@string/import_from_file"
-        app:showAsAction="never|withText" />
+        android:id="@+id/menuItemEditOrders"
+        android:title="@string/edit_orders"
+        app:showAsAction="always|withText"></item>
 </menu>

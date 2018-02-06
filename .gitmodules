@@ -1,24 +1,35 @@
 [submodule "CommonUtils"]
 	path = CommonUtils
 	url = git@github.com:tyolab/CommonUtils.git
+	branch = master
 [submodule "CommonUiLib"]
 	path = CommonUiLib
 	url = git@github.com:tyolab/CommonUiLib.git
+	branch = master
 [submodule "CommonAppLib"]
 	path = CommonAppLib
 	url = git@github.com:tyolab/CommonAppLib.git
+	branch = master
 [submodule "CommonAndroid"]
 	path = CommonAndroid
 	url = git@github.com:tyolab/CommonAndroid.git
+	branch = master
 [submodule "CommonServices"]
 	path = CommonServices
 	url = git@github.com:tyolab/CommonServices.git
+	branch = master
 [submodule "CommonServicesDroid"]
 	path = CommonServicesDroid
 	url = git@github.com:tyolab/CommonServicesDroid.git
+	branch = master
 [submodule "CommonJsonForm"]
 	path = CommonJsonForm
 	url = git@github.com:tyolab/CommonJsonForm.git
+	branch = master
 [submodule "android-json-form-wizard"]
 	path = android-json-form-wizard
 	url = git@github.com:tyolab/android-json-form-wizard.git
+	branch = master
+[submodule "NoNonsense-FilePicker"]
+	path = NoNonsense-FilePicker
+	url = git@github.com:tyolab/NoNonsense-FilePicker.git

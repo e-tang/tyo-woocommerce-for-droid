@@ -31,12 +31,15 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.File;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import au.com.tyo.android.AndroidUtils;
 import au.com.tyo.android.adapter.ListViewItemAdapter;
 import au.com.tyo.app.ui.page.PageCommonList;
 import au.com.tyo.inventory.BuildConfig;
@@ -46,6 +49,10 @@ import au.com.tyo.inventory.DataLoader;
 import au.com.tyo.inventory.R;
 import au.com.tyo.inventory.model.ProductForm;
 import au.com.tyo.inventory.ui.widget.ProductListItemFactory;
+import au.com.tyo.io.FileUtils;
+import au.com.tyo.io.WildcardFileStack;
+
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 27/11/17.
@@ -70,6 +77,8 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
         setSubpage(false);
 
         controller.getAppData().addObserver(this);
+
+        setRequiredPermissions(new String[] {READ_EXTERNAL_STORAGE});
     }
 
     @Override
@@ -177,16 +186,8 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
     }
 
     @Override
-    public boolean onCreateOptionsMenu(MenuInflater menuInflater, Menu menu) {
-//        menuInflater.inflate(R.menu.scan_only, menu);
-//        menuInflater.inflate(R.menu.reload_only, menu);
-        getActivity().getMenuInflater().inflate(R.menu.main, menu);
-        return super.onCreateOptionsMenu(menuInflater, menu);
-    }
-
-    @Override
     protected void createMenu(MenuInflater menuInflater, Menu menu) {
-        // super.createMenu(menuInflater, menu);
+        menuInflater.inflate(R.menu.main, menu);
     }
 
     @Override
@@ -207,7 +208,39 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
             getController().getUi().gotoBarcodeScannerPage(Constants.OPERATION_SCAN_PRODUCT);
             return true;
         }
+        else if (item.getItemId() == R.id.menuItemImportFromFile) {
+            importFromFile();
+            return true;
+        }
         return super.onMenuItemClick(item);
+    }
+
+    private void importFromFile() {
+        String[] dirs = AndroidUtils.getStorageDirectories();
+        String[] subDirs = new String[] {Constants.FOLDER_APP, Constants.FOLDER_DOWNLOAD};
+        List<File> files = new ArrayList<>();
+        for (String dir : dirs)
+            for (String subDir : subDirs) {
+                String file = dir + File.separator + subDir;
+                try {
+                    WildcardFileStack stack = new WildcardFileStack(new File(file), "*.tsv");
+                    stack.listFiles();
+                    File rf = null;
+                    while (null != (rf = stack.next()))
+                        files.add(rf);
+                } catch (Exception e) {
+                    Log.e(TAG, "reading tsv file error", e);
+                }
+            }
+
+        if (files.size() == 0) {
+            Toast.makeText(getActivity(), "Sorry, cannot find any tsv file(s) to import", Toast.LENGTH_LONG);
+            return;
+        }
+
+        FileUtils.sortByLastModified(files);
+        getController().getUi().gotoImportPage(files);
+
     }
 
     @Override

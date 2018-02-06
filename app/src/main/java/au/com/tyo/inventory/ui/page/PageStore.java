@@ -19,6 +19,7 @@ package au.com.tyo.inventory.ui.page;
 import android.app.Activity;
 
 import au.com.tyo.inventory.Controller;
+import au.com.tyo.inventory.R;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 4/2/18.
@@ -32,6 +33,8 @@ public class PageStore extends PageCommon {
      */
     public PageStore(Controller controller, Activity activity) {
         super(controller, activity);
+
+        setContentViewResId(R.layout.page_store);
     }
 
 }

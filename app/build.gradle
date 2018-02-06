@@ -158,4 +158,6 @@ dependencies {
     // https://mvnrepository.com/artifact/com.google.zxing/core
     compile group: 'com.google.zxing', name: 'core', version: '3.3.2'
     compile 'me.dm7.barcodescanner:zxing:1.9.8'
+
+    implementation project(path: ':NoNonsense-FilePicker')
 }

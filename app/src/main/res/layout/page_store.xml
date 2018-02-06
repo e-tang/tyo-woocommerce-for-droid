@@ -14,22 +14,15 @@
   ~  See the License for the specific language governing permissions and
   ~  limitations under the License.
   -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/menuItemScan"
-        android:title="@string/scan"
-        android:icon="@drawable/ic_camera_white_24dp"
-        app:showAsAction="always"
-        />
-    <item
-        android:id="@+id/menuItemReload"
-        android:title="@string/reload"
-        android:icon="@drawable/ic_refresh_white_24dp"
-        app:showAsAction="never|withText" />
-    <item
-        android:id="@+id/menuItemImportFromFile"
-        android:title="@string/import_from_file"
-        app:showAsAction="never|withText" />
-</menu>
+    </LinearLayout>
+</FrameLayout>

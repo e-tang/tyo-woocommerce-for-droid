@@ -12,5 +12,9 @@ include ':CommonJsonForm'
 include ':android-json-form'
 project(':android-json-form').projectDir = new File(settingsDir, 'android-json-form-wizard/library')
 
+// File Picker
+include ':NoNonsense-FilePicker'
+project(':NoNonsense-FilePicker').projectDir = new File(settingsDir, 'NoNonsense-FilePicker/library')
+
 // App
 include ':app'
