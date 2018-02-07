@@ -30,6 +30,7 @@ import java.util.Map;
 
 import au.com.tyo.android.CommonCache;
 import au.com.tyo.app.CommonAppData;
+import au.com.tyo.inventory.model.Category;
 import au.com.tyo.inventory.model.Product;
 import au.com.tyo.inventory.model.ProductContainer;
 import au.com.tyo.inventory.model.ProductForm;
@@ -72,6 +73,16 @@ public class AppData extends CommonAppData implements ProductContainer {
      */
     private Map<Integer, Product> productMap;
 
+    /**
+     * Product list from json
+     */
+    private List<Category> categories;
+
+    /**
+     * Product list for listview
+     */
+    private Map<String, Category> categoryMap;
+
     private static ProductFormMetaData productFormMetaData;
 
     private static Type productsType = new TypeToken<List<Product>>(){}.getType();
@@ -89,6 +100,7 @@ public class AppData extends CommonAppData implements ProductContainer {
         this.parser = new WooCommerceJson();
 
         productMap = new HashMap<>();
+        categoryMap = new HashMap<>();
 
         setCacheManager(new CommonCache(context, "products"));
         barcodeImageCache = new CommonCache(context, "barcode");
@@ -241,19 +253,8 @@ public class AppData extends CommonAppData implements ProductContainer {
         if (oldStock < 0)
             oldStock = 0;
 
-        Product newProductPtr;
-
         String result = api.updateProductStock(product.getId(), oldStock + stock);
-        try {
-            newProductPtr = WooCommerceJson.getGson().fromJson(result, productType);
-        }
-        catch (Exception ex) {
-            newProductPtr = product;
-        }
-
-        if (null != newProductPtr && newProductPtr.getStock() != product.getStock()) {
-            updateProduct(newProductPtr);
-        }
+        updateProduct(product, result);
     }
 
     private void updateProduct(Product newProductPtr) {
@@ -261,6 +262,21 @@ public class AppData extends CommonAppData implements ProductContainer {
             productMap.put(newProductPtr.getId(), newProductPtr);
             saveProductCache(newProductPtr);
         }
+    }
+
+    public Product updateProduct(Product product, String result) {
+        Product newProductPtr;
+        try {
+            newProductPtr = WooCommerceJson.getGson().fromJson(result, productType);
+        }
+        catch (Exception ex) {
+            newProductPtr = product;
+        }
+
+        // if (null != newProductPtr && newProductPtr.getStock() != product.getStock()) {
+            updateProduct(newProductPtr);
+        // }
+        return newProductPtr;
     }
 
     @Override
@@ -282,7 +298,7 @@ public class AppData extends CommonAppData implements ProductContainer {
     public Product importProduct(Product product) {
         String json = product.toString();
         String result = getApi().createProduct(json);
-        Product newProduct = WooCommerceJson.getGson().fromJson(result, productType);
+        Product newProduct = updateProduct(product, result);
         return newProduct;
     }
 }
