@@ -94,6 +94,10 @@ public class WooCommerceApi extends CommonApiJson {
         return post(getProductCategoriesApiUrl(), "{ \"name\":" + "\"" + name + " \"}");
     }
 
+    public String createProduct(String json) {
+        return post(getProductsApiUrl(), json);
+    }
+
 //    @Override
 //    protected String post(String url, String json) {
 //        InputStream inputStream = null;

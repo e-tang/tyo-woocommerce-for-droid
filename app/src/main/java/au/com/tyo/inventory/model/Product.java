@@ -16,9 +16,12 @@
 
 package au.com.tyo.inventory.model;
 
+import com.google.api.client.util.GenericData;
 import com.google.gson.internal.LinkedTreeMap;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import au.com.tyo.json.DataJson;
 
@@ -53,8 +56,16 @@ public class Product extends DataJson {
         return getInt("stock_quantity");
     }
 
+    public void setStock(int stock) {
+        put("stock_quantity", stock);
+    }
+
     public float getPrice() {
         return getFloatString("regular_price");
+    }
+
+    public void setPrice(String price) {
+        put("regular_price", price);
     }
 
     public String getPermalink() {
@@ -63,5 +74,66 @@ public class Product extends DataJson {
 
     public String getName() {
         return (String) get("name");
+    }
+
+    public void setName(String name) {
+        put("name", name);
+    }
+
+    public void setProductTypeSimple() {
+        put("type", "simple");
+    }
+
+    public void setDescription(String desc) {
+        put("description", desc);
+    }
+
+    public void setCategory(int catId) {
+        List list = getListData("categories");
+
+        Map map = createMapData();
+        map.put("id", catId);
+        list.add(map);
+    }
+
+    protected List getListData(String name) {
+        List map = (List) get(name);
+
+        if (map == null) {
+            map = createList();
+            put(name, map);
+        }
+        return map;
+    }
+
+    protected List createList() {
+        return new ArrayList();
+    }
+
+    protected Map getMapData(String name) {
+        Map map = (Map) get(name);
+
+        if (map == null) {
+            map = createMapData();
+            put(name, map);
+        }
+        return map;
+    }
+
+    protected GenericData createMapData() {
+        return new GenericData();
+    }
+
+    protected Map createMapData(String name, Object value) {
+        Map map = createMapData();
+        map.put(name, value);
+        return map;
+    }
+
+    public void setImage(String imageUrl) {
+        Map map = createMapData("src", imageUrl);
+        List list = getListData("images");
+        map.put("position", list.size());
+        list.add(map);
     }
 }

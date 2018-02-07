@@ -20,7 +20,7 @@ package au.com.tyo.inventory;
  * Created by Eric Tang (eric.tang@tyo.com.au) on 2/2/18.
  */
 
-public interface Constants {
+public interface Constants extends au.com.tyo.app.Constants {
 
     int OPERATION_SCAN_PRODUCT = 0;
     int OPERATION_SCAN_API_KEY = 1;
@@ -30,4 +30,8 @@ public interface Constants {
     String FILE_IMPORT = "import.tsv";
 
     String FOLDER_DOWNLOAD = "Download";
+
+    String DATA_IMPORT_TYPE = "IMPORT_TYPE";
+    int IMPORT_TYPE_PRODUCT = 1;
+    int IMPORT_TYPE_CATEGORY = 2;
 }

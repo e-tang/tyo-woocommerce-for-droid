@@ -20,22 +20,27 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import au.com.tyo.inventory.Constants;
 import au.com.tyo.inventory.Controller;
 import au.com.tyo.inventory.R;
+import au.com.tyo.inventory.model.Product;
 import au.com.tyo.io.IO;
 import au.com.tyo.json.android.pages.PageForm;
+import au.com.tyo.utils.SpreadSheet;
 import au.com.tyo.woocommerce.WooCommerceJson;
 
 /**
@@ -49,6 +54,7 @@ public class PageImport extends PageForm<Controller> {
     private Object data;
     private Uri uri;
     private String content;
+    private int importType;
 
     /**
      * @param controller
@@ -69,7 +75,10 @@ public class PageImport extends PageForm<Controller> {
     public void bindData(Intent intent) {
         super.bindData(intent);
 
-        data = uri = intent.getData();
+        importType = intent.getIntExtra(Constants.DATA_IMPORT_TYPE, Constants.IMPORT_TYPE_PRODUCT);
+
+        if (null == data)
+            data = uri = intent.getData();
     }
 
     private void uriToData() {
@@ -100,12 +109,39 @@ public class PageImport extends PageForm<Controller> {
         super.bindData();
 
         if (getController().getParcel() != null && getController().getParcel() instanceof List) {
-            data =
+            data = getController().getParcel();
+        }
+    }
+
+    @Override
+    public void onActivityStart() {
+        super.onActivityStart();
+
+        if (data instanceof List) {
+            List list;
+            list = (List) data;
+
+            if (list.size() > 0) {
+                if (list.size() == 1)
+                    uri = Uri.fromFile(new File((String) list.get(0)));
+                else
+                    getController().getUi().pickFromList(list, getActivity().getResources().getString(R.string.pick_file_to_import));
+            }
         }
     }
 
     @Override
     public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && null != data) {
+            Object obj = getActivityResult(data);
+            try {
+                uri = Uri.fromFile(new File((String) obj));
+            }
+            catch (Exception ex) {
+                Log.d(TAG, "Getting result from pick error", ex);
+            }
+            return true;
+        }
         return super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -134,26 +170,54 @@ public class PageImport extends PageForm<Controller> {
             public void onClick(View v) {
                 if (content != null)
                     uriToData();
+
+                if (data == null) {
+                    Toast.makeText(getActivity(), "Invalid content", Toast.LENGTH_LONG);
+                    return;
+                }
+
                 startBackgroundTask(new Runnable() {
                     @Override
                     public void run() {
-                        importCategories(content);
+                        if (importType == Constants.IMPORT_TYPE_CATEGORY)
+                            importCategories(content);
+                        else
+                            importProducts(content);
                     }
                 });
             }
         });
     }
 
+    private void importProducts(String content) {
+        SpreadSheet spreadSheet = new SpreadSheet(SpreadSheet.SPREAD_SHEET_TYPE_TSV);
+
+        spreadSheet.setSimpleTable(true);
+        spreadSheet.setIgnoreEmptyCell(true);
+
+        spreadSheet.createTable(content);
+
+        List<List> table = spreadSheet.getTable();
+
+        // temporary solution
+        // orders
+
+        for (List row : table)
+            for (Object obj : row) {
+                String colStr = (String) obj;
+
+                Product product = new Product();
+                getController().getAppData().importProduct(product);
+            }
+    }
+
     private void importCategories(String data) {
-        if (data == null) {
-            Toast.makeText(getActivity(), "Invalid content", Toast.LENGTH_LONG);
-            return;
-        }
 
         List<String> cats = new ArrayList<String>();
         cats = WooCommerceJson.getGson().fromJson(data, cats.getClass());
 
         getController().getAppData().importCategories(cats);
+
     }
 
     @Override

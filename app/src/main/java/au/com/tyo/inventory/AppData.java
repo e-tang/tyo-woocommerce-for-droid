@@ -278,4 +278,11 @@ public class AppData extends CommonAppData implements ProductContainer {
         String json = getApi().createProductCategory(cat);
         Log.i(TAG, json);
     }
+
+    public Product importProduct(Product product) {
+        String json = product.toString();
+        String result = getApi().createProduct(json);
+        Product newProduct = WooCommerceJson.getGson().fromJson(result, productType);
+        return newProduct;
+    }
 }
