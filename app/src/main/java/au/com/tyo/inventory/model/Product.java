@@ -23,13 +23,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import au.com.tyo.json.DataJson;
-
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 13/12/17.
  */
 
-public class Product extends DataJson {
+public class Product extends GeneralItem {
 
     private String imageUrl;
 
@@ -42,10 +40,6 @@ public class Product extends DataJson {
             }
         }
         return imageUrl;
-    }
-
-    public int getId() {
-        return (int) getDouble("id");
     }
 
     public String getSku() {

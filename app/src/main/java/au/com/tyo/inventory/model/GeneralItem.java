@@ -16,15 +16,16 @@
 
 package au.com.tyo.inventory.model;
 
-import au.com.tyo.android.adapter.ListItem;
+import au.com.tyo.json.DataJson;
 
 /**
- * Created by Eric Tang (eric.tang@tyo.com.au) on 8/1/18.
+ * Created by Eric Tang (eric.tang@tyo.com.au) on 7/2/18.
  */
 
-public interface ProductItem extends ListItem {
+public class GeneralItem extends DataJson {
 
-    String getPriceString();
+    public int getId() {
+        return (int) getDouble("id");
+    }
 
-    String getStockString();
 }

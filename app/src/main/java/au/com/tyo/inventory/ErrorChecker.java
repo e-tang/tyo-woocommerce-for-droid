@@ -22,7 +22,7 @@ import java.util.Map;
  * Created by Eric Tang (eric.tang@tyo.com.au) on 31/1/18.
  */
 
-public interface DataLoader {
+public interface ErrorChecker {
 
     void onLoadDataFailedGeneral(Map map);
 

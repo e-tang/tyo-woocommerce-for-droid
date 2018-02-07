@@ -31,6 +31,7 @@ import java.util.Map;
 import au.com.tyo.android.CommonCache;
 import au.com.tyo.app.CommonAppData;
 import au.com.tyo.inventory.model.Category;
+import au.com.tyo.inventory.model.GeneralItem;
 import au.com.tyo.inventory.model.Product;
 import au.com.tyo.inventory.model.ProductContainer;
 import au.com.tyo.inventory.model.ProductForm;
@@ -89,6 +90,9 @@ public class AppData extends CommonAppData implements ProductContainer {
     private static Type productType = new TypeToken<Product>(){}.getType();
     private static Type productStockInMetaDataType = new TypeToken<ProductStockInMetaData>(){}.getType();
 
+    private static Type categoriesType = new TypeToken<List<Category>>(){}.getType();
+    private static Type categoryType = new TypeToken<Category>(){}.getType();
+
     private static ProductStockInMetaData productStockInMetaData;
 
     private CommonCache barcodeImageCache;
@@ -99,8 +103,8 @@ public class AppData extends CommonAppData implements ProductContainer {
         this.api = new WooCommerceApi(context);
         this.parser = new WooCommerceJson();
 
-        productMap = new HashMap<>();
-        categoryMap = new HashMap<>();
+//        productMap = new HashMap<>();
+//        categoryMap = new HashMap<>();
 
         setCacheManager(new CommonCache(context, "products"));
         barcodeImageCache = new CommonCache(context, "barcode");
@@ -120,7 +124,117 @@ public class AppData extends CommonAppData implements ProductContainer {
         return api;
     }
 
-    public void loadProducts(DataLoader dataLoader) {
+    private String getProductCacheDir(){
+        return getCacheDirectory() + File.separator + "products";
+    }
+
+    private String getCategoryCacheDir(){
+        return getCacheDirectory() + File.separator + "categories";
+    }
+
+    public void load(ErrorChecker checker) {
+        Object[] objects;
+        objects = loadCategories(checker);
+
+        if (null != objects) {
+            categories = (List<Category>) objects[0];
+            categoryMap = (Map<String, Category>) objects[1];
+
+            objects = loadProducts(checker);
+
+            if (null != objects) {
+                products = (List<Product>) objects[0];
+                productMap = (Map<Integer, Product>) objects[1];
+            }
+        }
+    }
+
+    public Object[] loadCategories(ErrorChecker checker) {
+        return load(checker, getCategoryCacheDir(), getApi().getProductCategoriesApiUrl(), categoryType, categoriesType);
+    }
+
+    public Object[] loadProducts(ErrorChecker checker) {
+        return load(checker, getCategoryCacheDir(), getApi().getProductsApiUrl(), productType, productsType);
+    }
+
+    private Object[] load(ErrorChecker checker, String cacheDirectory, String url, Type itemType, Type mapType) {
+        List list = null;
+        Map map = new HashMap();
+        WildcardFileStack fileStack = null;
+        try {
+            fileStack = new WildcardFileStack(new File(cacheDirectory));
+            fileStack.listFiles();
+        } catch (Exception e) {
+
+        }
+        if (fileStack != null && fileStack.size() > 0) {
+            list = new ArrayList();
+            File file = fileStack.next();
+            while (null != file) {
+                try {
+                    String productJson = getCacheManager().readText(file);
+                    GeneralItem product = WooCommerceJson.getGson().fromJson(productJson, itemType);
+                    list.add(product);
+                    file = fileStack.next();
+                }
+                catch (Exception ex) {
+                    // if any errors we clear the cache
+                    list.clear();
+                    getCacheManager().clear();
+                    break;
+                }
+            }
+        }
+
+        String json = null;
+        if (null == list || list.size() == 0) {
+            try {
+                json = getApi().get(url);
+                list = WooCommerceJson.getGson().fromJson(json, mapType);
+
+                for (int i = 0; i < list.size(); ++i) {
+                    GeneralItem product = (GeneralItem) list.get(i);
+                    saveCache(product);
+                }
+            }
+            catch (Exception ex) {
+                Map mapErr;
+                try {
+                    mapErr = WooCommerceJson.getGson().fromJson(json, HashMap.class);
+                    if (mapErr.containsKey("data")) {
+                        Map smap = (Map) map.get("data");
+                        if (smap.containsKey("status")) {
+                            int status = (int) ((double) smap.get("status"));
+                            if (status == 401) {
+                                getApi().getAuthentication().clearSecret();
+                                checker.onLoadDataFailedBecauseOfUnauthorization();
+                                return null;
+                            }
+                        }
+                    }
+                    checker.onLoadDataFailedGeneral(map);
+                    return null;
+                }
+                catch (Exception ex2) {
+                    String msg = "unable pass the server response";
+                    Log.e(TAG, msg, ex2);
+                    throw new IllegalStateException("");
+                }
+            }
+        }
+
+        for (int i = 0; i < list.size(); ++i) {
+            GeneralItem product = (GeneralItem) list.get(i);
+            product.setIndex(i);
+
+            map.put(product.getId(), product);
+        }
+
+        Log.d(TAG, "productListItems loaded: total " + list.size());
+        return new Object[] {list, map};
+    }
+
+    public void loadProducts1(ErrorChecker checker) {
 
         String json;
 
@@ -170,12 +284,12 @@ public class AppData extends CommonAppData implements ProductContainer {
                             int status = (int) ((double) smap.get("status"));
                             if (status == 401) {
                                 getApi().getAuthentication().clearSecret();
-                                dataLoader.onLoadDataFailedBecauseOfUnauthorization();
+                                checker.onLoadDataFailedBecauseOfUnauthorization();
                                 return;
                             }
                         }
                     }
-                    dataLoader.onLoadDataFailedGeneral(map);
+                    checker.onLoadDataFailedGeneral(map);
                     return;
                 }
                 catch (Exception ex2) {
@@ -197,6 +311,15 @@ public class AppData extends CommonAppData implements ProductContainer {
     }
 
     private void saveProductCache(Product product) {
+        String productJson = WooCommerceJson.getGson().toJson(product);
+        try {
+            getCacheManager().writeText("" + product.getId() + ".json", productJson);
+        } catch (Exception e) {
+            Log.e(TAG, au.com.tyo.utils.StringUtils.exceptionStackTraceToString(e));
+        }
+    }
+
+    private void saveCache(GeneralItem product) {
         String productJson = WooCommerceJson.getGson().toJson(product);
         try {
             getCacheManager().writeText("" + product.getId() + ".json", productJson);
@@ -300,5 +423,9 @@ public class AppData extends CommonAppData implements ProductContainer {
         String result = getApi().createProduct(json);
         Product newProduct = updateProduct(product, result);
         return newProduct;
+    }
+
+    public String getCacheDirectory() {
+        return getCacheManager().getCacheDir().getAbsolutePath();
     }
 }

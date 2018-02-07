@@ -16,9 +16,15 @@
 
 package au.com.tyo.inventory.model;
 
+import au.com.tyo.android.adapter.ListItem;
+
 /**
- * Created by Eric Tang (eric.tang@tyo.com.au) on 7/2/18.
+ * Created by Eric Tang (eric.tang@tyo.com.au) on 8/1/18.
  */
 
-public class Category extends GeneralItem {
+public interface IProduct extends ListItem {
+
+    String getPriceString();
+
+    String getStockString();
 }

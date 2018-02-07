@@ -45,7 +45,7 @@ import au.com.tyo.app.ui.page.PageCommonList;
 import au.com.tyo.inventory.BuildConfig;
 import au.com.tyo.inventory.Constants;
 import au.com.tyo.inventory.Controller;
-import au.com.tyo.inventory.DataLoader;
+import au.com.tyo.inventory.ErrorChecker;
 import au.com.tyo.inventory.R;
 import au.com.tyo.inventory.model.ProductForm;
 import au.com.tyo.inventory.ui.widget.ProductListItemFactory;
@@ -58,7 +58,7 @@ import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
  * Created by Eric Tang (eric.tang@tyo.com.au) on 27/11/17.
  */
 
-public class PageMain extends PageCommonList<Controller> implements AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener, Observer, DataLoader {
+public class PageMain extends PageCommonList<Controller> implements AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener, Observer, ErrorChecker {
 
     private static final String TAG = "PageMain";
 
@@ -154,8 +154,8 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
         if (BuildConfig.DEBUG)
             getController().getAppData().getApi().createCurlCommands();
 
-        getController().getAppData().loadProducts(this);
-
+        getController().getAppData().load(this);
+        // getController().getAppData().loadCategories();
     }
 
     @Override
