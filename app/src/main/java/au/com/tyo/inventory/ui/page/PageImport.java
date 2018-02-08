@@ -185,6 +185,7 @@ public class PageImport extends PageForm<Controller> {
                             importProducts(content);
                     }
                 });
+                finish();
             }
         });
     }

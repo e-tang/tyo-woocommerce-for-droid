@@ -27,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Toast;
@@ -96,6 +97,8 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
         // showSearchBar();
         // showSuggestionView();
         getListView().setOnItemLongClickListener(this);
+        getListView().setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+        getListView().setStackFromBottom(true);
     }
 
     @Override
@@ -296,7 +299,6 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
     public void update(Observable o, Object arg) {
         adapter.notifyDataSetChanged();
     }
-
 
     @Override
     public void onLoadDataFailedGeneral(Map map) {

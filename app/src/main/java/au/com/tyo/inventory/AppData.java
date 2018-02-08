@@ -97,6 +97,10 @@ public class AppData extends CommonAppData implements ProductContainer {
 
     private CommonCache barcodeImageCache;
 
+    public static class DataUpdate {}
+
+    public static class DataUpdateProduct extends DataUpdate {}
+
     public AppData(Context context) {
         super(context);
 
@@ -154,7 +158,7 @@ public class AppData extends CommonAppData implements ProductContainer {
     }
 
     public Object[] loadProducts(ErrorChecker checker) {
-        return load(checker, getCategoryCacheDir(), getApi().getProductsApiUrl(), productType, productsType);
+        return load(checker, getProductCacheDir(), getApi().getProductsApiUrl(), productType, productsType);
     }
 
     private Object[] load(ErrorChecker checker, String cacheDirectory, String url, Type itemType, Type mapType) {
@@ -382,8 +386,12 @@ public class AppData extends CommonAppData implements ProductContainer {
 
     private void updateProduct(Product newProductPtr) {
         if (null != newProductPtr) {
+            if (!productMap.containsKey(newProductPtr.getId()))
+                products.add(newProductPtr);
             productMap.put(newProductPtr.getId(), newProductPtr);
             saveProductCache(newProductPtr);
+
+            notifyDataCacheObservers(newProductPtr);
         }
     }
 
