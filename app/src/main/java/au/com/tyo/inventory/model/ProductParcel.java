@@ -40,7 +40,7 @@ public class ProductParcel extends FormBase {
     }
 
     public Product getProduct() {
-        return productContainer.getProduct(productId);
+        return productContainer.getProductById(productId);
     }
 
     @Override

@@ -110,12 +110,16 @@ public class AppData extends CommonAppData implements ProductContainer {
 //        productMap = new HashMap<>();
 //        categoryMap = new HashMap<>();
 
-        setCacheManager(new CommonCache(context, "products"));
+        setCacheManager(new CommonCache(context, new String[] {Constants.FOLDER_CACHE_CATEGORIES, Constants.FOLDER_CACHE_PRODUCTS}));
         barcodeImageCache = new CommonCache(context, "barcode");
     }
 
     public CommonCache getBarcodeImageCache() {
         return barcodeImageCache;
+    }
+
+    public List<Product> getProducts() {
+        return products;
     }
 
     public List<ProductForm> getProductList() {
@@ -129,16 +133,16 @@ public class AppData extends CommonAppData implements ProductContainer {
     }
 
     private String getProductCacheDir(){
-        return getCacheDirectory() + File.separator + "products";
+        return getCacheDirectory() + File.separator + Constants.FOLDER_CACHE_PRODUCTS;
     }
 
     private String getCategoryCacheDir(){
-        return getCacheDirectory() + File.separator + "categories";
+        return getCacheDirectory() + File.separator + Constants.FOLDER_CACHE_CATEGORIES;
     }
 
     public void load(ErrorChecker checker) {
         Object[] objects;
-        objects = loadCategories(checker);
+        objects = loadCategories(checker, 1);
 
         if (null != objects) {
             categories = (List<Category>) objects[0];
@@ -153,8 +157,8 @@ public class AppData extends CommonAppData implements ProductContainer {
         }
     }
 
-    public Object[] loadCategories(ErrorChecker checker) {
-        return load(checker, getCategoryCacheDir(), getApi().getProductCategoriesApiUrl(), categoryType, categoriesType);
+    public Object[] loadCategories(ErrorChecker checker, int page) {
+        return load(checker, getCategoryCacheDir(), getApi().getProductCategoriesApiUrlWithPageNumber(page), categoryType, categoriesType);
     }
 
     public Object[] loadProducts(ErrorChecker checker) {
@@ -169,7 +173,7 @@ public class AppData extends CommonAppData implements ProductContainer {
             fileStack = new WildcardFileStack(new File(cacheDirectory));
             fileStack.listFiles();
         } catch (Exception e) {
-
+            Log.e(TAG, "error in reading cache files from " + cacheDirectory, e);
         }
         if (fileStack != null && fileStack.size() > 0) {
             list = new ArrayList();
@@ -198,7 +202,7 @@ public class AppData extends CommonAppData implements ProductContainer {
 
                 for (int i = 0; i < list.size(); ++i) {
                     GeneralItem product = (GeneralItem) list.get(i);
-                    saveCache(product);
+                    saveCache(cacheDirectory, product);
                 }
             }
             catch (Exception ex) {
@@ -323,10 +327,10 @@ public class AppData extends CommonAppData implements ProductContainer {
         }
     }
 
-    private void saveCache(GeneralItem product) {
+    private void saveCache(String path, GeneralItem product) {
         String productJson = WooCommerceJson.getGson().toJson(product);
         try {
-            getCacheManager().writeText("" + product.getId() + ".json", productJson);
+            getCacheManager().writeText(path + File.separator + product.getId() + ".json", productJson);
         } catch (Exception e) {
             Log.e(TAG, au.com.tyo.utils.StringUtils.exceptionStackTraceToString(e));
         }
@@ -386,8 +390,14 @@ public class AppData extends CommonAppData implements ProductContainer {
 
     private void updateProduct(Product newProductPtr) {
         if (null != newProductPtr) {
-            if (!productMap.containsKey(newProductPtr.getId()))
+
+            if (!productMap.containsKey(newProductPtr.getId())) {
+                newProductPtr.setIndex(products.size());
                 products.add(newProductPtr);
+            }
+            else
+                products.set(newProductPtr.getIndex(), newProductPtr);
+
             productMap.put(newProductPtr.getId(), newProductPtr);
             saveProductCache(newProductPtr);
 
@@ -399,6 +409,7 @@ public class AppData extends CommonAppData implements ProductContainer {
         Product newProductPtr;
         try {
             newProductPtr = WooCommerceJson.getGson().fromJson(result, productType);
+            newProductPtr.setIndex(product.getIndex());
         }
         catch (Exception ex) {
             newProductPtr = product;
@@ -411,10 +422,13 @@ public class AppData extends CommonAppData implements ProductContainer {
     }
 
     @Override
-    public Product getProduct(int id) {
+    public Product getProductById(int id) {
         return productMap.get(id);
     }
 
+    public Product getProduct(int position) {
+        return products.get(position);
+    }
 
     public void importCategories(List<String> cats) {
         for (String cat : cats)

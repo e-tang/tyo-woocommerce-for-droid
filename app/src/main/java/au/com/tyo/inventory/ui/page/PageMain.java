@@ -27,7 +27,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Toast;
@@ -35,6 +34,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
@@ -48,6 +48,7 @@ import au.com.tyo.inventory.Constants;
 import au.com.tyo.inventory.Controller;
 import au.com.tyo.inventory.ErrorChecker;
 import au.com.tyo.inventory.R;
+import au.com.tyo.inventory.model.Product;
 import au.com.tyo.inventory.model.ProductForm;
 import au.com.tyo.inventory.ui.widget.ProductListItemFactory;
 import au.com.tyo.io.FileUtils;
@@ -63,8 +64,10 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
 
     private static final String TAG = "PageMain";
 
-    private ListViewItemAdapter adapter;
+    private LocalAdapter localAdapter;
     private Button stockInButton;
+
+    private Map<Integer, ProductForm> productMap;
 
     /**
      * @param controller
@@ -80,14 +83,41 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
         controller.getAppData().addObserver(this);
 
         setRequiredPermissions(new String[] {READ_EXTERNAL_STORAGE});
+
+        productMap = new HashMap<>();
+    }
+
+    private class LocalAdapter extends ListViewItemAdapter {
+
+        @Override
+        public List getItems() {
+            return getController().getAppData().getProducts();
+        }
+
+        //        @Override
+//        public int getCount() {
+////            int count = getController().getAppData().getProducts() == null ?
+////                    0 : getController().getAppData().getProducts().size();
+//            return productMap.size();
+//        }
+
+        @Override
+        public Object getItem(int position) {
+            ProductForm form = productMap.get(position);
+            if (null == form) {
+                Product product = getController().getAppData().getProduct(position);
+                form = new ProductForm(getController().getAppData(), product.getId());
+                productMap.put(position, form);
+            }
+            return form;
+        }
     }
 
     @Override
     protected void createAdapter() {
-        super.createAdapter();
-
-        adapter = getListAdapter();
-        adapter.setItemFactory(new ProductListItemFactory(getActivity()));
+        localAdapter = new LocalAdapter();
+        localAdapter.setItemFactory(new ProductListItemFactory(getActivity()));
+        setBaseAdapter(localAdapter);
     }
 
     @Override
@@ -97,8 +127,8 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
         // showSearchBar();
         // showSuggestionView();
         getListView().setOnItemLongClickListener(this);
-        getListView().setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
-        getListView().setStackFromBottom(true);
+//        getListView().setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+//        getListView().setStackFromBottom(true);
     }
 
     @Override
@@ -169,12 +199,12 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
     }
 
     private void showProductList() {
-        List<ProductForm> productList = getController().getAppData().getProductList();
+        // List<ProductForm> productList = getController().getAppData().getProductList();
 
-        adapter.clear();
+        // localAdapter.clear();
 
-        adapter.setItems(productList);
-        adapter.notifyDataSetChanged();
+        // localAdapter.setItems(productList);
+        localAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -184,7 +214,7 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ProductForm item = (ProductForm) adapter.get(position);
+        ProductForm item = (ProductForm) localAdapter.get(position);
         getController().getUi().gotoProductDetailsPage(item);
     }
 
@@ -257,7 +287,7 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        final ProductForm listItem = (ProductForm) adapter.get(position);
+        final ProductForm listItem = (ProductForm) localAdapter.get(position);
 
         showPageOverlay();
 
@@ -297,7 +327,7 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
 
     @Override
     public void update(Observable o, Object arg) {
-        adapter.notifyDataSetChanged();
+        localAdapter.notifyDataSetChanged();
     }
 
     @Override

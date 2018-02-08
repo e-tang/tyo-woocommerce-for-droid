@@ -29,9 +29,13 @@ public interface Constants extends au.com.tyo.app.Constants {
     String FOLDER_APP = "TyoInventory";
     String FILE_IMPORT = "import.tsv";
 
+    String FOLDER_CACHE_PRODUCTS = "products";
+    String FOLDER_CACHE_CATEGORIES = "categories";
+
     String FOLDER_DOWNLOAD = "Download";
 
     String DATA_IMPORT_TYPE = "IMPORT_TYPE";
     int IMPORT_TYPE_PRODUCT = 1;
     int IMPORT_TYPE_CATEGORY = 2;
+
 }

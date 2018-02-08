@@ -22,6 +22,6 @@ package au.com.tyo.inventory.model;
 
 public interface ProductContainer {
 
-    Product getProduct(int id);
+    Product getProductById(int id);
 
 }

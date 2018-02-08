@@ -61,6 +61,14 @@ public class WooCommerceApi extends CommonApiJson {
         return getApiUrl(productsPath);
     }
 
+    public String getProductCategoriesApiUrlWithPageNumber(int page) {
+        return getProductCategoriesApiUrlWithPageNumber(page, 100);
+    }
+
+    public String getProductCategoriesApiUrlWithPageNumber(int page, int perPage) {
+        return getProductCategoriesApiUrl() + "&page=" + page + "&per_page=" + perPage;
+    }
+
     public String getProductCategoriesApiUrl() {
         return getApiUrl(PATH_CATEGORIES);
     }
