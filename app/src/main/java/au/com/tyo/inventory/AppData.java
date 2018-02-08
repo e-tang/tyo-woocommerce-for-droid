@@ -17,6 +17,7 @@
 package au.com.tyo.inventory;
 
 import android.content.Context;
+import android.util.Base64;
 import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
@@ -38,6 +39,8 @@ import au.com.tyo.inventory.model.ProductForm;
 import au.com.tyo.inventory.model.ProductFormMetaData;
 import au.com.tyo.inventory.model.ProductStockInMetaData;
 import au.com.tyo.io.WildcardFileStack;
+import au.com.tyo.utils.SpreadSheet;
+import au.com.tyo.utils.StringUtils;
 import au.com.tyo.woocommerce.WooCommerceApi;
 import au.com.tyo.woocommerce.WooCommerceJson;
 
@@ -50,6 +53,7 @@ public class AppData extends CommonAppData implements ProductContainer {
     private static final String TAG = "AppData";
 
     public static final String PRODUCTS_JSON_CACHE = "products.json";
+    private static final String PASSWORD = "T0fawefwwhlhisIsafwVeryLogh";
 
     //
     // API
@@ -97,6 +101,8 @@ public class AppData extends CommonAppData implements ProductContainer {
 
     private CommonCache barcodeImageCache;
 
+    private Resources resources;
+
     public static class DataUpdate {}
 
     public static class DataUpdateProduct extends DataUpdate {}
@@ -112,6 +118,16 @@ public class AppData extends CommonAppData implements ProductContainer {
 
         setCacheManager(new CommonCache(context, new String[] {Constants.FOLDER_CACHE_CATEGORIES, Constants.FOLDER_CACHE_PRODUCTS}));
         barcodeImageCache = new CommonCache(context, "barcode");
+
+        setResources(new Resources(context));
+    }
+
+    public Resources getResources() {
+        return resources;
+    }
+
+    public void setResources(Resources resources) {
+        this.resources = resources;
     }
 
     public CommonCache getBarcodeImageCache() {
@@ -141,33 +157,42 @@ public class AppData extends CommonAppData implements ProductContainer {
     }
 
     public void load(ErrorChecker checker) {
-        Object[] objects;
-        objects = loadCategories(checker, 1);
+        categories = loadCategories(checker, 1);
 
-        if (null != objects) {
-            categories = (List<Category>) objects[0];
-            categoryMap = (Map<String, Category>) objects[1];
+        if (null != categories) {
+            categoryMap = new HashMap<>();
+            for (int i = 0; i < categories.size(); ++i) {
+                Category category = categories.get(i);
+                category.setIndex(i);
 
-            objects = loadProducts(checker);
+                categoryMap.put(category.getName().toLowerCase(), category);
+            }
 
-            if (null != objects) {
-                products = (List<Product>) objects[0];
-                productMap = (Map<Integer, Product>) objects[1];
+            products = loadProducts(checker);
+
+            if (null != products) {
+                productMap = new HashMap<Integer, Product>();
+                for (int i = 0; i < products.size(); ++i) {
+                    Product product = (Product) products.get(i);
+                    product.setIndex(i);
+
+                    productMap.put(product.getId(), product);
+                }
             }
         }
     }
 
-    public Object[] loadCategories(ErrorChecker checker, int page) {
+    public List loadCategories(ErrorChecker checker, int page) {
         return load(checker, getCategoryCacheDir(), getApi().getProductCategoriesApiUrlWithPageNumber(page), categoryType, categoriesType);
     }
 
-    public Object[] loadProducts(ErrorChecker checker) {
+    public List loadProducts(ErrorChecker checker) {
         return load(checker, getProductCacheDir(), getApi().getProductsApiUrl(), productType, productsType);
     }
 
-    private Object[] load(ErrorChecker checker, String cacheDirectory, String url, Type itemType, Type mapType) {
+    private List load(ErrorChecker checker, String cacheDirectory, String url, Type itemType, Type mapType) {
         List list = null;
-        Map map = new HashMap();
+        // Map map = new HashMap();
         WildcardFileStack fileStack = null;
         try {
             fileStack = new WildcardFileStack(new File(cacheDirectory));
@@ -210,7 +235,7 @@ public class AppData extends CommonAppData implements ProductContainer {
                 try {
                     mapErr = WooCommerceJson.getGson().fromJson(json, HashMap.class);
                     if (mapErr.containsKey("data")) {
-                        Map smap = (Map) map.get("data");
+                        Map smap = (Map) mapErr.get("data");
                         if (smap.containsKey("status")) {
                             int status = (int) ((double) smap.get("status"));
                             if (status == 401) {
@@ -220,7 +245,7 @@ public class AppData extends CommonAppData implements ProductContainer {
                             }
                         }
                     }
-                    checker.onLoadDataFailedGeneral(map);
+                    checker.onLoadDataFailedGeneral(mapErr);
                     return null;
                 }
                 catch (Exception ex2) {
@@ -231,15 +256,8 @@ public class AppData extends CommonAppData implements ProductContainer {
             }
         }
 
-        for (int i = 0; i < list.size(); ++i) {
-            GeneralItem product = (GeneralItem) list.get(i);
-            product.setIndex(i);
-
-            map.put(product.getId(), product);
-        }
-
         Log.d(TAG, "productListItems loaded: total " + list.size());
-        return new Object[] {list, map};
+        return list; //new Object[] {list, map};
     }
 
     public void loadProducts1(ErrorChecker checker) {
@@ -449,5 +467,153 @@ public class AppData extends CommonAppData implements ProductContainer {
 
     public String getCacheDirectory() {
         return getCacheManager().getCacheDir().getAbsolutePath();
+    }
+
+    public void importProducts(String content) {
+        SpreadSheet spreadSheet = new SpreadSheet(SpreadSheet.SPREAD_SHEET_TYPE_TSV);
+
+        spreadSheet.setSimpleTable(true);
+        spreadSheet.setIgnoreEmptyCell(false);
+        spreadSheet.setIgnoreRowNonNullColumnsLessThanThisNumber(4);
+
+        spreadSheet.createTable(content);
+
+        List<List> table = spreadSheet.getTable();
+
+        // temporary solution
+        // orders
+
+        for (List row : table) {
+            String oem = "";
+            String code = "";
+            String size = "";
+            String image = "";
+            String category = "";
+            String name = "";
+            String brand = "";
+            String series = "";
+            String model = "";
+            String year = "";
+            int quantity = 0;
+            String costPerUnit = "";
+            String location = "";
+            String salePrice = "";
+
+            for (int i = 0; i < row.size(); ++i) {
+                String colStr = (String) row.get(i);
+
+                if (colStr == null)
+                    continue;
+                // for auto
+                //
+                switch (i) {
+                    case 0:
+                        oem = colStr;
+                        break;
+                    case 1:
+                        code = colStr;
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        category = colStr.toLowerCase();
+                        break;
+                    case 5:
+                        name = colStr;
+                        break;
+                    case 6:
+                        brand = colStr;
+                        break;
+                    case 7:
+                        series = colStr;
+                        break;
+                    case 8:
+                        year = colStr;
+                        break;
+                    case 9:
+                        model = colStr;
+                        break;
+                    case 10:
+                        try {
+                            quantity = Integer.parseInt(colStr);
+                        }
+                        catch (Exception e) {}
+
+                        break;
+                    case 11:
+                        costPerUnit = colStr;
+                        break;
+                    case 12:
+                        break;
+                    case 13:
+                        location = colStr;
+                        break;
+                    case 14:
+                        break;
+                    case 15:
+                        salePrice = colStr;
+                        break;
+                }
+
+            }
+
+            Product product = new Product();
+            product.setName(StringUtils.join(" ", oem, code, name, series, model, year));
+            product.setDescription(String.format(resources.getTemplateDescription(),
+                    oem.length() > 0 ? oem : (code.length() > 0 ? code : "N/A"),
+                    brand));
+
+            product.setInStock(quantity > 0);
+            product.setStock(quantity);
+            product.setProductTypeSimple();
+            product.setPrice(salePrice);
+
+            // TODO
+            // create image prefix in preferences
+            product.setImage("http://fred-auto-parts-store1.appspot.com.storage.googleapis.com/" + code + ".jpg");
+
+            Category cat = findCategory(category);
+
+            if (cat != null)
+                product.setCategory(cat.getId());
+
+            importProduct(product);
+        }
+    }
+
+    public Category findCategory(String category) {
+        return categoryMap.get(category);
+    }
+
+    private String encryptCost(String cost) {
+        byte[] source = cost.getBytes();
+       byte[] sb = new byte[source.length];
+        byte[] password = PASSWORD.getBytes();
+
+        for (int i = 0; i < source.length; ++i) {
+            sb[i] = (byte) (password[i] + source[i]);
+        }
+
+        String target = Base64.encodeToString(sb, Base64.DEFAULT);
+        return target;
+    }
+
+    private String decryptCost(String s) {
+        byte[] source = Base64.decode(s, Base64.DEFAULT);
+        byte[] sb = new byte[source.length];
+        byte[] password = PASSWORD.getBytes();
+        for (int i = 0; i < source.length; ++i) {
+            sb[i] = (byte) (source[i] - password[i]);
+        }
+        return new String(sb);
+    }
+
+    public void importCategories(String data) {
+        List<String> cats = new ArrayList<String>();
+        cats = WooCommerceJson.getGson().fromJson(data, cats.getClass());
+
+        importCategories(cats);
     }
 }

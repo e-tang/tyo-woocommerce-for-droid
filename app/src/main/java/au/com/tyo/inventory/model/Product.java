@@ -66,14 +66,6 @@ public class Product extends GeneralItem {
         return (String) get("permalink");
     }
 
-    public String getName() {
-        return (String) get("name");
-    }
-
-    public void setName(String name) {
-        put("name", name);
-    }
-
     public void setProductTypeSimple() {
         put("type", "simple");
     }
@@ -129,5 +121,9 @@ public class Product extends GeneralItem {
         List list = getListData("images");
         map.put("position", list.size());
         list.add(map);
+    }
+
+    public void setInStock(boolean inStock) {
+        put("in_stock", inStock);
     }
 }

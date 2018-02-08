@@ -31,17 +31,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import au.com.tyo.inventory.Constants;
 import au.com.tyo.inventory.Controller;
 import au.com.tyo.inventory.R;
-import au.com.tyo.inventory.model.Product;
 import au.com.tyo.io.IO;
 import au.com.tyo.json.android.pages.PageForm;
-import au.com.tyo.utils.SpreadSheet;
-import au.com.tyo.woocommerce.WooCommerceJson;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 4/2/18.
@@ -180,45 +176,14 @@ public class PageImport extends PageForm<Controller> {
                     @Override
                     public void run() {
                         if (importType == Constants.IMPORT_TYPE_CATEGORY)
-                            importCategories(content);
+                            getController().getAppData().importCategories(content);
                         else
-                            importProducts(content);
+                            getController().getAppData().importProducts(content);
                     }
                 });
                 finish();
             }
         });
-    }
-
-    private void importProducts(String content) {
-        SpreadSheet spreadSheet = new SpreadSheet(SpreadSheet.SPREAD_SHEET_TYPE_TSV);
-
-        spreadSheet.setSimpleTable(true);
-        spreadSheet.setIgnoreEmptyCell(true);
-
-        spreadSheet.createTable(content);
-
-        List<List> table = spreadSheet.getTable();
-
-        // temporary solution
-        // orders
-
-        for (List row : table)
-            for (Object obj : row) {
-                String colStr = (String) obj;
-
-                Product product = new Product();
-                getController().getAppData().importProduct(product);
-            }
-    }
-
-    private void importCategories(String data) {
-
-        List<String> cats = new ArrayList<String>();
-        cats = WooCommerceJson.getGson().fromJson(data, cats.getClass());
-
-        getController().getAppData().importCategories(cats);
-
     }
 
     @Override

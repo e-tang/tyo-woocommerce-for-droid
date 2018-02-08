@@ -28,4 +28,12 @@ public class GeneralItem extends DataJson {
         return (int) getDouble("id");
     }
 
+    public String getName() {
+        return (String) get("name");
+    }
+
+    public void setName(String name) {
+        put("name", name);
+    }
+
 }
