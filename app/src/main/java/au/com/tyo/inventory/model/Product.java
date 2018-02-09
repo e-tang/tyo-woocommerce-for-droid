@@ -33,11 +33,17 @@ public class Product extends GeneralItem {
 
     public String getImageUrl() {
         if (imageUrl == null) {
-            List object = (List) get("images");
-            if (null != object && object.size() > 0) {
-                LinkedTreeMap imageJson = (LinkedTreeMap) object.get(0);
-                imageUrl = (String) imageJson.get("src");
+            Object obj = get("images");
+            if (obj instanceof List) {
+                List object = (List) obj;
+                if (null != object && object.size() > 0) {
+                    LinkedTreeMap imageJson = (LinkedTreeMap) object.get(0);
+                    imageUrl = (String) imageJson.get("src");
+                }
             }
+            else if (obj instanceof String)
+                imageUrl = (String) obj;
+
         }
         return imageUrl;
     }

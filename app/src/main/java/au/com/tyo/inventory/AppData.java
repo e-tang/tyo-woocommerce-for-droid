@@ -277,12 +277,7 @@ public class AppData extends CommonAppData implements ProductContainer {
     }
 
     private void saveProductCache(Product product) {
-        String productJson = WooCommerceJson.getGson().toJson(product);
-        try {
-            getCacheManager().writeText("" + product.getId() + ".json", productJson);
-        } catch (Exception e) {
-            Log.e(TAG, au.com.tyo.utils.StringUtils.exceptionStackTraceToString(e));
-        }
+        saveCache(getProductCacheDir(), product);
     }
 
     private void saveCache(String path, GeneralItem product) {
