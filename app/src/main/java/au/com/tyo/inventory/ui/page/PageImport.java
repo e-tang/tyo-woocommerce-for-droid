@@ -38,6 +38,7 @@ import au.com.tyo.inventory.Controller;
 import au.com.tyo.inventory.R;
 import au.com.tyo.io.IO;
 import au.com.tyo.json.android.pages.PageForm;
+import au.com.tyo.utils.SpreadSheet;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 4/2/18.
@@ -51,6 +52,7 @@ public class PageImport extends PageForm<Controller> {
     private Uri uri;
     private String content;
     private int importType;
+    private List<List> table;
 
     /**
      * @param controller
@@ -98,6 +100,17 @@ public class PageImport extends PageForm<Controller> {
                     }
             }
         }
+
+        SpreadSheet spreadSheet = new SpreadSheet(SpreadSheet.SPREAD_SHEET_TYPE_TSV);
+
+        spreadSheet.setFirstRowIsHeader(true);
+        spreadSheet.setSimpleTable(true);
+        spreadSheet.setIgnoreEmptyCell(false);
+        spreadSheet.setIgnoreRowNonNullColumnsLessThanThisNumber(5);
+
+        spreadSheet.createTable(content);
+
+        table = spreadSheet.getTable();
     }
 
     @Override
@@ -124,6 +137,9 @@ public class PageImport extends PageForm<Controller> {
                     getController().getUi().pickFromList(list, getActivity().getResources().getString(R.string.pick_file_to_import));
             }
         }
+
+        if (null != uri)
+            uriToData();
     }
 
     @Override
@@ -132,6 +148,7 @@ public class PageImport extends PageForm<Controller> {
             Object obj = getActivityResult(data);
             try {
                 uri = Uri.fromFile(new File((String) obj));
+                uriToData();
             }
             catch (Exception ex) {
                 Log.d(TAG, "Getting result from pick error", ex);
@@ -178,7 +195,7 @@ public class PageImport extends PageForm<Controller> {
                         if (importType == Constants.IMPORT_TYPE_CATEGORY)
                             getController().getAppData().importCategories(content);
                         else
-                            getController().getAppData().importProducts(content);
+                            getController().getAppData().importProducts(table);
                     }
                 });
                 finish();

@@ -41,7 +41,6 @@ import au.com.tyo.inventory.model.ProductFormMetaData;
 import au.com.tyo.inventory.model.ProductStockInMetaData;
 import au.com.tyo.io.WildcardFileStack;
 import au.com.tyo.utils.RegexUtils;
-import au.com.tyo.utils.SpreadSheet;
 import au.com.tyo.utils.StringUtils;
 import au.com.tyo.woocommerce.WooCommerceApi;
 import au.com.tyo.woocommerce.WooCommerceJson;
@@ -395,16 +394,7 @@ public class AppData extends CommonAppData implements ProductContainer {
         return getCacheManager().getCacheDir().getAbsolutePath();
     }
 
-    public void importProducts(String content) {
-        SpreadSheet spreadSheet = new SpreadSheet(SpreadSheet.SPREAD_SHEET_TYPE_TSV);
-
-        spreadSheet.setSimpleTable(true);
-        spreadSheet.setIgnoreEmptyCell(false);
-        spreadSheet.setIgnoreRowNonNullColumnsLessThanThisNumber(5);
-
-        spreadSheet.createTable(content);
-
-        List<List> table = spreadSheet.getTable();
+    public void importProducts(List<List> table) {
 
         // temporary solution
         // orders
@@ -440,8 +430,10 @@ public class AppData extends CommonAppData implements ProductContainer {
                         code = colStr;
                         break;
                     case 2:
+                        spec = colStr;
                         break;
                     case 3:
+                        image = colStr;
                         break;
                     case 4:
                         category = colStr.toLowerCase();
@@ -477,9 +469,9 @@ public class AppData extends CommonAppData implements ProductContainer {
                         location = colStr;
                         break;
                     case 14:
+                        salePrice = colStr;
                         break;
                     case 15:
-                        salePrice = colStr;
                         break;
                 }
 
