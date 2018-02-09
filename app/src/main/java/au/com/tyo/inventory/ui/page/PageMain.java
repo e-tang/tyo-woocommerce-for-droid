@@ -328,6 +328,13 @@ public class PageMain extends PageCommonList<Controller> implements AdapterView.
     @Override
     public void update(Observable o, Object arg) {
         localAdapter.notifyDataSetChanged();
+        getListView().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getListView().setSelection(localAdapter.getCount() - 1);
+            }
+        },
+        900);
     }
 
     @Override

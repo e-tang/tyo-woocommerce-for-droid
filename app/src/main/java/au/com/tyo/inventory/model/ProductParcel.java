@@ -47,7 +47,9 @@ public class ProductParcel extends FormBase {
     public Object getValue(String key) {
         if (key.equals("images"))
             return getProductImageUrl();
-        return getProduct().get(key);
+
+        Product product = getProduct();
+        return null == product ? null : product.get(key);
     }
 
     @Override

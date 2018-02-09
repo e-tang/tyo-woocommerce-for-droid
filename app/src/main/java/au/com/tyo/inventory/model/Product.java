@@ -59,9 +59,6 @@ public class Product extends GeneralItem {
     }
 
     public void setStock(int stock) {
-        if (stock > 0 && !containsKey("manage_stock"))
-            setManageStock(true);
-
         put("stock_quantity", stock);
     }
 
@@ -91,6 +88,22 @@ public class Product extends GeneralItem {
         Map map = createMapData();
         map.put("id", catId);
         list.add(map);
+    }
+
+    public Object getAttribute(String name) {
+        List list = getListData("attributes");
+
+        for (int i = 0; i < list.size(); ++i) {
+            Map map = (Map) list.get(i);
+            if (name.equals(map.get("name"))) {
+                List optionList = getListData(map, "options");
+                if (optionList.size() == 1)
+                    return optionList.get(0);
+                else
+                    return optionList;
+            }
+        }
+        return null;
     }
 
     public void setAttribute(String name, String... options) {
@@ -138,5 +151,14 @@ public class Product extends GeneralItem {
 
     public void setInStock(boolean inStock) {
         put("in_stock", inStock);
+    }
+
+    public String getUniqueCode() {
+        String code = (String) getAttribute("Code");
+        if (null == code)
+            code = (String) getAttribute("MPN");
+        if (null == code)
+            code = "" + getId();
+        return code;
     }
 }

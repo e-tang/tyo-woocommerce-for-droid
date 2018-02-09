@@ -45,7 +45,7 @@ import au.com.tyo.utils.StringUtils;
 import au.com.tyo.woocommerce.WooCommerceApi;
 import au.com.tyo.woocommerce.WooCommerceJson;
 
-import static au.com.tyo.app.Constants.MESSAGE_BACKGROUND_TASK_STAGE_ONE;
+import static au.com.tyo.app.Constants.MESSAGE_CUSTOM_ONE;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 13/12/17.
@@ -186,7 +186,13 @@ public class AppData extends CommonAppData implements ProductContainer {
                     product.setIndex(i);
 
                     productMapById.put(product.getId(), product);
-                    productMapByName.put(product.getName(), product);
+
+                    try {
+                        productMapByName.put((String) product.getUniqueCode(), product);
+                    }
+                    catch (Exception ex) {
+                        Log.e(TAG, "The product code is not set properly", ex);
+                    }
                 }
             }
         }
@@ -353,7 +359,7 @@ public class AppData extends CommonAppData implements ProductContainer {
             productMapById.put(newProductPtr.getId(), newProductPtr);
             saveProductCache(newProductPtr);
 
-            controller.sendMessage(MESSAGE_BACKGROUND_TASK_STAGE_ONE);
+            controller.sendMessage(MESSAGE_CUSTOM_ONE);
         }
     }
 
@@ -362,13 +368,13 @@ public class AppData extends CommonAppData implements ProductContainer {
         try {
             newProductPtr = WooCommerceJson.getGson().fromJson(result, productType);
             newProductPtr.setIndex(product.getIndex());
+            updateProduct(newProductPtr);
         }
         catch (Exception ex) {
-            newProductPtr = product;
+            newProductPtr = null;
         }
 
         // if (null != newProductPtr && newProductPtr.getStock() != product.getStock()) {
-            updateProduct(newProductPtr);
         // }
         return newProductPtr;
     }
@@ -435,10 +441,10 @@ public class AppData extends CommonAppData implements ProductContainer {
                 // for auto
                 //
                 switch (i) {
-                    case 0:
+                    case 1:
                         oem = colStr;
                         break;
-                    case 1:
+                    case 0:
                         code = colStr;
                         break;
                     case 2:
@@ -503,6 +509,7 @@ public class AppData extends CommonAppData implements ProductContainer {
 
             product.setInStock(quantity > 0);
             product.setStock(quantity);
+            product.setManageStock(true);
             product.setProductTypeSimple();
             product.setPrice(salePrice);
 
@@ -511,6 +518,9 @@ public class AppData extends CommonAppData implements ProductContainer {
 
             if (!TextUtils.isEmpty(brand))
                 product.setAttribute("Brand", brand);
+
+            if (!TextUtils.isEmpty(code))
+                product.setAttribute("Code", code);
 
             // TODO
             // create image prefix in preferences
@@ -565,6 +575,10 @@ public class AppData extends CommonAppData implements ProductContainer {
 //                return true;
 //        }
 //        return false;
-        return productMapByName.containsKey(product.getName());
+        String code = product.getUniqueCode();
+        if (null == code)
+            return false;
+        return productMapByName.containsKey(code);
     }
+
 }
