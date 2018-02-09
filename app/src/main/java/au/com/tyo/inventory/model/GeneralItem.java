@@ -17,6 +17,7 @@
 package au.com.tyo.inventory.model;
 
 import au.com.tyo.json.DataJson;
+import au.com.tyo.woocommerce.WooCommerceJson;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 7/2/18.
@@ -34,6 +35,10 @@ public class GeneralItem extends DataJson {
 
     public void setName(String name) {
         put("name", name);
+    }
+
+    public String toJson() {
+        return  WooCommerceJson.getGson().toJson(this);
     }
 
 }

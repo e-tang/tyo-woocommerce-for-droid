@@ -25,7 +25,7 @@ public class App extends CommonApp<UI, Controller> implements Controller {
     public App(Context context) {
         super(context);
 
-        appData = new AppData(context);
+        appData = new AppData(this, context);
     }
 
     @Override
@@ -52,5 +52,10 @@ public class App extends CommonApp<UI, Controller> implements Controller {
         super.initializeInBackgroundThread(context);
 
         appData.load();
+    }
+
+    @Override
+    public void onMessageCustomOne() {
+        getAppData().notifyDataCacheObservers();
     }
 }

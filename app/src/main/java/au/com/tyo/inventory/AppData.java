@@ -45,6 +45,8 @@ import au.com.tyo.utils.StringUtils;
 import au.com.tyo.woocommerce.WooCommerceApi;
 import au.com.tyo.woocommerce.WooCommerceJson;
 
+import static au.com.tyo.app.Constants.MESSAGE_BACKGROUND_TASK_STAGE_ONE;
+
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 13/12/17.
  */
@@ -77,7 +79,8 @@ public class AppData extends CommonAppData implements ProductContainer {
     /**
      * Product list for listview
      */
-    private Map<Integer, Product> productMap;
+    private Map<Integer, Product> productMapById;
+    private Map<String, Product> productMapByName;
 
     /**
      * Product list from json
@@ -104,17 +107,21 @@ public class AppData extends CommonAppData implements ProductContainer {
 
     private Resources resources;
 
+    private Controller controller;
+
     public static class DataUpdate {}
 
     public static class DataUpdateProduct extends DataUpdate {}
 
-    public AppData(Context context) {
+    public AppData(Controller controller, Context context) {
         super(context);
+
+        this.controller = controller;
 
         this.api = new WooCommerceApi(context);
         this.parser = new WooCommerceJson();
 
-//        productMap = new HashMap<>();
+//        productMapById = new HashMap<>();
 //        categoryMap = new HashMap<>();
 
         setCacheManager(new CommonCache(context, new String[] {Constants.FOLDER_CACHE_CATEGORIES, Constants.FOLDER_CACHE_PRODUCTS}));
@@ -172,12 +179,14 @@ public class AppData extends CommonAppData implements ProductContainer {
             products = loadProducts(checker);
 
             if (null != products) {
-                productMap = new HashMap<Integer, Product>();
+                productMapById = new HashMap<Integer, Product>();
+                productMapByName = new HashMap<>();
                 for (int i = 0; i < products.size(); ++i) {
                     Product product = (Product) products.get(i);
                     product.setIndex(i);
 
-                    productMap.put(product.getId(), product);
+                    productMapById.put(product.getId(), product);
+                    productMapByName.put(product.getName(), product);
                 }
             }
         }
@@ -334,17 +343,17 @@ public class AppData extends CommonAppData implements ProductContainer {
     private void updateProduct(Product newProductPtr) {
         if (null != newProductPtr) {
 
-            if (!productMap.containsKey(newProductPtr.getId())) {
+            if (!productMapById.containsKey(newProductPtr.getId())) {
                 newProductPtr.setIndex(products.size());
                 products.add(newProductPtr);
             }
             else
                 products.set(newProductPtr.getIndex(), newProductPtr);
 
-            productMap.put(newProductPtr.getId(), newProductPtr);
+            productMapById.put(newProductPtr.getId(), newProductPtr);
             saveProductCache(newProductPtr);
 
-            notifyDataCacheObservers(newProductPtr);
+            controller.sendMessage(MESSAGE_BACKGROUND_TASK_STAGE_ONE);
         }
     }
 
@@ -366,7 +375,7 @@ public class AppData extends CommonAppData implements ProductContainer {
 
     @Override
     public Product getProductById(int id) {
-        return productMap.get(id);
+        return productMapById.get(id);
     }
 
     public Product getProduct(int position) {
@@ -384,7 +393,10 @@ public class AppData extends CommonAppData implements ProductContainer {
     }
 
     public Product importProduct(Product product) {
-        String json = product.toString();
+        if (hasProduct(product))
+            return null;
+
+        String json = product.toJson();
         String result = getApi().createProduct(json);
         Product newProduct = updateProduct(product, result);
         return newProduct;
@@ -545,5 +557,14 @@ public class AppData extends CommonAppData implements ProductContainer {
         cats = WooCommerceJson.getGson().fromJson(data, cats.getClass());
 
         importCategories(cats);
+    }
+
+    public boolean hasProduct(Product product) {
+//        for (Product p : products) {
+//            if (p.getName().equals(product.getName()))
+//                return true;
+//        }
+//        return false;
+        return productMapByName.containsKey(product.getName());
     }
 }

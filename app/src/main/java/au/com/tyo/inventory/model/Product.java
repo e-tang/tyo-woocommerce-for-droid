@@ -50,7 +50,18 @@ public class Product extends GeneralItem {
         return getInt("stock_quantity");
     }
 
+    public boolean getManageStock() {
+        return (boolean) get("manage_stock");
+    }
+
+    public void setManageStock(boolean manage) {
+        set("manage_stock", manage);
+    }
+
     public void setStock(int stock) {
+        if (stock > 0 && !containsKey("manage_stock"))
+            setManageStock(true);
+
         put("stock_quantity", stock);
     }
 
