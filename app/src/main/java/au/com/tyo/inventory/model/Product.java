@@ -16,10 +16,8 @@
 
 package au.com.tyo.inventory.model;
 
-import com.google.api.client.util.GenericData;
 import com.google.gson.internal.LinkedTreeMap;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +28,8 @@ import java.util.Map;
 public class Product extends GeneralItem {
 
     private String imageUrl;
+
+    public enum ProductAttributeType {SELECT, TEXT};
 
     public String getImageUrl() {
         if (imageUrl == null) {
@@ -82,38 +82,40 @@ public class Product extends GeneralItem {
         list.add(map);
     }
 
-    protected List getListData(String name) {
-        List map = (List) get(name);
-
-        if (map == null) {
-            map = createList();
-            put(name, map);
-        }
-        return map;
+    public void setAttribute(String name, String... options) {
+        setAttribute(name, true, options);
     }
 
-    protected List createList() {
-        return new ArrayList();
-    }
+    public void setAttribute(String name, boolean visible, String... options) {
+        List list = getListData("attributes");
 
-    protected Map getMapData(String name) {
-        Map map = (Map) get(name);
-
-        if (map == null) {
-            map = createMapData();
-            put(name, map);
-        }
-        return map;
-    }
-
-    protected GenericData createMapData() {
-        return new GenericData();
-    }
-
-    protected Map createMapData(String name, Object value) {
         Map map = createMapData();
-        map.put(name, value);
-        return map;
+        map.put("name", name);
+        map.put("visible", visible);
+
+        List optionList = getListData(map, "options");
+
+        for (String option : options)
+            optionList.add(option);
+
+        list.add(map);
+    }
+
+    public void setProductAttribute(String name, ProductAttributeType type) {
+        List list = getListData("product_attributes");
+
+        Map map = createMapData();
+        map.put("name", name);
+
+        String typeStr;
+        if (type == ProductAttributeType.SELECT)
+            typeStr = "select";
+        else
+            typeStr = "text";
+
+        map.put("type", typeStr);
+
+        list.add(map);
     }
 
     public void setImage(String imageUrl) {

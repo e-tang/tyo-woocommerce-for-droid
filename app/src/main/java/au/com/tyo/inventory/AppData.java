@@ -17,6 +17,7 @@
 package au.com.tyo.inventory;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 
@@ -39,6 +40,7 @@ import au.com.tyo.inventory.model.ProductForm;
 import au.com.tyo.inventory.model.ProductFormMetaData;
 import au.com.tyo.inventory.model.ProductStockInMetaData;
 import au.com.tyo.io.WildcardFileStack;
+import au.com.tyo.utils.RegexUtils;
 import au.com.tyo.utils.SpreadSheet;
 import au.com.tyo.utils.StringUtils;
 import au.com.tyo.woocommerce.WooCommerceApi;
@@ -260,82 +262,6 @@ public class AppData extends CommonAppData implements ProductContainer {
         return list; //new Object[] {list, map};
     }
 
-    public void loadProducts1(ErrorChecker checker) {
-
-        String json;
-
-        WildcardFileStack fileStack = null;
-        try {
-            fileStack = new WildcardFileStack(getCacheManager().getCacheDir());
-            fileStack.listFiles();
-        } catch (Exception e) {
-
-        }
-        if (fileStack != null && fileStack.size() > 0) {
-            products = new ArrayList();
-            File file = fileStack.next();
-            while (null != file) {
-                try {
-                    String productJson = getCacheManager().readText(file);
-                    Product product = WooCommerceJson.getGson().fromJson(productJson, productType);
-                    products.add(product);
-                    file = fileStack.next();
-                }
-                catch (Exception ex) {
-                    // if any errors we clear the cache
-                    products.clear();
-                    getCacheManager().clear();
-                    break;
-                }
-            }
-        }
-
-        if (null == products || products.size() == 0) {
-            json = api.getProductsJsonString();
-            try {
-                products = WooCommerceJson.getGson().fromJson(json, productsType);
-
-                for (int i = 0; i < products.size(); ++i) {
-                    Product product = products.get(i);
-                    saveProductCache(product);
-                }
-            }
-            catch (Exception ex) {
-                Map map;
-                try {
-                    map = WooCommerceJson.getGson().fromJson(json, HashMap.class);
-                    if (map.containsKey("data")) {
-                        Map smap = (Map) map.get("data");
-                        if (smap.containsKey("status")) {
-                            int status = (int) ((double) smap.get("status"));
-                            if (status == 401) {
-                                getApi().getAuthentication().clearSecret();
-                                checker.onLoadDataFailedBecauseOfUnauthorization();
-                                return;
-                            }
-                        }
-                    }
-                    checker.onLoadDataFailedGeneral(map);
-                    return;
-                }
-                catch (Exception ex2) {
-                    String msg = "unable pass the server response";
-                    Log.e(TAG, msg, ex2);
-                    throw new IllegalStateException("");
-                }
-            }
-        }
-
-        for (int i = 0; i < products.size(); ++i) {
-            Product product = products.get(i);
-            product.setIndex(i);
-
-            productMap.put(product.getId(), product);
-        }
-
-        Log.d(TAG, "productListItems loaded: total " + products.size());
-    }
-
     private void saveProductCache(Product product) {
         String productJson = WooCommerceJson.getGson().toJson(product);
         try {
@@ -474,7 +400,7 @@ public class AppData extends CommonAppData implements ProductContainer {
 
         spreadSheet.setSimpleTable(true);
         spreadSheet.setIgnoreEmptyCell(false);
-        spreadSheet.setIgnoreRowNonNullColumnsLessThanThisNumber(4);
+        spreadSheet.setIgnoreRowNonNullColumnsLessThanThisNumber(5);
 
         spreadSheet.createTable(content);
 
@@ -486,7 +412,7 @@ public class AppData extends CommonAppData implements ProductContainer {
         for (List row : table) {
             String oem = "";
             String code = "";
-            String size = "";
+            String spec = "";
             String image = "";
             String category = "";
             String name = "";
@@ -559,6 +485,12 @@ public class AppData extends CommonAppData implements ProductContainer {
 
             }
 
+            if (TextUtils.isEmpty(oem) && TextUtils.isEmpty(code))
+                continue;
+
+            if (!RegexUtils.containsNumber(oem) && !RegexUtils.containsNumber(code))
+                continue;
+
             Product product = new Product();
             product.setName(StringUtils.join(" ", oem, code, name, series, model, year));
             product.setDescription(String.format(resources.getTemplateDescription(),
@@ -569,6 +501,12 @@ public class AppData extends CommonAppData implements ProductContainer {
             product.setStock(quantity);
             product.setProductTypeSimple();
             product.setPrice(salePrice);
+
+            if (!TextUtils.isEmpty(oem))
+                product.setAttribute("MPN", oem);
+
+            if (!TextUtils.isEmpty(brand))
+                product.setAttribute("Brand", brand);
 
             // TODO
             // create image prefix in preferences

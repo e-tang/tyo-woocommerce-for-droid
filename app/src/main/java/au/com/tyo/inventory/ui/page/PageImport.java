@@ -164,7 +164,7 @@ public class PageImport extends PageForm<Controller> {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (content != null)
+                if (content == null)
                     uriToData();
 
                 if (data == null) {
