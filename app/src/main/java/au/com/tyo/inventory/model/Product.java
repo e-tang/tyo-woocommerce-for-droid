@@ -52,6 +52,10 @@ public class Product extends GeneralItem {
         return (String) get("sku");
     }
 
+    public void setSku(String sku) {
+        put("sku", sku);
+    }
+
     public int getStock() {
         return getInt("stock_quantity");
     }

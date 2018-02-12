@@ -81,6 +81,7 @@ public class AppData extends CommonAppData implements ProductContainer {
      */
     private Map<Integer, Product> productMapById;
     private Map<String, Product> productMapByName;
+    private Map<String, Product> productMapBySku;
 
     /**
      * Product list from json
@@ -181,11 +182,16 @@ public class AppData extends CommonAppData implements ProductContainer {
             if (null != products) {
                 productMapById = new HashMap<Integer, Product>();
                 productMapByName = new HashMap<>();
+                productMapBySku = new HashMap<>();
                 for (int i = 0; i < products.size(); ++i) {
                     Product product = (Product) products.get(i);
                     product.setIndex(i);
 
                     productMapById.put(product.getId(), product);
+
+                    String sku = product.getSku();
+                    if (null != sku && sku.length() > 0)
+                        productMapBySku.put(sku, product);
 
                     try {
                         productMapByName.put((String) product.getUniqueCode(), product);
@@ -352,6 +358,11 @@ public class AppData extends CommonAppData implements ProductContainer {
                 products.set(newProductPtr.getIndex(), newProductPtr);
 
             productMapById.put(newProductPtr.getId(), newProductPtr);
+
+            String sku = newProductPtr.getSku();
+            if (!TextUtils.isEmpty(sku))
+                productMapBySku.put(sku, newProductPtr);
+
             saveProductCache(newProductPtr);
 
             controller.sendMessage(MESSAGE_CUSTOM_ONE);
@@ -439,16 +450,16 @@ public class AppData extends CommonAppData implements ProductContainer {
                     case 1:
                         oem = colStr;
                         break;
-                    case 0:
+                    case 2:
                         code = colStr;
                         break;
-                    case 2:
+                    case 3:
                         spec = colStr;
                         break;
-                    case 3:
+                    case 4:
                         image = colStr;
                         break;
-                    case 4:
+                    case 0:
                         category = colStr.toLowerCase();
                         break;
                     case 5:
@@ -517,14 +528,38 @@ public class AppData extends CommonAppData implements ProductContainer {
             if (!TextUtils.isEmpty(code))
                 product.setAttribute("Code", code);
 
+            if (!TextUtils.isEmpty(code))
+                product.setAttribute("Year", year);
+
+            if (!TextUtils.isEmpty(code))
+                product.setAttribute("Series", series);
+
+            if (!TextUtils.isEmpty(code))
+                product.setAttribute("Model", model);
+
             // TODO
             // create image prefix in preferences
             product.setImage("http://fred-auto-parts-store1.appspot.com.storage.googleapis.com/" + code + ".jpg");
 
             Category cat = findCategory(category);
 
-            if (cat != null)
+            String sc = "XX";
+            if (cat != null) {
                 product.setCategory(cat.getId());
+                if (cat.getName().length() > 1)
+                    sc = cat.getName().substring(0, 1);
+            }
+            else if (category.length() > 1){
+                sc = category.substring(0, 1);
+            }
+
+            int count = products.size();
+            String sku = sc + String.format("%06d", count);
+            while (productMapBySku.containsKey(sku)) {
+                ++count;
+                sku = sc + String.format("%06d", count);
+            }
+            product.setSku(sku);
 
             importProduct(product);
         }
