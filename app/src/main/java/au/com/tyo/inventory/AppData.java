@@ -177,12 +177,14 @@ public class AppData extends CommonAppData implements ProductContainer {
                 categoryMap.put(category.getName().toLowerCase(), category);
             }
 
-            products = loadProducts(checker);
+            productMapById = new HashMap<Integer, Product>();
+            productMapByName = new HashMap<>();
+            productMapBySku = new HashMap<>();
 
-            if (null != products) {
-                productMapById = new HashMap<Integer, Product>();
-                productMapByName = new HashMap<>();
-                productMapBySku = new HashMap<>();
+            int page = 1;
+            products = loadProducts(checker, page);
+
+            while (null != products && products.size() > 0) {
                 for (int i = 0; i < products.size(); ++i) {
                     Product product = (Product) products.get(i);
                     product.setIndex(i);
@@ -200,16 +202,18 @@ public class AppData extends CommonAppData implements ProductContainer {
                         Log.e(TAG, "The product code is not set properly", ex);
                     }
                 }
+
+                products = loadProducts(checker, ++page);
             }
         }
     }
 
     public List loadCategories(ErrorChecker checker, int page) {
-        return load(checker, getCategoryCacheDir(), getApi().getProductCategoriesApiUrlWithPageNumber(page), categoryType, categoriesType);
+        return load(checker, getCategoryCacheDir(), getApi().getProductCategoriesApiUrlByPage(page), categoryType, categoriesType);
     }
 
-    public List loadProducts(ErrorChecker checker) {
-        return load(checker, getProductCacheDir(), getApi().getProductsApiUrl(), productType, productsType);
+    public List loadProducts(ErrorChecker checker, int page) {
+        return load(checker, getProductCacheDir(), getApi().getProductsApiUrlByPage(page), productType, productsType);
     }
 
     private List load(ErrorChecker checker, String cacheDirectory, String url, Type itemType, Type mapType) {
@@ -537,9 +541,19 @@ public class AppData extends CommonAppData implements ProductContainer {
             if (!TextUtils.isEmpty(code))
                 product.setAttribute("Model", model);
 
+            String[] tokens = spec.split("\\*\\|x");
+            if (null != tokens && tokens.length == 3) {
+                String l, w, h;
+                l = tokens[0];
+                w = tokens[1];
+                h = tokens[2];
+
+                product.setDimensions(l, w, h);
+            }
+
             // TODO
             // create image prefix in preferences
-            product.setImage("http://fred-auto-parts-store1.appspot.com.storage.googleapis.com/" + code + ".jpg");
+            product.setImage("http://fred-auto-parts-store1.appspot.com.storage.googleapis.com/images/XW/" + oem + ".jpg");
 
             Category cat = findCategory(category);
 

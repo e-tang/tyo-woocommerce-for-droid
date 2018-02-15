@@ -61,11 +61,11 @@ public class WooCommerceApi extends CommonApiJson {
         return getApiUrl(productsPath);
     }
 
-    public String getProductCategoriesApiUrlWithPageNumber(int page) {
-        return getProductCategoriesApiUrlWithPageNumber(page, 100);
+    public String getProductCategoriesApiUrlByPage(int page) {
+        return getProductCategoriesApiUrlByPage(page, 100);
     }
 
-    public String getProductCategoriesApiUrlWithPageNumber(int page, int perPage) {
+    public String getProductCategoriesApiUrlByPage(int page, int perPage) {
         return getProductCategoriesApiUrl() + "&page=" + page + "&per_page=" + perPage;
     }
 
@@ -104,6 +104,10 @@ public class WooCommerceApi extends CommonApiJson {
 
     public String createProduct(String json) {
         return post(getProductsApiUrl(), json);
+    }
+
+    public String getProductsApiUrlByPage(int page) {
+        return getProductsApiUrl() + "?per_page=100&page=" + page;
     }
 
 //    @Override

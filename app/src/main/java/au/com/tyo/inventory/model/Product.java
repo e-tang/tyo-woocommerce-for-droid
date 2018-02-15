@@ -171,4 +171,12 @@ public class Product extends GeneralItem {
             code = "" + getId();
         return code;
     }
+
+    public void setDimensions(String l, String w, String h) {
+        Map map = getMapData("dimensions");
+
+        map.put("length", l);
+        map.put("width", w);
+        map.put("height", h);
+    }
 }
