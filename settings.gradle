@@ -9,8 +9,8 @@ include ':CommonServicesDroid'
 
 // JSON Form Library
 include ':CommonJsonForm'
-include ':android-json-form'
-project(':android-json-form').projectDir = new File(settingsDir, 'android-json-form-wizard/library')
+include ':CommonJsonFormDroid'
+project(':CommonJsonFormDroid').projectDir = new File(settingsDir, 'CommonJsonFormDroid/library')
 
 // File Picker
 //include ':NoNonsense-FilePicker'

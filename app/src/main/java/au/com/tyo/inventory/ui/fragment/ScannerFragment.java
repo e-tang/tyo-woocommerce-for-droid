@@ -48,6 +48,11 @@ public class ScannerFragment extends CommonFragment<Controller> implements ZXing
     }
 
     @Override
+    protected void setupComponents() {
+
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         mScannerView.setResultHandler(resultHandler);

@@ -1,6 +1,7 @@
 package au.com.tyo.inventory;
 
 import android.content.Context;
+import android.content.Intent;
 
 import au.com.tyo.app.CommonApp;
 import au.com.tyo.app.PageAgent;
@@ -57,5 +58,10 @@ public class App extends CommonApp<UI, Controller> implements Controller {
     @Override
     public void onMessageCustomOne() {
         getAppData().notifyDataCacheObservers();
+    }
+
+    @Override
+    public void bindDataFromOtherApps(Intent intent) {
+
     }
 }
