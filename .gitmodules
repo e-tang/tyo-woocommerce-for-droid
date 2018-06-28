@@ -26,9 +26,9 @@
 	path = CommonJsonForm
 	url = git@github.com:tyolab/CommonJsonForm.git
 	branch = master
-[submodule "android-json-form-wizard"]
-	path = android-json-form-wizard
-	url = git@github.com:tyolab/android-json-form-wizard.git
+[submodule "CommonJsonFormDroid"]
+	path = CommonJsonFormDroid
+	url = git@github.com:tyolab/CommonJsonFormDroid.git
 	branch = master
 [submodule "NoNonsense-FilePicker"]
 	path = NoNonsense-FilePicker
