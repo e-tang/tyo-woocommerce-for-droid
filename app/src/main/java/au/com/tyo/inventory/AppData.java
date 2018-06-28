@@ -249,11 +249,15 @@ public class AppData extends CommonAppData implements ProductContainer {
         if (null == list || list.size() == 0) {
             try {
                 json = getApi().get(url);
-                list = WooCommerceJson.getGson().fromJson(json, mapType);
 
-                for (int i = 0; i < list.size(); ++i) {
-                    GeneralItem product = (GeneralItem) list.get(i);
-                    saveCache(cacheDirectory, product);
+                if (!TextUtils.isEmpty(json)) {
+
+                    list = WooCommerceJson.getGson().fromJson(json, mapType);
+
+                    for (int i = 0; i < list.size(); ++i) {
+                        GeneralItem product = (GeneralItem) list.get(i);
+                        saveCache(cacheDirectory, product);
+                    }
                 }
             }
             catch (Exception ex) {
